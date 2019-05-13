@@ -11,8 +11,10 @@
 
 	<link href="C:\Users\Juan Lucas\git\Web\Web\build\css\signin.css" rel="stylesheet">
 	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
 	<style type="text/css">
-		html {
+		body {
 		    background-color: #0072DD;
 		}
 		.contenedorLogin img {
@@ -75,22 +77,32 @@
 	<div class="contenedorLogin">
 		<img src="swords.png"alt="swords" />
 		<h1 align ="center">Bienvenido a Fight Club</h1>
-		<form method="post" action="Inicio" id="menu" class="form-signin">
+		<form method="post" action="Inicio" id="menu" class="">
 			<div class="inputs">
 				<div class="contenedorInput">
-					<label>Usuario:</label>
-					<input id="nombreUsuario" name="nombreUsuario" type="string" placeholder="Nombre de Usuario" value="" />
+<!-- 					<label>Usuario:</label> -->
+					<input class="form-control" id="nombreUsuario" name="nombreUsuario" type="string" placeholder="Nombre de Usuario" value="" />
 				</div>
 				<div class="contenedorInput">
-					<label>Contraseña:</label>
-					<input id="password" name="password" type="string" placeholder="Contraseña" value="" />
+<!-- 					<label>Contraseña:</label> -->
+					<input class="form-control" id="password" name="password" type="password" placeholder="Contraseña" value="" />
 				</div>
+				<% if(session.getAttribute("usuario") == "erroneo"){
+				%> <span style="color: red;"><p>Usuario y/o contraseña incorrectos</p></span> <% 
+				session.setAttribute("usuario", "erroneo2");
+			} %>
 			</div>	
 			<div class="botones">
-				<button name="login" type="submit" class="btn btn-primary btn-lg">Login</button>
-				<button name="registro" type="submit" class="btn btn-primary btn-lg">Registro</button>
+				<button name="login" type="submit" class="btn btn-light btn-lg">Login</button>
+				<button name="registro" type="submit" class="btn btn-success btn-lg">Registro</button>
 			</div>
+			
+			
 		</form>
 	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

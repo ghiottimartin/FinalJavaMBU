@@ -8,8 +8,8 @@ public class CtrlLogin {
 	private Usuario usuarioLogueado;
 	private DataUsuario dataUsuario = new DataUsuario();
 	
-	public Usuario login(String usuario) throws ApplicationException {
-		return dataUsuario.getUsuario(usuario);
+	public Usuario login(String usuario, String pass) throws ApplicationException {
+		return dataUsuario.getUsuario(usuario,pass);
 	}
 
 }
