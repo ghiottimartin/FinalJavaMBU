@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Usuario;
+import logic.CtrlLogin;
+import utils.ApplicationException;
+
 /**
  * Servlet implementation class Inicio
  */
@@ -34,11 +38,25 @@ public class Inicio extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hola");
+		CtrlLogin ctrl = new CtrlLogin();
 		if(request.getParameter("login")!= null) {
-			System.out.println(request.getParameter("login"));
+			try {
+				Usuario u = ctrl.login(request.getParameter("nombreUsuario"));
+				request.getSession().setAttribute("usuario", u);
+				if(u != null) {
+					request.getRequestDispatcher("menu.jsp").forward(request, response);
+				} else {
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+				}
+				
+				
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		if(request.getParameter("registro")!=null) {
+			System.out.println("entre aca 2");
 			System.out.println(request.getParameter("registro"));
 		}
 	}

@@ -79,11 +79,11 @@
 			<div class="inputs">
 				<div class="contenedorInput">
 					<label>Usuario:</label>
-					<input id="nombreUsuario" type="string" placeholder="Nombre de Usuario" value="" />
+					<input id="nombreUsuario" name="nombreUsuario" type="string" placeholder="Nombre de Usuario" value="" />
 				</div>
 				<div class="contenedorInput">
 					<label>Contraseña:</label>
-					<input id="nombreUsuario" type="string" placeholder="Contraseña" value="" />
+					<input id="password" name="password" type="string" placeholder="Contraseña" value="" />
 				</div>
 			</div>	
 			<div class="botones">

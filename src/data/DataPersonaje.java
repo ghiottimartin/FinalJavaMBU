@@ -3,8 +3,6 @@ package data;
 import java.sql.*;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import entidades.*;
 import utils.ApplicationException;
 
@@ -161,7 +159,7 @@ public class DataPersonaje {
 		    throw new ApplicationException("Error en el sql al buscar el personaje",e);
 		} catch (ApplicationException ae) {
 			// TODO Auto-generated catch block
-			throw new ApplicationException("Personaje no econtrado");
+			throw new ApplicationException("Personaje no encontrado");
 		}
 		finally {
 			try {
