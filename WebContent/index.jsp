@@ -24,10 +24,6 @@
 			margin-top: 70px;
 		}
 		
-		.contenedorLogin form {
-			
-		}
-		
 		.botones {
 			margin: 0 auto;
 			display: flex;
@@ -80,11 +76,9 @@
 		<form method="post" action="Inicio" id="menu" class="">
 			<div class="inputs">
 				<div class="contenedorInput">
-<!-- 					<label>Usuario:</label> -->
 					<input class="form-control" id="nombreUsuario" name="nombreUsuario" type="string" placeholder="Nombre de Usuario" value="" />
 				</div>
 				<div class="contenedorInput">
-<!-- 					<label>Contraseña:</label> -->
 					<input class="form-control" id="password" name="password" type="password" placeholder="Contraseña" value="" />
 				</div>
 				<% if(session.getAttribute("usuario") == "erroneo"){

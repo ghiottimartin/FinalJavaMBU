@@ -45,8 +45,9 @@ public class Inicio extends HttpServlet {
 				
 				if(this.validateUser(u)) {
 					request.getSession().setAttribute("usuario", u);
-					//response.sendRedirect("WEB-INF/Menu.jsp");
-					request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
+					System.out.println(request.getContextPath());
+					response.sendRedirect("routes/Menu.jsp");
+					//request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
 					
 				} else {
 					//response.sendRedirect("index.jsp");
@@ -62,8 +63,7 @@ public class Inicio extends HttpServlet {
 			}
 		}
 		if(request.getParameter("registro")!=null) {
-			System.out.println("entre aca 2");
-			System.out.println(request.getParameter("registro"));
+			response.sendRedirect("routes/Registro.jsp");
 		}
 	}
 	
