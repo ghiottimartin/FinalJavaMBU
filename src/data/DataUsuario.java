@@ -56,8 +56,37 @@ public class DataUsuario {
 	
 	public void add(Usuario u) throws ApplicationException{
 		ResultSet rs = null;
-		PreparedStatement ps = null;
+		PreparedStatement stmt = null;
 		
+		try{
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+					"insert into usuarios(id,nombreUsuario,password,email,fechaCreacion)"+
+					" values(null,?,?,?,curdate())",PreparedStatement.RETURN_GENERATED_KEYS);
+			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated on the db
+			// by the autoincrement column. Otherwise don't use it
+			
+			stmt.setString(1, u.getNombreUsuario());
+			stmt.setString(2, u.getPassword());
+			stmt.setString(3, u.getEmail());
+			stmt.execute();
+			
+			//after executing the insert use the following lines to retrieve the id
+			rs=stmt.getGeneratedKeys();
+			if(rs!=null && rs.next()){
+				u.setId(rs.getInt("id"));
+			}
+		} catch (SQLException e) {
+			
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			}  catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
