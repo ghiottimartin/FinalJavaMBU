@@ -45,15 +45,15 @@ public class Registro extends HttpServlet {
 			Usuario currentUser = this.mapUserFromForm(request);
 			try {
 				//hacer validaciones
-				if(this.validateUser(currentUser, request.getParameter("passwordRepeated"))){
+				//if(this.validateUser(currentUser, request.getParameter("passwordRepeated"))){
 					ctrl.register(currentUser);
 					response.sendRedirect("index.jsp");
-				} else {
+				/*} else {
 			      Cookie c = new Cookie("userName", request.getParameter("nombreUsuario"));
 			      response.addCookie(c);
 			      response.sendRedirect("routes/Registro.jsp");
 			      
-				}
+				}*/
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -71,6 +71,8 @@ public class Registro extends HttpServlet {
 		user.setNombreUsuario(request.getParameter("nombreUsuario"));
 		user.setPassword(request.getParameter("password"));
 		user.setEmail(request.getParameter("email"));
+		user.setNombre(request.getParameter("nombre"));
+		user.setApellido(request.getParameter("apellido"));
 		
 		return user;
 	}

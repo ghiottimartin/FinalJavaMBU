@@ -76,6 +76,10 @@
 		        	 %><input class="form-control" id="nombreUsuario" name="nombreUsuario" type="string" placeholder="Ingrese Nombre de Usuario" value="" /><%
 		         }
 			%>
+			<label>Nombre:</label>
+			<input class="form-control" id="email" name="nombre" type="string" placeholder="Nombre" value="" />
+			<label>Apellido:</label>
+			<input class="form-control" id="email" name="apellido" type="string" placeholder="Apellido" value="" />
 			<label>Email:</label>
 			<input class="form-control" id="email" name="email" type="string" placeholder="Ingrese email" value="" />
 			<label>Contraseña:</label>
