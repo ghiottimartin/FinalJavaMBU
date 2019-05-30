@@ -17,8 +17,9 @@
 <body>
 	<div class="container">
 		<% 
-		Usuario u = (Usuario)session.getAttribute("usuario");  String nom = String.valueOf(u.getNombreUsuario());
-		%> <h1>Hola, <%= nom %> </h1> 
+		Usuario u = (Usuario)session.getAttribute("usuario");  String nom = String.valueOf(u.getNombre());
+		String ape = String.valueOf(u.getApellido());
+		%> <h1>Hola, <%= nom %> <%= ape %> </h1> 
 		<% if(u == null){
 			response.sendRedirect("index.jsp");
 		} %>
