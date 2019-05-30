@@ -23,7 +23,7 @@
 		<% if(u == null){
 			response.sendRedirect("index.jsp");
 		} %>
-		
+		<form method="post" action="Menu" id="menu"></form>
 		<div class="d-flex flex-column align-items-center">
 			<div class="p-2">
 				<button class="button btn btn-primary btn-lg">Personajes</button>
@@ -33,6 +33,9 @@
 			</div>
 			<div class="p-2">
 				<button class="button btn btn-primary btn-lg btn-block">1 VS 1</button>
+			</div>
+			<div class="p-2">
+				<button name="salir" class="button btn btn-danger btn-lg btn-block">Salir</button>
 			</div>	
 		</div>
 		
