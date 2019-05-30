@@ -32,6 +32,7 @@ public class DataUsuario {
 				u.setEmail(rs.getString("email"));
 				u.setNombre(rs.getString("nombre"));
 				u.setApellido(rs.getString("apellido"));
+				u.setRol(rs.getString("rol"));
 				//System.out.println(u.getPassword());
 			} else {
 				System.out.println("Usuario no encontrado");
@@ -63,8 +64,8 @@ public class DataUsuario {
 		
 		try{
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into usuario(id_usuario,usuario,password,nombre,apellido,email,fechaCreacion)"+
-					" values(null,?,?,?,?,?,current_timestamp())",PreparedStatement.RETURN_GENERATED_KEYS);
+					"insert into usuario(id_usuario,usuario,password,nombre,apellido,email,fechaCreacion,rol)"+
+					" values(null,?,?,?,?,?,current_timestamp(),'usuario')",PreparedStatement.RETURN_GENERATED_KEYS);
 			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated on the db
 			// by the autoincrement column. Otherwise don't use it
 			
