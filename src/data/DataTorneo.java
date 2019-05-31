@@ -49,7 +49,7 @@ public Torneo getTorneo(int id) throws ApplicationException {
 	return t;
 }
 
-public void create(Torneo t) throws ApplicationException{
+public void add(Torneo t) throws ApplicationException{
 	ResultSet rs = null;
 	PreparedStatement stmt = null;
 	PreparedStatement stmt2 = null;
@@ -63,20 +63,25 @@ public void create(Torneo t) throws ApplicationException{
 		
 		stmt.setInt(1, t.getIdUsuarioPersonaje());
 		stmt.execute();
-		
+		System.out.println("Paso aca 1");
 		//after executing the insert use the following lines to retrieve the id
 		rs=stmt.getGeneratedKeys();
+		System.out.println("Paso aca 2");
+
 		if(rs!=null && rs.next()){
-			t.setId(rs.getInt("id_torneo"));
 			
-		//Despues de crear el torneo se deberian crear las relaciones del torneo con combates
-		stmt2=FactoryConexion.getInstancia().getConn().prepareStatement(
+			t.setId(rs.getInt(1));
+			System.out.println("Paso aca 3");
+			
+		    //Despues de crear el torneo se deberian crear las relaciones del torneo con combates
+		    stmt2=FactoryConexion.getInstancia().getConn().prepareStatement(
 					"insert into torneo_combate(id_torneo_combate,id_torneo,id_combate,combate_activo,id_siguiente_combate)"+
 					" values(null,?,1,1,null)",PreparedStatement.RETURN_GENERATED_KEYS);
-			
-		stmt2.setInt(1, t.getId());
-		stmt2.execute();	
-			
+		    System.out.println("Paso aca 4");
+		    stmt2.setInt(1, t.getId());
+		    System.out.println("Paso aca 5");
+		    stmt2.execute();
+		    System.out.println("Paso aca 6");	
 		}
 	} catch (SQLException e) {
 		

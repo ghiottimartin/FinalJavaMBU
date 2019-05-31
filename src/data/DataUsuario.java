@@ -78,8 +78,9 @@ public class DataUsuario {
 			
 			//after executing the insert use the following lines to retrieve the id
 			rs=stmt.getGeneratedKeys();
+
 			if(rs!=null && rs.next()){
-				u.setId(rs.getInt("id"));
+				u.setId(rs.getInt(1));
 			}
 		} catch (SQLException e) {
 			
