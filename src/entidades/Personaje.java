@@ -1,7 +1,19 @@
 package entidades;
 
 public class Personaje {
-	private int id,vida,energia,defensa,evasion,puntosTotales;
+	private int id,vida,energia,defensa,evasion,experiencia,id_nivel;
+	public int getExperiencia() {
+		return experiencia;
+	}
+	public void setExperiencia(int experiencia) {
+		this.experiencia = experiencia;
+	}
+	public int getId_nivel() {
+		return id_nivel;
+	}
+	public void setId_nivel(int id_nivel) {
+		this.id_nivel = id_nivel;
+	}
 	private String nombre;
 	
 	public Personaje() {
@@ -36,12 +48,6 @@ public class Personaje {
 	}
 	public void setEvasion(int evasion) {
 		this.evasion = evasion;
-	}
-	public int getPuntosTotales() {
-		return puntosTotales;
-	}
-	public void setPuntosTotales(int puntosTotales) {
-		this.puntosTotales = puntosTotales;
 	}
 	public String getNombre() {
 		return nombre;
