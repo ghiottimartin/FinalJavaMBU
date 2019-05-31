@@ -4,6 +4,10 @@
 <%@page import="entidades.Usuario"%>
 <%@page import="entidades.Ataque"%>
 <%@page import="logic.ControladorABMAtaque"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -48,11 +52,21 @@
 				<% 
 					ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
 					List<Ataque> ataques = ctrlAtaque.getAll();
-					for(int i = 0; i < ataques.size(); i++){
-						System.out.println(ataques.get(i).getNombre_ataque());
-					}
+					request.setAttribute("ataques", ataques);
 					
 				%>
+				<label>Elija los ataques iniciales con los {{points}} puntos restantes</label>
+			    <select multiple class="form-control col-md-12 h-50" v-model="attacks">
+				  <c:forEach items="${ataques}" var="ataque">
+			     	<option value="${ataque.id_ataque}">
+			     		<c:out value="${ataque.nombre_ataque}"/> - Requiere: <c:out value="${ataque.energia_requerida}"/> de energia
+			     	</option>    	
+			      </c:forEach>
+				</select>
+				
+				<div v-if="selectedAttacks != 0">
+					<p>Usted seleccionó {{selectedAttacks}} ataques</p>
+				</div>
 			</div>
 		</div>
 		
@@ -71,11 +85,15 @@ vm = new Vue({
 		  life: 0,
 		  energy: 0,
 		  defense: 0,
-		  evasion: 0
+		  evasion: 0,
+		  attacks: []
 	  },
 	  computed: {
 		  points: function(){
 			  return this.initialPoints - this.life - this.energy - this.defense - this.evasion;
+		  },
+		  selectedAttacks: function(){
+			  return this.attacks.length;
 		  }
 	  },
 	  methods: {

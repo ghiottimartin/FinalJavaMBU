@@ -70,13 +70,7 @@
     																	}
     																	%>>
     <label>Puntos totales</label>
-    <input name="evasion1" type="text" class="form-controlp1"  <% if(p!=null)
-    																	{
-    																		%>value="<%=String.valueOf(p.getPuntosTotales())%>"<% 
-    																	}else{
-    																		%>value=""<%
-    																	}
-    																	%>>
+
 	</div>
 	
 	<div class="acciones">

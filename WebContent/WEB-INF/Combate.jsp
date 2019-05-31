@@ -1,4 +1,3 @@
-<%@page import="logic.CtrlCombate"%>
 <%@page import="entidades.Personaje"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -40,54 +39,10 @@ div.acciones {
 
 <body>
 	<h1 class="headings-principal" align="center">Combate!</h1>
-	<% 
-		Personaje p1= ((Personaje)session.getAttribute("P1"));
-		Personaje p2= ((Personaje)session.getAttribute("P2"));
-		CtrlCombate combate = (CtrlCombate)session.getAttribute("CtrlCombate");
-		int vida1,vida2,energia1,energia2;
-		vida1 = combate.getVidaP1();
-		vida2 = combate.getVidaP2();
-		energia1 = combate.getEnergiaP1();
-		energia2 = combate.getEnergiaP2();
-	%>
+
 	
 	<form method="post" class="form-pers1" action="War">
 	<div class="fixed">
-	<h2>Personaje 1</h2>
-	<label>Nombre</label>
-    <input name="nombre1" type="text"  class="form-control" disabled value="<%=p1.getNombre()%>">
-	<br>
-	<label>Vida</label>
-    <input name="vida1" type="text"  class="form-control" disabled value="<%=String.valueOf(vida1)%>">
-	<br>
-	<label>Energia</label>
-    <input name="energia1" type="text" class="form-control" disabled value="<%=String.valueOf(energia1) %>">
-    <br>
-	<label>Defensa</label>
-    <input name="defensa1" type="text" class="form-control" disabled value="<%=String.valueOf(p1.getDefensa()) %>">
-    <br>
-	<label>Evasion</label>
-    <input name="evasion1" type="text" class="form-control" disabled value="<%=String.valueOf(p1.getEvasion()) %>">
-</div>
-
-<div class="absolute">
-	<h2>Personaje 2</h2>
-	<label>Nombre</label>
-    <input name="nombre2" type="text"  class="form-control" disabled value="<%=p2.getNombre() %>">
-	<br>
-	<label>Vida</label>
-    <input name="vida2" type="text"  class="form-control" disabled value="<%=String.valueOf(vida2) %>">
-	<br>
-	<label>Energia</label>
-    <input name="energia2" type="text" class="form-control" disabled value="<%=String.valueOf(energia2) %>">
-    <br>
-	<label>Defensa</label>
-    <input name="defensa2" type="text" class="form-control" disabled value="<%=String.valueOf(p2.getDefensa()) %>">
-    <br>
-	<label>Evasion</label>
-    <input name="evasion2" type="text" class="form-control" disabled value="<%=String.valueOf(p2.getEvasion()) %>">
-	
-	</div>
 	
 	<div class="acciones">
 	<h2>Turno</h2>
