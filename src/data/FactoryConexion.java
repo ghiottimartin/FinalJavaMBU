@@ -9,7 +9,7 @@ public class FactoryConexion {
 	private String host="localhost";
 	private String port="3306";
 	private String user="root";
-	private String pass="root";
+	private String pass="";
 	private String db="db_tp_java";
 	private String dbType="mysql";
 	
