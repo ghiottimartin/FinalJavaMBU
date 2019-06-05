@@ -92,6 +92,44 @@ public void add(Torneo t) throws ApplicationException{
 	}
 }
 
+public int getIdUsuarioPersonaje(int idUsuario, int idPersonaje) throws ApplicationException{
+
+	int idUsuarioPersonaje = 0;
+	PreparedStatement stmt=null;
+	ResultSet rs=null;
+	try {
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+				"select id_usuario_personaje from usuario_personaje where id_usuario=? and id_personaje =? ");
+		stmt.setInt(1, idUsuario);
+		stmt.setInt(2, idPersonaje);
+		rs= stmt.executeQuery();
+		if(rs!=null && rs.next()){
+			idUsuarioPersonaje = rs.getInt("id_usuario_personaje");
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+	    throw new ApplicationException("Error en el sql al buscar el Personaje o Usuario",e);
+	} catch (ApplicationException ae) {
+		// TODO Auto-generated catch block
+		throw new ApplicationException("Personaje y/o Usuario no encontrado");
+	}
+	finally {
+		try {
+			if(rs!=null)rs.close();
+			if(stmt!=null)stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	return idUsuarioPersonaje;
+}
+
 
 }
 

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import entidades.Torneo;
 import entidades.Usuario;
@@ -39,9 +40,18 @@ public class ServletTorneo extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		if(request.getParameter("nuevo")!= null){
+		if(request.getParameter("seleccionar")!= null){
+			
+			int idUsuario = getIdUsuario(request);
+			int idPersonaje = getIdPersonaje(request);
+			
 			CtrlTorneo ctrl = new CtrlTorneo();
-			Torneo t = this.mapTournamentFromForm(request);
+			
+			int idUsuarioPersonaje = ctrl.getIdUsuarioPersonaje(idUsuario, idPersonaje);
+			
+			if(idUsuarioPersonaje != 0)
+			{
+			Torneo t = this.mapTournamentFromForm(request, idUsuarioPersonaje);
 
 			try {
 			ctrl.create(t);
@@ -50,20 +60,41 @@ public class ServletTorneo extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			}
+			else
+			{
+				System.out.println("NO se creo el torneo");
+			}
 		}
 		
 		if(request.getParameter("volver")!= null){
 			response.sendRedirect("routes/Menu.jsp");
 		}
+		if(request.getParameter("nuevo")!= null){
+			response.sendRedirect("routes/TorneoPersonaje.jsp");
+		}
 					
 	}
 	
-	public Torneo mapTournamentFromForm(HttpServletRequest request) {
-		Torneo torneo = new Torneo();
-		
-		torneo.setIdUsuarioPersonaje(1);
-		
+	public Torneo mapTournamentFromForm(HttpServletRequest request, int idUsuarioPersonaje) {
+		Torneo torneo = new Torneo();	
+		System.out.println(idUsuarioPersonaje);
+		torneo.setIdUsuarioPersonaje(idUsuarioPersonaje);		
 		return torneo;
+	}
+	
+	public int getIdUsuario(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Usuario u = (Usuario)session.getAttribute("usuario");  
+		int idUsuario = Integer.parseInt(String.valueOf(u.getId()));
+		System.out.println(idUsuario);
+		return idUsuario;
+	}
+	
+	public int getIdPersonaje(HttpServletRequest request) {
+		int idPersonaje = Integer.parseInt(request.getParameter("idPersonaje"));
+		System.out.println(idPersonaje);
+		return idPersonaje;
 	}
 
 }
