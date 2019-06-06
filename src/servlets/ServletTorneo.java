@@ -55,7 +55,9 @@ public class ServletTorneo extends HttpServlet {
 
 			try {
 			ctrl.create(t);
+			request.getSession().setAttribute("torneo", t);
 			System.out.println("se creo el torneo");
+			response.sendRedirect("routes/IniciarCombate.jsp");
 									
 			} catch (Exception e) {
 				e.printStackTrace();

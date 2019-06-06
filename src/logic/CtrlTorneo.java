@@ -2,6 +2,7 @@ package logic;
 
 import data.DataTorneo;
 import entidades.Torneo;
+import entidades.Personaje;
 import utils.ApplicationException;
 
 public class CtrlTorneo {
@@ -22,5 +23,13 @@ public class CtrlTorneo {
 			e.printStackTrace();
 		}
 		return id;
+	}
+	
+	public Personaje getpersonaje(int idPersonaje){
+		Personaje p = new Personaje();
+		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+		//falta implementar el codigo de getById de controlador Personaje
+		//p = ctrlPersonaje.getById(idPersonaje);
+		return p;
 	}
 }
