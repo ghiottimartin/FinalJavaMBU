@@ -19,15 +19,10 @@ private data.DataPersonaje dataPer;
 		dataPer = new DataPersonaje();
 	}
 	
-	public void agregarPersonaje(Personaje p) throws ApplicationException
+	public int agregarPersonaje(Personaje p) throws ApplicationException
 	{
-		//En vez de agredarlo directamente hago un metodo para tirar la exception
-		if(!dataPer.coincideNombre(p)) {
-			dataPer.add(p);
-		} else
-		{
-			throw new ApplicationException("Ya existe un personaje con ese nombre");
-		}
+		int id_personaje = dataPer.add(p);
+		return id_personaje;
 	}
 	
 	public int recuperarID()
@@ -70,5 +65,9 @@ private data.DataPersonaje dataPer;
 			e.printStackTrace();
 		}
 		return personajes;
+	}
+	
+	public void insertarPersonajeAtaque(int id_personaje, int id_ataque, int id_usuario){
+		dataPer.addPersonajeAtaque(id_personaje, id_ataque, id_usuario);
 	}
 }

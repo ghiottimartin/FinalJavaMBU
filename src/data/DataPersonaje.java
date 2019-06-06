@@ -19,30 +19,31 @@ public class DataPersonaje {
 		
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into personaje(id_personaje,nombre,vida,energia,defensa,evasion,experiencia,id_nivel)"+
+					"insert into db_tp_java.personaje (id_personaje,nombre,vida,energia,defensa,evasion,experiencia,id_nivel)"+
 					" values(null,?,?,?,?,?,0,1)",PreparedStatement.RETURN_GENERATED_KEYS);
 			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated on the db
 			// by the autoincrement column. Otherwise don't use it
 						
 			stmt.setString(1, p.getNombre());
+			System.out.println(p.getNombre());
 			stmt.setInt(2, p.getVida());
 			stmt.setInt(3, p.getEnergia());
 			stmt.setInt(4, p.getDefensa());
+			System.out.println(p.getDefensa());
 			stmt.setInt(5, p.getEvasion());
 			stmt.execute();
-			
+			System.out.println(p.getEvasion());
 			//after executing the insert use the following lines to retrieve the id
 			rs=stmt.getGeneratedKeys();
 			if(rs!=null && rs.next()){
 				p.setId(rs.getInt(1));
+				System.out.println(rs.getInt(1));
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new ApplicationException("Error en el sql al crear personaje",e);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();;
+			//throw new ApplicationException("Error en el sql al crear personaje",e); 
+			e.printStackTrace();
 		}finally {
 			try {
 				if(rs!=null) rs.close();
@@ -107,12 +108,12 @@ public class DataPersonaje {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select id,nombre,vida,energia,defensa,evasion,experiencia,id_nivel from personaje where id=?");
+					"select id_personaje,nombre,vida,energia,defensa,evasion,experiencia,id_nivel from personaje where id=?");
 			stmt.setInt(1, per.getId());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				p=new Personaje();
-				p.setId(rs.getInt("id"));
+				p.setId(rs.getInt("id_personaje"));
 				p.setNombre(rs.getString("nombre"));
 				p.setVida(rs.getInt("vida"));
 				p.setEnergia(rs.getInt("energia"));
@@ -358,95 +359,53 @@ public class DataPersonaje {
 		
 	}
 	
-	public int addPersonajeAtaque(int id_personaje, int id_ataque){
-		int id_personaje_ataque = 0;
+	public void addPersonajeAtaque(int id_personaje, int id_ataque, int id_usuario){
 		ResultSet rs=null;
-		PreparedStatement stmt=null;
-		
+		PreparedStatement stmtPersAtaque=null;
+		PreparedStatement stmtPersUsuario=null;
+		Connection conn = null;
 		try {
-			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into personaje_ataque(id_personaje_ataque,id_personaje,id_ataque) values(null,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
-			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated on the db
-			// by the autoincrement column. Otherwise don't use it
-						
-			stmt.setInt(1, id_personaje);
-			stmt.setInt(2, id_ataque);
-			
-			
-			//after executing the insert use the following lines to retrieve the id
-			rs=stmt.executeQuery();
-			if(rs!=null && rs.next()){
-				id_personaje_ataque = rs.getInt(1);
-			}		
-			
-			
-		} catch (SQLException e) {
-			//throw new ApplicationException("Error en el sql al crear personaje",e);
-			e.printStackTrace();
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
+			conn = FactoryConexion.getInstancia().getConn();
+			conn.setAutoCommit(false);
 			try {
-				if(rs!=null) rs.close();
-				if(stmt!=null)stmt.close();
-				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				stmtPersAtaque = conn.prepareStatement("insert into personaje_ataque(`id_personaje_ataque`,`id_personaje`,`id_ataque`) values(null,?,?);",PreparedStatement.RETURN_GENERATED_KEYS);
+				stmtPersAtaque.setInt(1,id_personaje);
+				stmtPersAtaque.setInt(2,id_ataque);
+				
+				int rowAffected = stmtPersAtaque.executeUpdate();
+				if(rowAffected == 1){
+					stmtPersUsuario = conn.prepareStatement("insert into usuario_personaje(`id_usuario_personaje`,`id_usuario`,`id_personaje`) values(null,?,?);",PreparedStatement.RETURN_GENERATED_KEYS);
+					stmtPersUsuario.setInt(1,id_usuario);
+					stmtPersUsuario.setInt(2,id_personaje);
+					stmtPersUsuario.executeQuery();
+					conn.commit();
+				} else {
+					conn.rollback();
+				}
+				
+				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e); 
+			}finally {
+				try {
+					if(rs!=null) rs.close();
+					if(stmtPersAtaque!=null)stmtPersAtaque.close();
+					if(stmtPersUsuario!=null)stmtPersUsuario.close();
+					FactoryConexion.getInstancia().releaseConn();
+				} catch (ApplicationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-		}
-		
-		return id_personaje_ataque;
-	}
-	
-	
-	public int addUsuarioPersonaje(int id_usuario,int id_personaje){
-		int id_usuario_personaje = 0;
-		ResultSet rs=null;
-		PreparedStatement stmt=null;
-		
-		try {
-			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into usuario_personaje(id_usuario_personaje,id_usuario,id_personaje) values(null,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
-			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated on the db
-			// by the autoincrement column. Otherwise don't use it
-						
-			stmt.setInt(1, id_usuario);
-			stmt.setInt(2, id_personaje);
-			
-			
-			//after executing the insert use the following lines to retrieve the id
-			rs=stmt.executeQuery();
-			if(rs!=null && rs.next()){
-				id_usuario_personaje = rs.getInt(1);
-			}		
-			
-			
-		} catch (SQLException e) {
-			//throw new ApplicationException("Error en el sql al crear personaje",e);
-			e.printStackTrace();
-		} catch (ApplicationException e) {
+		} catch (ApplicationException | SQLException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs!=null) rs.close();
-				if(stmt!=null)stmt.close();
-				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			e1.printStackTrace();
 		}
-		
-		return id_usuario_personaje;
+				
 		
 	}
 	
