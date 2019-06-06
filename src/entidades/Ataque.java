@@ -3,6 +3,14 @@ package entidades;
 public class Ataque {
 	private int id_ataque, energia_requerida;
 	private String nombre_ataque;
+	
+	public Ataque(String nombre_ataque, int energia_requerida) {
+		this.nombre_ataque = nombre_ataque;
+		this.energia_requerida = energia_requerida;
+	}
+	public Ataque() {
+		
+	}
 	public int getId_ataque() {
 		return id_ataque;
 	}

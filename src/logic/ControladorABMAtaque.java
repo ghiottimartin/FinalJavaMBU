@@ -20,7 +20,10 @@ public class ControladorABMAtaque {
 		} catch (Exception e){
 			
 		}
-		
 		return ataques;
+	}
+	
+	public void add(Ataque ataque) throws ApplicationException {
+		this.dataAtaque.add(ataque);
 	}
 }

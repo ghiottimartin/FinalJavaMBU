@@ -17,11 +17,17 @@
 <body>
 	<div class="container">
 		<% 
-		Usuario u = (Usuario)session.getAttribute("usuario");  String nom = String.valueOf(u.getNombre());
-		String ape = String.valueOf(u.getApellido());
+		Usuario u = (Usuario)session.getAttribute("usuario");  
+		String nom = "";
+		String ape = "";
+		if(u != null) {
+			nom = String.valueOf(u.getNombre());
+			ape = String.valueOf(u.getApellido());
+		}
 		%> <h1>Hola, <%= nom %> <%= ape %> </h1> 
 		<% if(u == null){
-			response.sendRedirect("index.jsp");
+			System.out.print("No esta logueado");
+			response.sendRedirect("/WebPage/index.jsp");
 		} %>
 		
 		<form method="post" action="${pageContext.request.contextPath}/Menu" id="menu">
@@ -35,6 +41,15 @@
 				<div class="p-2">
 					<button class="button btn btn-primary btn-lg btn-block">1 VS 1</button>
 				</div>
+				<%
+					if(u != null && u.getRol().equals("admin")) {
+				%>
+				<div class="p-2">
+					<button name="ataques" class="button btn btn-primary btn-lg btn-block">Ataques</button>
+				</div>
+				<%
+					}
+				%>
 				<div class="p-2">
 					<button name="exit" class="button btn btn-danger btn-lg btn-block">Salir</button>
 				</div>	

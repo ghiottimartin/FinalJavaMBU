@@ -45,7 +45,6 @@ public class Inicio extends HttpServlet {
 				
 				if(this.validateUser(u)) {
 					request.getSession().setAttribute("usuario", u);
-					System.out.println(request.getContextPath());
 					response.sendRedirect("routes/Menu.jsp");
 					//request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
 					

@@ -14,5 +14,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/martin/git/FinalJavaMBU/WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/home/martin/git/FinalJavaMBU/WebContent/WEB-INF/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="/home/martin/git/FinalJavaMBU/WebContent/WEB-INF/lib/standard.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

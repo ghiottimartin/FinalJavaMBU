@@ -20,6 +20,7 @@
 <style type="text/css">
 body {
 	background-color: #0072DD;
+	margin-top: 100px;
 }
 
 .contenedorLogin img {
@@ -76,34 +77,25 @@ label {
 </head>
 <body>
 	<div class="contenedorLogin">
-		<img src="swords.png" alt="swords" />
-		<h1 align="center">Bienvenido a Fight Club</h1>
-		<form method="post" action="Inicio" id="menu" class="">
+		<h1 align="center">Nuevo Ataque</h1>
+		<form method="post"
+			action="${pageContext.request.contextPath}/Ataques" id="menu"
+			class="">
 			<div class="inputs">
 				<div class="contenedorInput">
-					<input class="form-control" id="nombreUsuario" name="nombreUsuario"
-						type="string" placeholder="Nombre de Usuario" value="" />
+					<input class="form-control" id="nombre_ataque" name="nombre_ataque"
+						type="string" placeholder="Nombre Ataque" value="" />
 				</div>
 				<div class="contenedorInput">
-					<input class="form-control" id="password" name="password"
-						type="password" placeholder="Contraseña" value="" />
+					<input class="form-control" id="energia_requerida"
+						name="energia_requerida" type="number"
+						placeholder="Energia Requerida" value="" />
 				</div>
-				<%
-					if (session.getAttribute("usuario") == "erroneo") {
-				%>
-				<span style="color: red;"><p>Usuario y/o contraseña
-						incorrectos</p></span>
-				<%
-					session.setAttribute("usuario", "erroneo2");
-					}
-				%>
 			</div>
 			<div class="botones">
-				<button name="login" type="submit" class="btn btn-light btn-lg">Login</button>
-				<button name="registro" type="submit" class="btn btn-success btn-lg">Registro</button>
+				<button name="crearAtaque" class="btn btn-light btn-lg">Crear</button>
+				<button name="volver" type="submit" class="btn btn-success btn-lg">Volver</button>
 			</div>
-
-
 		</form>
 	</div>
 
