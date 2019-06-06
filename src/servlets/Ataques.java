@@ -1,10 +1,12 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
+import java.sql.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +58,19 @@ public class Ataques extends HttpServlet {
 			}
 			if(request.getParameter("volver") != null) {
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
+			}
+			if(request.getParameter("edit") != null) {
+				Ataque ataqueEditar = ctrlAtaque.get(Integer.parseInt(request.getParameter("id")));
+				request.getSession().setAttribute("ataque", ataqueEditar);
+				response.sendRedirect("/WebPage/routes/ABMAtaques/editarAtaque.jsp");
+			}
+			if(request.getParameter("editarAtaque") != null) {
+				Ataque ataque = (Ataque) request.getSession().getAttribute("ataque");
+				ataque.setEnergia_requerida(Integer.parseInt(request.getParameter("energia_requerida")));
+				ataque.setNombre_ataque(String.valueOf(request.getParameter("nombre_ataque")));
+				ctrlAtaque.edit(ataque);
+				response.sendRedirect("/WebPage/routes/Ataques.jsp");
+				
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

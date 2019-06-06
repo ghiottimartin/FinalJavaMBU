@@ -26,4 +26,12 @@ public class ControladorABMAtaque {
 	public void add(Ataque ataque) throws ApplicationException {
 		this.dataAtaque.add(ataque);
 	}
+	
+	public Ataque get(int id) throws ApplicationException {
+		return this.dataAtaque.get(id);
+	}
+	
+	public void edit(Ataque ataque) throws ApplicationException {
+		this.dataAtaque.edit(ataque);
+	}
 }
