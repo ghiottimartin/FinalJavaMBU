@@ -106,8 +106,9 @@ public class DataAtaque {
 		Ataque ataqueEdit = null;
 
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from ataque where id_ataque = ?",
-					PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = FactoryConexion.getInstancia().getConn()
+					.prepareStatement("select * from ataque where id_ataque = ?",
+							PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
@@ -145,12 +146,32 @@ public class DataAtaque {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
 					"update ataque set nombre_ataque = ?, energia_requerida = ? where id_ataque = ?",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			System.out.println(ataque.getId_ataque() + "\n");
-			System.out.println(ataque.getNombre_ataque() + "\n");
-			System.out.println(ataque.getEnergia_requerida() + "\n");
 			stmt.setString(1, ataque.getNombre_ataque());
 			stmt.setInt(2, ataque.getEnergia_requerida());
 			stmt.setInt(3, ataque.getId_ataque());
+			stmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void delete(int id) throws ApplicationException {
+		PreparedStatement stmt = null;
+
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"delete from ataque  where id_ataque = ?",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, id);
 			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

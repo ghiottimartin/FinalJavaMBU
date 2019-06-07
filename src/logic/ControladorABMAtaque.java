@@ -34,4 +34,8 @@ public class ControladorABMAtaque {
 	public void edit(Ataque ataque) throws ApplicationException {
 		this.dataAtaque.edit(ataque);
 	}
+	
+	public void delete(int id) throws ApplicationException {
+		this.dataAtaque.delete(id);
+	}
 }

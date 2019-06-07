@@ -69,8 +69,11 @@ public class Ataques extends HttpServlet {
 				ataque.setEnergia_requerida(Integer.parseInt(request.getParameter("energia_requerida")));
 				ataque.setNombre_ataque(String.valueOf(request.getParameter("nombre_ataque")));
 				ctrlAtaque.edit(ataque);
+				response.sendRedirect("/WebPage/routes/Ataques.jsp");	
+			}
+			if(request.getParameter("erase") != null) {
+				ctrlAtaque.delete(Integer.parseInt(request.getParameter("id")));
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
-				
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
