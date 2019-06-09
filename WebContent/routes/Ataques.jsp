@@ -99,45 +99,46 @@ td {
 			<tbody>
 				<c:forEach items="${ataques}" var="ataque">
 					<tr>
-						<td><c:out value="${ataque.id_ataque}" /></td>
+						<td><c:out value="${ataque.id_ataque}" />
+							<div id="ex1" class="modal">
+								<div class="cartel">
+									<div class="row">
+										<p class="mensajeBorrado">Seguro que desea borrar el
+											ataque?</p>
+									</div>
+									<div class="row">
+										<div class="contenedorBotones">
+
+											<div class="itemLeft">
+												<a
+													style="color: transparent; text-decoration: none; margin-left: 30px; float: left;"
+													href="${pageContext.request.contextPath}/Ataques?erase=true&id=<c:out value="${ataque.id_ataque}" />">
+													<button name="borrarAtaque" style="text-decoration: none;"
+														class="btn btn-success">Aceptar</button>
+												</a>
+											</div>
+											<div class="itemRight">
+												<a href="#" rel="modal:close"
+													style="text-decoration: none; margin-left: 30px; float: left;">
+													<button
+														style="border: 1px solid black; text-decoration: none;"
+														class="btn btn-light">Cancelar</button>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div></td>
 						<td><c:out value="${ataque.nombre_ataque}" /></td>
 						<td><c:out value="${ataque.energia_requerida}" />
 						<td>
 						<td><a
 							href="${pageContext.request.contextPath}/Ataques?edit=true&id=<c:out value="${ataque.id_ataque}" />">
 								<button class="btn btn-success">Editar</button>
-						</a> <a href="#ex1" rel="modal:open"> -->
+						</a> <a href="${pageContext.request.contextPath}/Ataques?erase=true&id=<c:out value="${ataque.id_ataque}" />">
 								<button class="btn btn-danger">Borrar</button>
 						</a></td>
 					</tr>
-					<div id="ex1" class="modal">
-						<div class="cartel">
-							<div class="row">
-								<p class="mensajeBorrado">Seguro que desea borrar el ataque?</p>
-							</div>
-							<div class="row">
-								<div class="contenedorBotones">
-
-									<div class="itemLeft">
-										<a
-											style="text-decoration: none; margin-left: 30px; float: left;"
-											href="${pageContext.request.contextPath}/Ataques?erase=true&id=<c:out value="${ataque.id_ataque}" />">
-											<button name="borrarAtaque" style="text-decoration: none;"
-												class="btn btn-success">Aceptar</button>
-										</a>
-									</div>
-									<div class="itemRight">
-										<a href="#" rel="modal:close"
-											style="text-decoration: none; margin-left: 30px; float: left;">
-											<button
-												style="border: 1px solid black; text-decoration: none;"
-												class="btn btn-light">Cancelar</button>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</c:forEach>
 			</tbody>
 		</table>
