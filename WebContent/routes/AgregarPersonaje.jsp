@@ -54,19 +54,25 @@
 					
 				</div>
 				<div class="col-md-6 ">
-					<h3>Ataques</h3>
+					<div class="col-md-12">
+						<h3>Ataques</h3>
 					
-					<label>Elija los ataques iniciales con los {{points}} puntos restantes</label>
-				    <select name="selectedAttacks" class="form-control col-md-12 h-50" v-model="attacks" multiple>
-					  <c:forEach items="${ataques}" var="ataque">
-				     	<option value="${ataque.id_ataque}">
-				     		<c:out value="${ataque.nombre_ataque}"/> - Requiere: <c:out value="${ataque.energia_requerida}"/> de energia
-				     	</option>    	
-				      </c:forEach>
-					</select>
-					
-					<div v-if="selectedAttacks != 0">
-						<p>Usted seleccionó {{selectedAttacks}} ataques</p>
+						<label>Elija los ataques iniciales con los {{points}} puntos restantes</label>
+					    <select name="selectedAttacks" class="form-control col-md-12 h-50" v-model="attacks" multiple>
+						  <c:forEach items="${ataques}" var="ataque">
+					     	<option value="${ataque.id_ataque}">
+					     		<c:out value="${ataque.nombre_ataque}"/> - Requiere: <c:out value="${ataque.energia_requerida}"/> de energia
+					     	</option>    	
+					      </c:forEach>
+						</select>
+						
+						<div v-if="selectedAttacks != 0">
+							<p>Usted seleccionó {{selectedAttacks}} ataques</p>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<h3>Rol de personaje</h3>
+						<label>Elija el rol que tendrá el personaje</label>
 					</div>
 				</div>
 			</div>

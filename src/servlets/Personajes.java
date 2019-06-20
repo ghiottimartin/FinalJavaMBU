@@ -49,14 +49,13 @@ public class Personajes extends HttpServlet {
 			Usuario currentUser = (Usuario) session.getAttribute("usuario");
 			try {
 				 int id_personaje = ctrlPersonaje.agregarPersonaje(per);
-				 System.out.println(id_personaje);
+				 ctrlPersonaje.insertarPersonajeUsuario(id_personaje, currentUser.getId());
 				String selected_attacks[] = request.getParameterValues("selectedAttacks");
 			     for(String id_attack :selected_attacks)
-			     {
-			    	 
-			    	 ctrlPersonaje.insertarPersonajeAtaque(id_personaje, Integer.parseInt(id_attack), currentUser.getId());
+			     { 	 
+			    	 ctrlPersonaje.insertarPersonajeAtaque(id_personaje, Integer.parseInt(id_attack));
 			     }
-				
+			     response.sendRedirect("routes/Menu.jsp");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

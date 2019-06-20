@@ -42,6 +42,10 @@ public class Menu extends HttpServlet {
 			response.sendRedirect("routes/AgregarPersonaje.jsp");
 		}
 		
+		if(request.getParameter("editCharacters") != null){
+			response.sendRedirect("routes/EditarPersonajes.jsp");
+		}
+		
 		
 	}
 

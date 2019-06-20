@@ -30,9 +30,9 @@ private data.DataPersonaje dataPer;
 		return dataPer.consultarMax();
 	}
 	
-	public Personaje busca(Personaje p) throws ApplicationException
+	public Personaje busca(int id_personaje) throws ApplicationException
 	{
-		Personaje per = dataPer.getById(p);
+		Personaje per = dataPer.getById(id_personaje);
 		return per;
 	}
 	public void borrarPersonaje(Personaje p)
@@ -67,7 +67,16 @@ private data.DataPersonaje dataPer;
 		return personajes;
 	}
 	
-	public void insertarPersonajeAtaque(int id_personaje, int id_ataque, int id_usuario){
-		dataPer.addPersonajeAtaque(id_personaje, id_ataque, id_usuario);
+	public void insertarPersonajeAtaque(int id_personaje, int id_ataque){
+		dataPer.addPersonajeAtaque(id_personaje, id_ataque);
+	}
+	
+	public void insertarPersonajeUsuario(int id_personaje, int id_usuario) {
+		dataPer.addPersonajeUsuario(id_personaje, id_usuario);
+	}
+	
+	public ArrayList<Personaje> recuperarPersonajesDeUsuario(int id_usuario) throws ApplicationException {
+		ArrayList<Personaje> pers = dataPer.getByUser(id_usuario);
+		return pers;
 	}
 }
