@@ -34,6 +34,7 @@ public class Menu extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("MENU");
 		if(request.getParameter("exit")!= null){
 			response.sendRedirect("index.jsp");
 		}
@@ -42,7 +43,8 @@ public class Menu extends HttpServlet {
 			response.sendRedirect("routes/AgregarPersonaje.jsp");
 		}
 		
-		if(request.getParameter("ataques")!= null){
+		if(request.getParameter("ataques") != null){
+			
 			response.sendRedirect("routes/Ataques.jsp");
 		}		
 	}

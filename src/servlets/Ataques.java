@@ -53,25 +53,25 @@ public class Ataques extends HttpServlet {
 			if (request.getParameter("crearAtaque") != null) {
 				Ataque ataque = new Ataque(String.valueOf(request.getParameter("nombre_ataque")),
 						Integer.parseInt(request.getParameter("energia_requerida")));
-				ctrlAtaque.add(ataque);	
+				ctrlAtaque.add(ataque);
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
-			if(request.getParameter("volver") != null) {
+			if (request.getParameter("volver") != null) {
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
-			if(request.getParameter("edit") != null) {
+			if (request.getParameter("edit") != null) {
 				Ataque ataqueEditar = ctrlAtaque.get(Integer.parseInt(request.getParameter("id")));
 				request.getSession().setAttribute("ataque", ataqueEditar);
 				response.sendRedirect("/WebPage/routes/ABMAtaques/editarAtaque.jsp");
 			}
-			if(request.getParameter("editarAtaque") != null) {
+			if (request.getParameter("editarAtaque") != null) {
 				Ataque ataque = (Ataque) request.getSession().getAttribute("ataque");
 				ataque.setEnergia_requerida(Integer.parseInt(request.getParameter("energia_requerida")));
 				ataque.setNombre_ataque(String.valueOf(request.getParameter("nombre_ataque")));
 				ctrlAtaque.edit(ataque);
-				response.sendRedirect("/WebPage/routes/Ataques.jsp");	
+				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
-			if(request.getParameter("erase") != null) {
+			if (request.getParameter("erase") != null) {
 				ctrlAtaque.delete(Integer.parseInt(request.getParameter("id")));
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}

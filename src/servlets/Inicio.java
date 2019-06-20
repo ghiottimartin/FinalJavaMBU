@@ -38,6 +38,7 @@ public class Inicio extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("INICIOO");
 		CtrlLogin ctrl = new CtrlLogin();
 		if(request.getParameter("login")!= null) {
 			try {
