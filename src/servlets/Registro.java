@@ -40,7 +40,6 @@ public class Registro extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		System.out.println("REGISTRO");
 		if(request.getParameter("registrar")!= null){
 			CtrlRegistro ctrl = new CtrlRegistro();
 			Usuario currentUser = this.mapUserFromForm(request);

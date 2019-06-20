@@ -53,13 +53,13 @@ public class Ataques extends HttpServlet {
 			if (request.getParameter("crearAtaque") != null) {
 				Ataque ataque = new Ataque(String.valueOf(request.getParameter("nombre_ataque")),
 						Integer.parseInt(request.getParameter("energia_requerida")));
-				ctrlAtaque.add(ataque);
+				ctrlAtaque.add(ataque);	
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
-			if (request.getParameter("volver") != null) {
+			if(request.getParameter("volver") != null) {
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
-			if (request.getParameter("edit") != null) {
+				if(request.getParameter("edit") != null) {
 				Ataque ataqueEditar = ctrlAtaque.get(Integer.parseInt(request.getParameter("id")));
 				request.getSession().setAttribute("ataque", ataqueEditar);
 				response.sendRedirect("/WebPage/routes/ABMAtaques/editarAtaque.jsp");
