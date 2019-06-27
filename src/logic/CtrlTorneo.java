@@ -25,11 +25,17 @@ public class CtrlTorneo {
 		return id;
 	}
 	
-	public Personaje getpersonaje(int idPersonaje){
+	public Personaje getpersonaje(int idUsuarioPersonaje){
+		int idPersonaje = getIdPersonaje(idUsuarioPersonaje);
 		Personaje p = new Personaje();
 		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
 		//falta implementar el codigo de getById de controlador Personaje
 		//p = ctrlPersonaje.getById(idPersonaje);
 		return p;
+	}
+	
+	public int getIdPersonaje(int idUsuarioPersonaje){
+		int idPersonaje = 0;
+		return idPersonaje;
 	}
 }
