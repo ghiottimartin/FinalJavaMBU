@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import entidades.*;
 import utils.ApplicationException;
 
+
 public class DataPersonaje {
 	public DataPersonaje()
 	{
@@ -38,11 +39,8 @@ public class DataPersonaje {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new ApplicationException("Error en el sql al crear personaje",e);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();;
+			ApplicationException ade=new ApplicationException(e, "Error en el sql al crear personaje.\n"+e.getSQLState()+":"+e.getMessage());
+			throw ade;
 		}finally {
 			try {
 				if(rs!=null) rs.close();
@@ -79,7 +77,8 @@ public class DataPersonaje {
 			
 			
 		} catch (SQLException e) {
-			throw new ApplicationException("Error en el sql al modificar el personaje",e);
+			ApplicationException ade=new ApplicationException(e, "Error en el sql al modificar el personaje.\n"+e.getSQLState()+":"+e.getMessage());
+			throw ade;
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -122,11 +121,11 @@ public class DataPersonaje {
 				p.setId_nivel(rs.getInt("id_nivel"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-		    throw new ApplicationException("Error en el sql al buscar el personaje",e);
+			ApplicationException ade=new ApplicationException(e, "Error en el sql al buscar el personaje.\n"+e.getSQLState()+":"+e.getMessage());
+			throw ade;
 		} catch (ApplicationException ae) {
-			// TODO Auto-generated catch block
-			throw new ApplicationException("Personaje no encontrado");
+			ApplicationException ade=new ApplicationException(ae, "Personaje no encontrado.\n"+ae.getMessage());
+			throw ade;
 		}
 		finally {
 			try {
@@ -168,11 +167,11 @@ public class DataPersonaje {
 				p.setExperiencia(rs.getInt("id_nivel"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-		    throw new ApplicationException("Error en el sql al buscar el personaje",e);
+			ApplicationException ade=new ApplicationException(e, "Error en el sql al buscar el personaje.\n"+e.getSQLState()+":"+e.getMessage());
+			throw ade;
 		} catch (ApplicationException ae) {
-			// TODO Auto-generated catch block
-			throw new ApplicationException("Personaje no econtrado");
+			ApplicationException ade=new ApplicationException(ae, "Personaje no encontrado.\n"+ae.getMessage());
+			throw ade;
 		}
 		finally {
 			try {
@@ -335,8 +334,8 @@ public class DataPersonaje {
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new ApplicationException("Error al recuperar persoajes",e);
+			ApplicationException ade=new ApplicationException(e, "Error al recuperar persoajes.\n"+e.getMessage());
+			throw ade;
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();;

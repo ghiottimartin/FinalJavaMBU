@@ -26,7 +26,8 @@ private data.DataPersonaje dataPer;
 			dataPer.add(p);
 		} else
 		{
-			throw new ApplicationException("Ya existe un personaje con ese nombre");
+			Exception e = new Exception();
+			throw new ApplicationException(e, "Ya existe un personaje con ese nombre");
 		}
 	}
 	

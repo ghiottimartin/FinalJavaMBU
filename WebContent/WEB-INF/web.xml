@@ -4,6 +4,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>JavaCraftWeb</display-name>
+	<context-param>
+		<param-name>log4j-config-location</param-name>
+		<param-value>WEB-INF/log4j2-Ej10Logging.xml</param-value>
+	</context-param>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>

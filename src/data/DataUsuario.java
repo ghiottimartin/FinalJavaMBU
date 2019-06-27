@@ -38,9 +38,11 @@ public class DataUsuario {
 				System.out.println("Usuario no encontrado");
 			}			
 		} catch(SQLException e) {
-		    throw new ApplicationException("Error en el sql al buscar el usuario",e);
+			ApplicationException ade=new ApplicationException(e, "Error en el sql al buscar el usuario.\n"+e.getSQLState()+":"+e.getMessage());
+			throw ade;
 		} catch(ApplicationException ae) {
-			throw new ApplicationException("Usuario no econtrado");
+			ApplicationException ade=new ApplicationException(ae, "Usuario no encontrado.\n"+ae.getMessage());
+			throw ade;
 		} finally {
 			try {
 				if(rs!=null)rs.close();

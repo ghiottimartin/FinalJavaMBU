@@ -1,16 +1,17 @@
 package data;
 
 import java.sql.*;
+
 import utils.*;
 
 public class FactoryConexion {
 	
 	private String dbDriver="com.mysql.jdbc.Driver";
-	private String host="localhost";
+	private String host="remotemysql.com";
 	private String port="3306";
-	private String user="root";
-	private String pass="";
-	private String db="db_tp_java";
+	private String user="Pm4YBlgaFF";
+	private String pass="qW3bBaJSVy";
+	private String db="Pm4YBlgaFF";
 	private String dbType="mysql";
 	
 	private Connection conn;
@@ -20,7 +21,8 @@ public class FactoryConexion {
 		try {
 			Class.forName(dbDriver);
 		} catch (ClassNotFoundException e) {
-			throw new ApplicationException("Error del Driver JDBC",e);
+			ApplicationException ade=new ApplicationException(e, "Error del Driver JDBC.\n"+e.getMessage());
+			throw ade;
 		}
 	}
 	
@@ -33,7 +35,7 @@ public class FactoryConexion {
 		return instancia;
 	}
 	
-	public Connection getConn(){
+	public Connection getConn() throws ApplicationException{
 		try {
 			if(conn==null || conn.isClosed()){
 				conn = DriverManager.getConnection(
@@ -42,8 +44,7 @@ public class FactoryConexion {
 				cantConn++;
 			}
 		} catch (SQLException e) {
-			new ApplicationException("Error al conectar a la DB",e);
-
+			throw new ApplicationException(e, "Error al conectar a la DB.\n"+e.getMessage());
 		}
 		return conn;
 	}
@@ -55,7 +56,7 @@ public class FactoryConexion {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			throw new ApplicationException("Error al cerrar conexi�n",e);
+			throw new ApplicationException(e, "Error al cerrar conexi�n.\n"+e.getMessage());
 		}
 		
 	}
