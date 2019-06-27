@@ -7,11 +7,11 @@ import utils.*;
 public class FactoryConexion {
 	
 	private String dbDriver="com.mysql.jdbc.Driver";
-	private String host="remotemysql.com";
+	private String host="localhost";
 	private String port="3306";
-	private String user="Pm4YBlgaFF";
-	private String pass="qW3bBaJSVy";
-	private String db="Pm4YBlgaFF";
+	private String user="root";
+	private String pass="";
+	private String db="db_tp_java";
 	private String dbType="mysql";
 	
 	private Connection conn;
