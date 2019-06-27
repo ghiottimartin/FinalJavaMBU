@@ -14,5 +14,11 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="/home/martin/eclipse-workspace/FinalJavaMBU/WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/home/martin/eclipse-workspace/apache-log4j-2.11.2-bin/log4j-1.2-api-2.11.2.jar"/>
+	<classpathentry kind="lib" path="/home/martin/eclipse-workspace/apache-log4j-2.11.2-bin/log4j-1.2-api-2.11.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/martin/eclipse-workspace/apache-log4j-2.11.2-bin/log4j-1.2-api-2.11.2-sources.jar"/>
+	<classpathentry kind="lib" path="/home/martin/eclipse-workspace/apache-log4j-2.11.2-bin/log4j-api-2.11.2.jar"/>
+	<classpathentry kind="lib" path="/home/martin/eclipse-workspace/apache-log4j-2.11.2-bin/log4j-api-2.11.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/martin/eclipse-workspace/apache-log4j-2.11.2-bin/log4j-api-2.11.2-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
