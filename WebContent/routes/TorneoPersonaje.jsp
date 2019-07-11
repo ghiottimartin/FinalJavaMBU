@@ -27,7 +27,7 @@
 		
 		<div class="d-flex flex-column align-items-center">
  				 <label>Id Personaje:</label>
-			<input class="form-control" id="email" name="idPersonaje" type="int" placeholder="Nombre" value="" />
+			<input class="form-control" id="email" name="idPersonaje" type="int" placeholder="Id" value="" />
 			<div class="botones">
 				<button name="seleccionar" type="submit" class="btn btn-success">Seleccionar</button>
 			</div>

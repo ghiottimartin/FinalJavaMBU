@@ -2,7 +2,7 @@ package entidades;
 
 public class Combate {
 	
-	private int id,idEnemigo;
+	private int id,idEnemigo,experiencia;
 	
 	public Combate() {
 		
@@ -19,5 +19,11 @@ public class Combate {
 	}
 	public void setIdEnemigo(int idEnemigo) {
 		this.idEnemigo = idEnemigo;
+	}
+	public int getExperiencia() {
+		return experiencia;
+	}
+	public void setExperiencia(int experiencia) {
+		this.experiencia = experiencia;
 	}
 }

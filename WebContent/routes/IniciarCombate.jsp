@@ -26,11 +26,17 @@
 		Torneo t = (Torneo)session.getAttribute("torneo");
 		int idUsuarioPersonaje = Integer.valueOf(t.getIdUsuarioPersonaje());
 		CtrlTorneo ctrlTorneo = new CtrlTorneo();
-		Personaje p = ctrlTorneo.getpersonaje(idUsuarioPersonaje);
+		//Personaje p = ctrlTorneo.getpersonaje(idUsuarioPersonaje);
+		Personaje enemigo = ctrlTorneo.getEnemigo(t.getId());
+		String nombreEnemigo = String.valueOf(enemigo.getNombre());
 		%> <h1>Hola, <%= nom %> <%= ape %> </h1> 
+		
+		<h3>Tu siguiente victima es: <%= nombreEnemigo %> </h3> 
+		
 		<% if(u == null){
 			response.sendRedirect("index.jsp");
 		} %>
+		
 		
 		<div class="d-flex flex-column align-items-center">
  			<label>Esta a punto de iniciar el combate</label>

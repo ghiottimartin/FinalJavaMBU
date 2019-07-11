@@ -130,6 +130,83 @@ public int getIdUsuarioPersonaje(int idUsuario, int idPersonaje) throws Applicat
 	return idUsuarioPersonaje;
 }
 
+public int getIdPersonajeByIdUsuarioPersonaje(int idUsuarioPersonaje) throws ApplicationException{
+
+	int idPersonaje = 0;
+	PreparedStatement stmt=null;
+	ResultSet rs=null;
+	try {
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+				"select id_personaje from usuario_personaje where id_usuario_personaje=? ");
+		stmt.setInt(1, idUsuarioPersonaje);
+		rs= stmt.executeQuery();
+		if(rs!=null && rs.next()){
+			idPersonaje = rs.getInt("id_personaje");
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+	    throw new ApplicationException("Error en el sql al buscar el Personaje",e);
+	} catch (ApplicationException ae) {
+		// TODO Auto-generated catch block
+		throw new ApplicationException("Personaje no encontrado");
+	}
+	finally {
+		try {
+			if(rs!=null)rs.close();
+			if(stmt!=null)stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	return idPersonaje;
+}
+
+
+
+
+public int getIdCombateActivo(int idTorneo) throws ApplicationException{
+
+	int idCombate = 0;
+	PreparedStatement stmt=null;
+	ResultSet rs=null;
+	try {
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+				"select id_combate from torneo_combate where id_torneo=? and combate_activo =1 ");
+		stmt.setInt(1, idTorneo);
+		rs= stmt.executeQuery();
+		if(rs!=null && rs.next()){
+			idCombate = rs.getInt("id_combate");
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+	    throw new ApplicationException("Error en el sql al buscar el Personaje o Usuario",e);
+	} catch (ApplicationException ae) {
+		// TODO Auto-generated catch block
+		throw new ApplicationException("Personaje y/o Usuario no encontrado");
+	}
+	finally {
+		try {
+			if(rs!=null)rs.close();
+			if(stmt!=null)stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	return idCombate;
+}
+
 
 }
 

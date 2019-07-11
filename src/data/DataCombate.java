@@ -24,7 +24,8 @@ public Combate getCombate(int id) throws ApplicationException {
 		if(rs!=null && rs.next()){
 			c = new Combate();
 			c.setId(rs.getInt("id_combate"));
-			c.setIdEnemigo(rs.getInt("id_combate"));
+			c.setIdEnemigo(rs.getInt("id_enemigo"));
+			c.setExperiencia(rs.getInt("experiencia"));
 		} else {
 			System.out.println("Combate no encontrado");
 		}			

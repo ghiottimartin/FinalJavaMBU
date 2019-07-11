@@ -35,9 +35,9 @@ private data.DataPersonaje dataPer;
 		return dataPer.consultarMax();
 	}
 	
-	public Personaje busca(Personaje p) throws ApplicationException
+	public Personaje busca(int id) throws ApplicationException
 	{
-		Personaje per = dataPer.getById(p);
+		Personaje per = dataPer.getById(id);
 		return per;
 	}
 	public void borrarPersonaje(Personaje p)
@@ -70,5 +70,17 @@ private data.DataPersonaje dataPer;
 			e.printStackTrace();
 		}
 		return personajes;
+	}
+
+	public Personaje getById(int idPersonaje) {
+		Personaje personaje = new Personaje();
+		DataPersonaje dataPersonaje = new DataPersonaje();
+		try {
+			personaje = dataPersonaje.getById(idPersonaje);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return personaje;
 	}
 }

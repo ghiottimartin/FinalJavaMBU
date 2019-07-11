@@ -133,7 +133,7 @@ public class DataPersonaje {
 		}
 	}
 	
-	public Personaje getById(Personaje per) throws ApplicationException{
+	public Personaje getById(int id) throws ApplicationException{
 		Personaje p=null;
 		
 		
@@ -141,18 +141,17 @@ public class DataPersonaje {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select id,nombre,vida,energia,defensa,evasion,puntos_totales from personajes where id=?");
-			stmt.setInt(1, per.getId());
+					"select id_personaje,nombre,vida,energia,defensa,evasion from personaje where id_personaje=?");
+			stmt.setInt(1, id);
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				p=new Personaje();
-				p.setId(rs.getInt("id"));
+				p.setId(rs.getInt("id_personaje"));
 				p.setNombre(rs.getString("nombre"));
 				p.setVida(rs.getInt("vida"));
 				p.setEnergia(rs.getInt("energia"));
 				p.setDefensa(rs.getInt("defensa"));
 				p.setEvasion(rs.getInt("evasion"));
-				p.setPuntosTotales(rs.getInt("puntos_totales"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
