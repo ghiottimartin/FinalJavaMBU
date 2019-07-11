@@ -237,17 +237,17 @@ public boolean validarPartida(int turno) {
 			if(vidaP2 <= 0) 
 			{
 				valido = true;
-				dataPer.updatePuntos(pers1);
+				//dataPer.updatePuntos(pers1);
 			}
 		}
 		else {
 			if(vidaP1 <= 0) 
 			{
 				valido = true;
-				dataPer.updatePuntos(pers2);
+				//dataPer.updatePuntos(pers2);
 			}
 		}
-	} catch (ApplicationException e) {
+	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}

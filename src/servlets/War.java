@@ -50,7 +50,7 @@ public class War extends HttpServlet {
 				{
 					request.getSession().setAttribute("nombreTurno", controlador.getPerTurno()); 					
 					request.getSession().setAttribute("msg", "personaje: "+ String.valueOf(controlador.getPerTurno()));
-					request.getRequestDispatcher("WEB-INF/Winner.jsp").forward(request, response);
+					request.getRequestDispatcher("routes/Winner.jsp").forward(request, response);
 				}else{
 					if(controlador.isEvadido())
 					{
@@ -59,7 +59,8 @@ public class War extends HttpServlet {
 					}
 					request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 					this.cambiaTurno();
-					request.getRequestDispatcher("WEB-INF/Combate.jsp").forward(request, response);
+					//request.getRequestDispatcher("WEB-INF/Combate.jsp").forward(request, response);
+					request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);
 				}
 			} catch (NumberFormatException e) {
 				out.println("<script type=\"text/javascript\">alert('Error en la energia');</script>");
@@ -74,7 +75,7 @@ public class War extends HttpServlet {
 			controlador.defensa(turno);			
 			request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 			this.cambiaTurno();
-			request.getRequestDispatcher("WEB-INF/Combate.jsp").forward(request, response);
+			request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);
 			
 		}
 		

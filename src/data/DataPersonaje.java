@@ -105,10 +105,10 @@ public class DataPersonaje {
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update personajes set puntos_totales=?"+
+					"update personajes set nivel=?"+
 					" where id=?");
 			
-			stmt.setInt(1, p.getPuntosTotales() + 10);
+			stmt.setInt(1, 1);
 			stmt.setInt(2, p.getId());
 			stmt.execute();
 			

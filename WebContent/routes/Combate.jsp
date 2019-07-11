@@ -50,7 +50,7 @@ div.acciones {
 		String nombreEnemigo = String.valueOf(p2.getNombre());
 	%>
 	
-	<form method="post" class="form-pers1" action="War">
+	<form method="post" class="form-pers1" action="${pageContext.request.contextPath}/War">
 	<div class="fixed">
 	<h2><%= nombrepersonaje %></h2>
 	<label>Nombre</label>
@@ -100,8 +100,16 @@ div.acciones {
 	<button name="atacar" class="btn btn-primary btn-lg" type="submit">Atacar</button>
 	<button name="defender" class="btn btn-lg btn-default" type="submit">Defender</button>
 	</div>
-	
-	
+	<div>
+	<%
+		if(request.getAttribute("evadido")!=null)
+		{
+			%>	<div>
+					<h2><%=request.getAttribute("evadido") %></h2>					
+				</div> <% 
+		}
+	%>
+	</div>
 	</form>
 
 </body>
