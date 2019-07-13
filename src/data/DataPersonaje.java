@@ -106,12 +106,12 @@ public class DataPersonaje {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select id,nombre,vida,energia,defensa,evasion,experiencia,id_nivel from personaje where id=?");
-			stmt.setInt(1, per.getId());
+					"select id_personaje,nombre,vida,energia,defensa,evasion from personaje where id_personaje=?");
+			stmt.setInt(1, id);
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				p=new Personaje();
-				p.setId(rs.getInt("id"));
+				p.setId(rs.getInt("id_personaje"));
 				p.setNombre(rs.getString("nombre"));
 				p.setVida(rs.getInt("vida"));
 				p.setEnergia(rs.getInt("energia"));
