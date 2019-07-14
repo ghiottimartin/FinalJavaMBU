@@ -36,10 +36,10 @@
 					<button name="loadCharacter" class="button btn btn-primary btn-lg">Agregar Personajes</button>
 				</div>
 				<div class="p-2">
-					<button class="button btn btn-primary btn-lg btn-block">Torneo</button>
+					<button name="editCharacters" class="button btn btn-primary btn-lg">Editar personajes</button>
 				</div>
 				<div class="p-2">
-					<button class="button btn btn-primary btn-lg btn-block">1 VS 1</button>
+					<button class="button btn btn-primary btn-lg btn-block">Torneo</button>
 				</div>
 				<%
 					if(u != null && u.getRol().equals("admin")) {

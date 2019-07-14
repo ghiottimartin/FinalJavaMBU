@@ -4,6 +4,10 @@
 <%@page import="entidades.Usuario"%>
 <%@page import="entidades.Ataque"%>
 <%@page import="logic.ControladorABMAtaque"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,42 +24,65 @@
 		<% if(u == null){
 			response.sendRedirect("index.jsp");
 		} %>
+		<% 
+			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
+			List<Ataque> ataques = ctrlAtaque.getAll();
+			request.setAttribute("ataques", ataques);
+		%>
 		<h1>Creación de personajes</h1>
-		<div class="row">
-			<div class="col-md-6">
-				<h3>Personaje</h3>
-				<label>Usted tiene {{points}} puntos a otorgarle a su personaje, elija bien</label>
-				
-				<label>Nombre</label>
-				<input class="form-control" name="nombre" type="string" placeholder="Nombre" value="" />
-				<br>
-				<label>Vida</label>
-				<input class="form-control" name="vida" type="number" placeholder="Vida" v-model="life"/>
-				<br>
-				<label>Energia</label>
-				<input class="form-control" name="energia" type="number" placeholder="Energia" v-model="energy" />
-				<br>
-				<label>Defensa</label>
-				<input class="form-control" name="defensa" type="number" placeholder="Defensa" v-model="defense"/>
-				<br>
-				<label>Evasión</label>
-				<input class="form-control" name="evasion" type="number" placeholder="Evasion" v-model="evasion"/>
-				<br>
-				
-			</div>
-			<div class="col-md-6 ">
-				<h3>Ataques</h3>
-				<% 
-					ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
-					List<Ataque> ataques = ctrlAtaque.getAll();
-					for(int i = 0; i < ataques.size(); i++){
-						System.out.println(ataques.get(i).getNombre_ataque());
-					}
+		<form  method="post" action="${pageContext.request.contextPath}/Personajes" id="register" class="">
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Personaje</h3>
+					<label>Usted tiene {{points}} puntos a otorgarle a su personaje, elija bien</label>
 					
-				%>
+					<label>Nombre</label>
+					<input class="form-control" name="nombre" type="string" placeholder="Nombre" value="" />
+					<br>
+					<label>Vida</label>
+					<input class="form-control" name="vida" type="number" placeholder="Vida" v-model="life"/>
+					<br>
+					<label>Energia</label>
+					<input class="form-control" name="energia" type="number" placeholder="Energia" v-model="energy" />
+					<br>
+					<label>Defensa</label>
+					<input class="form-control" name="defensa" type="number" placeholder="Defensa" v-model="defense"/>
+					<br>
+					<label>Evasión</label>
+					<input class="form-control" name="evasion" type="number" placeholder="Evasion" v-model="evasion"/>
+					<br>
+					
+				</div>
+				<div class="col-md-6 ">
+					<div class="col-md-12">
+						<h3>Ataques</h3>
+					
+						<label>Elija los ataques iniciales con los {{points}} puntos restantes</label>
+					    <select name="selectedAttacks" class="form-control col-md-12 h-50" v-model="attacks" multiple>
+						  <c:forEach items="${ataques}" var="ataque">
+					     	<option value="${ataque.id_ataque}">
+					     		<c:out value="${ataque.nombre_ataque}"/> - Requiere: <c:out value="${ataque.energia_requerida}"/> de energia
+					     	</option>    	
+					      </c:forEach>
+						</select>
+						
+						<div v-if="selectedAttacks != 0">
+							<p>Usted seleccionó {{selectedAttacks}} ataques</p>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<h3>Rol de personaje</h3>
+						<label>Elija el rol que tendrá el personaje</label>
+					</div>
+				</div>
 			</div>
-		</div>
-		
+			<div class="row">
+				<div class="col-md-12">
+					<button name="guardarPersonaje" type="submit" class="btn btn-success">Aceptar</button>
+					<button name="cancelar" type="submit" class="btn btn-light">Cancelar</button>
+				</div>
+			</div>
+		</form>
 	</div>
 
 
@@ -66,20 +93,26 @@
 vm = new Vue({
 	  el: '#app',
 	  data: {
-		  test: 'Hola',
 		  initialPoints: 100,
 		  life: 0,
 		  energy: 0,
 		  defense: 0,
-		  evasion: 0
+		  evasion: 0,
+		  attacks: [],
 	  },
 	  computed: {
 		  points: function(){
 			  return this.initialPoints - this.life - this.energy - this.defense - this.evasion;
+		  },
+		  selectedAttacks: function(){
+			  return this.attacks.length;
 		  }
 	  },
 	  methods: {
-		  
+		  prueba: function() {
+			  var someJsVar = "<c:out value='${ataques}'/>";
+			  return someJsVar;
+		  }
 	  }
 })
 

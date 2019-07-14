@@ -1,8 +1,12 @@
 /data/
+/servlets/
 /logic/
 /entidades/
+<<<<<<< HEAD
 /servlets/
 <<<<<<< HEAD
 /utils/
 =======
 >>>>>>> refs/heads/torneo
+=======
+>>>>>>> refs/remotes/origin/dev-abm-personaje

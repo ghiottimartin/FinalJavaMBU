@@ -19,11 +19,11 @@ private data.DataPersonaje dataPer;
 		dataPer = new DataPersonaje();
 	}
 	
-	public void agregarPersonaje(Personaje p) throws ApplicationException
+	public int agregarPersonaje(Personaje p) throws ApplicationException
 	{
 		//En vez de agredarlo directamente hago un metodo para tirar la exception
 		if(!dataPer.coincideNombre(p)) {
-			dataPer.add(p);
+			return dataPer.add(p);
 		} else
 		{
 			Exception e = new Exception();
@@ -36,9 +36,10 @@ private data.DataPersonaje dataPer;
 		return dataPer.consultarMax();
 	}
 	
-	public Personaje busca(int id) throws ApplicationException
+
+	public Personaje busca(int id_personaje) throws ApplicationException
 	{
-		Personaje per = dataPer.getById(id);
+		Personaje per = dataPer.getById(id_personaje);
 		return per;
 	}
 	public void borrarPersonaje(Personaje p)
@@ -73,6 +74,7 @@ private data.DataPersonaje dataPer;
 		return personajes;
 	}
 
+
 	public Personaje getById(int idPersonaje) {
 		Personaje personaje = new Personaje();
 		DataPersonaje dataPersonaje = new DataPersonaje();
@@ -83,5 +85,20 @@ private data.DataPersonaje dataPer;
 			e.printStackTrace();
 		}
 		return personaje;
+	}
+
+	
+	public void insertarPersonajeAtaque(int id_personaje, int id_ataque){
+		dataPer.addPersonajeAtaque(id_personaje, id_ataque);
+	}
+	
+	public void insertarPersonajeUsuario(int id_personaje, int id_usuario) {
+		dataPer.addPersonajeUsuario(id_personaje, id_usuario);
+	}
+	
+	public ArrayList<Personaje> recuperarPersonajesDeUsuario(int id_usuario) throws ApplicationException {
+		ArrayList<Personaje> pers = dataPer.getByUser(id_usuario);
+		return pers;
+
 	}
 }

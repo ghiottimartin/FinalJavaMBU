@@ -1,7 +1,13 @@
 package entidades;
 
 public class Personaje {
-	private int id,vida,energia,defensa,evasion,experiencia,id_nivel;
+	private int id,vida,energia,defensa,evasion,experiencia,id_nivel,id_rol;
+	public int getId_rol() {
+		return id_rol;
+	}
+	public void setId_rol(int id_rol) {
+		this.id_rol = id_rol;
+	}
 	public int getExperiencia() {
 		return experiencia;
 	}
