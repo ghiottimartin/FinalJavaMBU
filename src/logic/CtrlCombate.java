@@ -324,6 +324,21 @@ public void recuperaVida(int turno) {
 
 
 
+
+//Metodos de ataque-energia
+public int getEnergiaFromAtaque(int idAtaque)
+{
+	//aca falta la implementacion para lo cual se necesita la entidad y clases de ataque
+if (idAtaque == 1)
+    return 10;
+else
+	return 20;
+};
+
+
+// Fin de metodos Ataque-Energia
+
+
 private void notifyUser(String mensaje) {
 	JOptionPane.showMessageDialog(null, mensaje, "Warning!", JOptionPane.INFORMATION_MESSAGE);
 }

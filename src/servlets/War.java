@@ -46,7 +46,9 @@ public class War extends HttpServlet {
 		PrintWriter out = response.getWriter(); 
 		if(request.getParameter("atacar")!= null){
 			try {
-				if(controlador.ataque(Integer.parseInt(request.getParameter("energiaUsar")), turno))
+				int energia = controlador.getEnergiaFromAtaque(Integer.parseInt(request.getParameter("idAtaque")));
+				//if(controlador.ataque(Integer.parseInt(request.getParameter("energiaUsar")), turno))
+				if(controlador.ataque(energia, turno))
 				{
 					request.getSession().setAttribute("nombreTurno", controlador.getPerTurno()); 					
 					request.getSession().setAttribute("msg", "personaje: "+ String.valueOf(controlador.getPerTurno()));

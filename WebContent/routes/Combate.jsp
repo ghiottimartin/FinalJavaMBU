@@ -93,8 +93,8 @@ div.acciones {
 	<br>
 	<input name="nombreTurno" type="text" class="form-control" disabled value="<%=String.valueOf(session.getAttribute("nombreTurno")) %>" >
 	<br>
-	<h2>Energia</h2>
-	<input name="energiaUsar" type="text" class="form-control">
+	<h2>Elegir Ataque</h2>
+	<input name="idAtaque" type="text" class="form-control">
 	<br>
 	<br>
 	<button name="atacar" class="btn btn-primary btn-lg" type="submit">Atacar</button>
