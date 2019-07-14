@@ -1,4 +1,5 @@
 package logic;
+import entidades.Ataque;
 import entidades.Personaje;
 import utils.ApplicationException;
 import utils.SuperLogger;
@@ -328,11 +329,17 @@ public void recuperaVida(int turno) {
 //Metodos de ataque-energia
 public int getEnergiaFromAtaque(int idAtaque)
 {
-	//aca falta la implementacion para lo cual se necesita la entidad y clases de ataque
-if (idAtaque == 1)
-    return 10;
-else
-	return 20;
+	//revisar este metodo
+	ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
+	try {
+		Ataque ataque = ctrlAtaque.get(idAtaque);
+		return ataque.getEnergia_requerida();
+	} catch (ApplicationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return 0;
+	}
+
 };
 
 
