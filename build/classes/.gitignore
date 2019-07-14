@@ -1,4 +1,8 @@
 /data/
+/logic/
 /entidades/
 /servlets/
+<<<<<<< HEAD
 /utils/
+=======
+>>>>>>> refs/heads/torneo

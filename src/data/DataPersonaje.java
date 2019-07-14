@@ -97,8 +97,41 @@ public class DataPersonaje {
 		}
 	}
 	
+	public void updatePuntos(Personaje p) throws ApplicationException{
+		PreparedStatement stmt=null;
+		
+		try {
+			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
+					"update personajes set nivel=?"+
+					" where id=?");
+			
+			stmt.setInt(1, 1);
+			stmt.setInt(2, p.getId());
+			stmt.execute();
+			
+			
+		} catch (SQLException e) {
+			throw new ApplicationException(e,"Error en el sql al modificar el personaje");
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
 	
-	public Personaje getById(Personaje per) throws ApplicationException{
+	public Personaje getById(int id) throws ApplicationException{
 		Personaje p=null;
 		
 		
@@ -106,12 +139,12 @@ public class DataPersonaje {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select id,nombre,vida,energia,defensa,evasion,experiencia,id_nivel from personaje where id=?");
-			stmt.setInt(1, per.getId());
+					"select id_personaje,nombre,vida,energia,defensa,evasion,experiencia,id_nivel from personaje where id_personaje=?");
+			stmt.setInt(1, id);
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				p=new Personaje();
-				p.setId(rs.getInt("id"));
+				p.setId(rs.getInt("id_personaje"));
 				p.setNombre(rs.getString("nombre"));
 				p.setVida(rs.getInt("vida"));
 				p.setEnergia(rs.getInt("energia"));
