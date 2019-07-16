@@ -75,11 +75,12 @@ public class Personajes extends HttpServlet {
 	
 	public Personaje mapCharacterFromForm(HttpServletRequest request){
 		Personaje per = new Personaje();
+		AtributosRolNivel atr = (AtributosRolNivel)request.getSession().getAttribute("atributos");
 		per.setNombre(request.getParameter("nombre"));
-		per.setVida(Integer.parseInt(request.getParameter("vida")));
-		per.setEnergia(Integer.parseInt(request.getParameter("energia")));
-		per.setDefensa(Integer.parseInt(request.getParameter("defensa")));
-		per.setEvasion(Integer.parseInt(request.getParameter("evasion")));
+		per.setVida(atr.getVida());
+		per.setEnergia(atr.getEnergia());
+		per.setDefensa(atr.getDefensa());
+		per.setEvasion(atr.getEnergia());
 		per.setId_rol((Integer)(request.getSession().getAttribute("id_rol")));
 		return per;
 	}
