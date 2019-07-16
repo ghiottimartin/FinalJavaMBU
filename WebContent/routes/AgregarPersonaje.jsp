@@ -2,8 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
 <%@page import="entidades.Usuario"%>
+<%@page import="entidades.AtributosRolNivel"%>
 <%@page import="entidades.Ataque"%>
+<%@page import="entidades.Rol"%>
 <%@page import="logic.ControladorABMAtaque"%>
+<%@page import="logic.ControladorABMCPersonaje"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -18,17 +21,30 @@
 <body>
 	<div class="container" id="app">
 	<% 
-		Usuario u = (Usuario)session.getAttribute("usuario");  String nom = String.valueOf(u.getNombre());
-		String ape = String.valueOf(u.getApellido());
-		%> <p>Perfil: <%= nom %> <%= ape %> </p> 
-		<% if(u == null){
+		Usuario u = (Usuario)session.getAttribute("usuario");  
+		if(u == null){
 			response.sendRedirect("index.jsp");
-		} %>
-		<% 
+		} else {
+			String nom = String.valueOf(u.getNombre());
+			String ape = String.valueOf(u.getApellido());
+
+		};
+		
+	
 			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
 			List<Ataque> ataques = ctrlAtaque.getAll();
 			request.setAttribute("ataques", ataques);
+			ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+			List<Rol> roles = ctrlPersonaje.getAllRoles();
+			request.setAttribute("roles", roles);
+			
+			AtributosRolNivel atr = new AtributosRolNivel();
+			if((AtributosRolNivel)session.getAttribute("atributos") != null){
+				atr = (AtributosRolNivel)session.getAttribute("atributos");
+				
+			}; 
 		%>
+		<h1>Hola, <%= atr.getVida() %> </h1>
 		<h1>Creación de personajes</h1>
 		<form  method="post" action="${pageContext.request.contextPath}/Personajes" id="register" class="">
 			<div class="row">
@@ -37,19 +53,19 @@
 					<label>Usted tiene {{points}} puntos a otorgarle a su personaje, elija bien</label>
 					
 					<label>Nombre</label>
-					<input class="form-control" name="nombre" type="string" placeholder="Nombre" value="" />
+					<input class="form-control" name="nombre" type="text" placeholder="Nombre" value="" />
 					<br>
 					<label>Vida</label>
-					<input class="form-control" name="vida" type="number" placeholder="Vida" v-model="life"/>
+					<input class="form-control" name="vida" type="text" placeholder="Vida" v-model="life" value="<%=String.valueOf(atr.getVida()) %>" disabled/>
 					<br>
 					<label>Energia</label>
-					<input class="form-control" name="energia" type="number" placeholder="Energia" v-model="energy" />
+					<input class="form-control" name="energia" type="text" placeholder="Energia" v-model="energy" value="<%=String.valueOf(atr.getEnergia()) %>" disabled/>
 					<br>
 					<label>Defensa</label>
-					<input class="form-control" name="defensa" type="number" placeholder="Defensa" v-model="defense"/>
+					<input class="form-control" name="defensa" type="text" placeholder="Defensa" v-model="defense" value="<%=String.valueOf(atr.getDefensa()) %>" disabled/>
 					<br>
 					<label>Evasión</label>
-					<input class="form-control" name="evasion" type="number" placeholder="Evasion" v-model="evasion"/>
+					<input class="form-control" name="evasion" type="text" placeholder="Evasion" v-model="evasion" value="<%=String.valueOf(atr.getEvasion()) %>" disabled/>
 					<br>
 					
 				</div>
@@ -70,9 +86,19 @@
 							<p>Usted seleccionó {{selectedAttacks}} ataques</p>
 						</div>
 					</div>
+					
 					<div class="col-md-12">
 						<h3>Rol de personaje</h3>
 						<label>Elija el rol que tendrá el personaje</label>
+						<select name="selectedRole" class="form-control col-md-12 h-50" v-model="roles">
+						  <c:forEach items="${roles}" var="rol">
+					     	<option value="${rol.id_rol}">
+					     		<c:out value="${rol.descripcion_rol}"/>
+					     	</option>    	
+					      </c:forEach>
+						</select>
+						<br>
+						<button name="selectRole" type="submit" class="btn btn-success">Seleccionar rol</button>
 					</div>
 				</div>
 			</div>
@@ -99,6 +125,7 @@ vm = new Vue({
 		  defense: 0,
 		  evasion: 0,
 		  attacks: [],
+		  roles: []
 	  },
 	  computed: {
 		  points: function(){

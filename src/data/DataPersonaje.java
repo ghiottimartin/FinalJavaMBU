@@ -30,7 +30,7 @@ public class DataPersonaje {
 			stmt.setInt(3, p.getEnergia());
 			stmt.setInt(4, p.getDefensa());
 			stmt.setInt(5, p.getEvasion());
-			//stmt.setInt(6, p.getId_rol());
+			stmt.setInt(6, p.getId_rol());
 			stmt.execute();
 			System.out.println(p.getEvasion());
 			//after executing the insert use the following lines to retrieve the id

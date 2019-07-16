@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import entidades.Personaje;
+import entidades.AtributosRolNivel;
 import entidades.Usuario;
+import entidades.Rol;
 import logic.ControladorABMCPersonaje;
 
 /**
@@ -42,10 +44,10 @@ public class Personajes extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+		HttpSession session = request.getSession();
 		if(request.getParameter("guardarPersonaje") != null){
 			Personaje per = this.mapCharacterFromForm(request);
-			ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
-			HttpSession session = request.getSession();
 			Usuario currentUser = (Usuario) session.getAttribute("usuario");
 			try {
 				 int id_personaje = ctrlPersonaje.agregarPersonaje(per);
@@ -60,6 +62,15 @@ public class Personajes extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
+		if(request.getParameter("selectRole") != null){
+			String selected_role[] = request.getParameterValues("selectedRole");
+			int id_role = Integer.parseInt(selected_role[0]);
+			AtributosRolNivel atr = ctrlPersonaje.puntosTotalesSegunRolNivel(id_role, 1);
+			request.getSession().setAttribute("id_rol", id_role);
+			request.getSession().setAttribute("atributos", atr);
+			request.getRequestDispatcher("routes/AgregarPersonaje.jsp").forward(request, response);
+		}
 	}
 	
 	public Personaje mapCharacterFromForm(HttpServletRequest request){
@@ -69,7 +80,7 @@ public class Personajes extends HttpServlet {
 		per.setEnergia(Integer.parseInt(request.getParameter("energia")));
 		per.setDefensa(Integer.parseInt(request.getParameter("defensa")));
 		per.setEvasion(Integer.parseInt(request.getParameter("evasion")));
-		
+		per.setId_rol((Integer)(request.getSession().getAttribute("id_rol")));
 		return per;
 	}
 

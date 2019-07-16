@@ -1,22 +1,32 @@
 package logic;
 
 import entidades.Personaje;
+import entidades.Rol;
+import entidades.Nivel;
+import entidades.AtributosRolNivel;
+import data.DataRol;
 
 import java.util.*;
 import data.DataPersonaje;
+import data.DataNivel;
 import utils.ApplicationException;
 
 public class ControladorABMCPersonaje {
 	private Personaje pers;
 	ArrayList<Personaje>personajes = new ArrayList<Personaje>();
 	
-private data.DataPersonaje dataPer;
+	private data.DataPersonaje dataPer;
+	
+	private data.DataRol dataRol;
+	private data.DataNivel dataNivel;
 	
 	
 	public ControladorABMCPersonaje() 
 	{
 		personajes = new ArrayList<Personaje>();
 		dataPer = new DataPersonaje();
+		dataRol = new DataRol();
+		dataNivel = new DataNivel();
 	}
 	
 	public int agregarPersonaje(Personaje p) throws ApplicationException
@@ -100,5 +110,58 @@ private data.DataPersonaje dataPer;
 		ArrayList<Personaje> pers = dataPer.getByUser(id_usuario);
 		return pers;
 
+	}
+	
+	public ArrayList<Rol> getAllRoles(){
+		ArrayList<Rol> roles = new ArrayList<Rol>();
+		try {
+			roles = dataRol.getAllRoles();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Roles " + roles);
+		return roles;
+	}
+	
+	public Rol getOneRoleById(int id_rol){
+		Rol rol = new Rol();
+		try {
+			rol = dataRol.getOneRoleById(id_rol);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rol;
+	}
+	
+	public Nivel getOneLevelById(int id_nivel){
+		Nivel nivel = new Nivel();
+		try {
+			nivel = dataNivel.getOneLevelById(id_nivel);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nivel;
+	}
+	
+	public AtributosRolNivel puntosTotalesSegunRolNivel(int id_rol,int id_nivel){
+		Rol role = this.getOneRoleById(id_rol);
+		Nivel level = this.getOneLevelById(id_nivel);
+		
+		
+		
+		int currentPoints = level.getPuntos_totales();
+		
+		AtributosRolNivel atr = new AtributosRolNivel();
+		atr.setVida(Math.round(currentPoints * role.getCantidad_vida()));
+		atr.setEnergia(Math.round(currentPoints * role.getCantidad_energia()));
+		atr.setDefensa(Math.round(currentPoints * role.getCantidad_defensa()));
+		atr.setEvasion(Math.round(currentPoints * role.getCantidad_evasion()));
+		
+		
+		return atr;
 	}
 }
