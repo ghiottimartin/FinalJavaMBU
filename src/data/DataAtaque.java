@@ -62,6 +62,54 @@ public class DataAtaque {
 
 		return lista;
 	}
+	
+	public ArrayList<Ataque> getAllAtaquesByEnergy(int max_energy){
+		ArrayList<Ataque> ataques = new ArrayList<Ataque>();
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from ataque where energia_requerida <= ?;",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			stmt.setInt(1, max_energy);
+
+			rs = stmt.executeQuery();
+			if (rs != null) {
+
+				while (rs.next()) {
+					Ataque a = new Ataque();
+					a.setId_ataque(rs.getInt("id_ataque"));
+					a.setEnergia_requerida(rs.getInt("energia_requerida"));
+					a.setNombre_ataque(rs.getString("nombre_ataque"));
+					ataques.add(a);
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return ataques;
+	}
 
 	public void add(Ataque ataque) throws ApplicationException {
 		ResultSet rs = null;

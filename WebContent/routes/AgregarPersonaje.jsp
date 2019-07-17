@@ -17,6 +17,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Agregar personaje</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
 	<div class="container" id="app">
@@ -30,10 +31,6 @@
 
 		};
 		
-	
-			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
-			List<Ataque> ataques = ctrlAtaque.getAll();
-			request.setAttribute("ataques", ataques);
 			ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
 			List<Rol> roles = ctrlPersonaje.getAllRoles();
 			request.setAttribute("roles", roles);
@@ -42,16 +39,44 @@
 			if((AtributosRolNivel)session.getAttribute("atributos") != null){
 				atr = (AtributosRolNivel)session.getAttribute("atributos");
 				
-			}; 
+			};
+			
+			Rol currentRol = (Rol)session.getAttribute("selectedRole");
 		%>
-		<h1>Hola, <%= atr.getVida() %> </h1>
 		<h1>Creación de personajes</h1>
+		<label>Por favor elija primero el rol del personaje.</label>
 		<form  method="post" action="${pageContext.request.contextPath}/Personajes" id="register" class="">
 			<div class="row">
 				<div class="col-md-6">
-					<h3>Personaje</h3>
-					<label>Usted tiene {{points}} puntos a otorgarle a su personaje, elija bien</label>
-					
+					<div class="col-md-12">
+						<h3>Rol de personaje</h3>
+						<label>Elija el rol que tendrá el personaje.</label>
+						
+						<% if(currentRol != null){	
+							%><label>Su rol elegido es: <%= currentRol.getDescripcion_rol() %></label> <%
+						} %>
+						
+						<div class="row">
+							<div class="col-sm-10">
+								<select name="selectedRole" class="form-control h-100" v-model="roles">
+								  <c:forEach items="${roles}" var="rol">
+							     	<option value="${rol.id_rol}">
+							     		<c:out value="${rol.descripcion_rol}"/>
+							     	</option>    	
+							      </c:forEach>
+								</select>
+							</div>
+							<div class="col-sm-2 pull-right">
+								<button name="selectRole" type="submit" class="btn btn-success h-100">
+									<i class="fa fa-arrow-right"></i>
+								</button>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="col-md-6 ">
+					<h3>Personaje</h3>					
 					<label>Nombre</label>
 					<input class="form-control" name="nombre" type="text" placeholder="Nombre" value="" />
 					<br>
@@ -66,46 +91,13 @@
 					<br>
 					<label>Evasión</label>
 					<input class="form-control" name="evasion" type="text" placeholder="Evasion" v-model="evasion" value="<%=String.valueOf(atr.getEvasion()) %>" disabled/>
-					<br>
-					
-				</div>
-				<div class="col-md-6 ">
-					<div class="col-md-12">
-						<h3>Ataques</h3>
-					
-						<label>Elija los ataques iniciales con los {{points}} puntos restantes</label>
-					    <select name="selectedAttacks" class="form-control col-md-12 h-50" v-model="attacks" multiple>
-						  <c:forEach items="${ataques}" var="ataque">
-					     	<option value="${ataque.id_ataque}">
-					     		<c:out value="${ataque.nombre_ataque}"/> - Requiere: <c:out value="${ataque.energia_requerida}"/> de energia
-					     	</option>    	
-					      </c:forEach>
-						</select>
-						
-						<div v-if="selectedAttacks != 0">
-							<p>Usted seleccionó {{selectedAttacks}} ataques</p>
-						</div>
-					</div>
-					
-					<div class="col-md-12">
-						<h3>Rol de personaje</h3>
-						<label>Elija el rol que tendrá el personaje</label>
-						<select name="selectedRole" class="form-control col-md-12 h-50" v-model="roles">
-						  <c:forEach items="${roles}" var="rol">
-					     	<option value="${rol.id_rol}">
-					     		<c:out value="${rol.descripcion_rol}"/>
-					     	</option>    	
-					      </c:forEach>
-						</select>
-						<br>
-						<button name="selectRole" type="submit" class="btn btn-success">Seleccionar rol</button>
-					</div>
+					<br>	
 				</div>
 			</div>
-			<div class="row">
+			<div class="row pull-right">
 				<div class="col-md-12">
-					<button name="guardarPersonaje" type="submit" class="btn btn-success">Aceptar</button>
 					<button name="cancelar" type="submit" class="btn btn-light">Cancelar</button>
+					<button name="agregarAtaques" type="submit" class="btn btn-info">Agregar ataques</button>
 				</div>
 			</div>
 		</form>
