@@ -1,19 +1,34 @@
 package logic;
 
+import java.util.ArrayList;
+
 import data.DataCombate;
 import data.DataTorneo;
 import entidades.Torneo;
 import entidades.Personaje;
 import entidades.Combate;
+import entidades.TorneoCombate;
 import utils.ApplicationException;
 
 public class CtrlTorneo {
 	private Torneo torneo;
-	private DataTorneo dataTorneo = new DataTorneo();
-	private DataCombate dataCombate = new DataCombate();
+	private DataTorneo dataTorneo;
+	private DataCombate dataCombate;
+	
+	public CtrlTorneo(){
+		dataCombate = new DataCombate();
+		dataTorneo = new DataTorneo();
+	}
 	
 	public void create(Torneo t) throws ApplicationException {
-		dataTorneo.add(t);
+		Torneo tor = dataTorneo.add(t);
+		int id_torneo = tor.getId();
+		System.out.print(id_torneo);
+		ArrayList<TorneoCombate> tcArray = this.getTorneoCombateToInsert(id_torneo);
+		System.out.println(tcArray);
+		System.out.println(tcArray.size());
+		System.out.println(tcArray.get(1).getCombate_activo());
+		dataTorneo.addTorneoCombates(tcArray);
 	}
 	
 	public Personaje getEnemigo(int idTorneo) 
@@ -64,5 +79,39 @@ public class CtrlTorneo {
 		return p;
 	}
 	
-
+	
+	
+	public ArrayList<TorneoCombate> getTorneoCombateToInsert(int id_torneo){
+		ArrayList<TorneoCombate> torneoCombates = new ArrayList<TorneoCombate>();
+		try {
+			ArrayList<Combate> allCombates = dataCombate.getCombates();
+			int count = allCombates.size();
+			int lastAddedTorneoCombate = dataTorneo.getIdMaxTorneoCombate();
+			int total = count + lastAddedTorneoCombate;
+			for(int i = 0; i < count; i++){
+				TorneoCombate tc = new TorneoCombate();
+				tc.id_torneo = id_torneo;
+				tc.id_combate = allCombates.get(i).getId();
+				if(i == 0){
+					tc.combate_activo = 1;
+				} else {
+					tc.combate_activo = 0;
+				}
+				
+				if(i == count-1){
+					tc.id_siguiente_combate = null;
+				} else {
+					tc.id_siguiente_combate = total - (i + 1);
+				}
+				
+				torneoCombates.add(tc);
+			}
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return torneoCombates;
+	}
 }

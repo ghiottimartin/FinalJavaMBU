@@ -345,13 +345,6 @@ public class DataPersonaje {
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
 					"select * from personaje",PreparedStatement.RETURN_GENERATED_KEYS);
-			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated on the db
-			// by the autoincrement column. Otherwise don't use it
-						
-
-			
-			
-			//after executing the insert use the following lines to retrieve the id
 			rs=stmt.executeQuery();
 			if(rs!=null){
 										

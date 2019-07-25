@@ -79,7 +79,7 @@
 			      <div class="col-md-4">
 			        <h2>Torneo</h2>
 			        <p>Comience un torneo contra nuestros grandes villanos y comience a ganar experiencia con sus personajes.</p>
-			        <button class="button btn btn-primary btn-lg btn-block">Torneo</button>
+			        <button name="torneo" class="button btn btn-primary btn-lg btn-block">Torneo</button>
 			      </div>
 			      <%
 						if(u != null && u.getRol().equals("admin")) {

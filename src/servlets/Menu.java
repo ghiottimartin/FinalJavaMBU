@@ -41,14 +41,14 @@ public class Menu extends HttpServlet {
 		if(request.getParameter("loadCharacter") != null){
 			response.sendRedirect("routes/AgregarPersonaje.jsp");
 		}
+		if(request.getParameter("torneo") != null){
+			response.sendRedirect("routes/MenuTorneo.jsp");
+		}
 		
-		if(request.getParameter("ataques") != null){
-			
+		if(request.getParameter("ataques") != null){	
 			response.sendRedirect("routes/Ataques.jsp");
 		}		
-		if(request.getParameter("editCharacters") != null){
-			response.sendRedirect("routes/EditarPersonajes.jsp");
-		}
+
 	}
 
 }
