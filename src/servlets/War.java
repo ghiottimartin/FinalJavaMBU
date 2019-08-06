@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Torneo;
 import logic.CtrlCombate;
+import logic.CtrlTorneo;
 import utils.ApplicationException;
 
 /**
@@ -43,6 +45,7 @@ public class War extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		controlador = (CtrlCombate)request.getSession().getAttribute("CtrlCombate");
+		CtrlTorneo ctrlTorneo = new CtrlTorneo();
 		PrintWriter out = response.getWriter(); 
 		if(request.getParameter("atacar")!= null){
 			try {
@@ -50,9 +53,27 @@ public class War extends HttpServlet {
 				//if(controlador.ataque(Integer.parseInt(request.getParameter("energiaUsar")), turno))
 				if(controlador.ataque(energia, turno))
 				{
-					request.getSession().setAttribute("nombreTurno", controlador.getPerTurno()); 					
-					request.getSession().setAttribute("msg", "personaje: "+ String.valueOf(controlador.getPerTurno()));
-					request.getRequestDispatcher("routes/Winner.jsp").forward(request, response);
+					if(turno == 1){
+						request.getSession().setAttribute("nombreTurno", controlador.getPerTurno()); 					
+						request.getSession().setAttribute("msg", "personaje: "+ String.valueOf(controlador.getPerTurno()));
+						
+						Torneo t = (Torneo) request.getSession().getAttribute("torneo");
+						int id_next_combate = ctrlTorneo.updateCombateActivo(t.getId());
+						
+						if(id_next_combate == 0){
+							//va a pantalla de ganaste torneo
+							request.getRequestDispatcher("routes/Winner.jsp").forward(request, response);
+						} else {
+							//va a pantalla ganaste combate WinCombat.jsp
+							request.getRequestDispatcher("routes/WinCombat.jsp").forward(request, response);
+						}		
+						
+					}
+					else {
+						//tiene que ir a la pantalla de perdida
+						request.getRequestDispatcher("routes/Loser.jsp").forward(request, response);
+					}
+					
 				}else{
 					if(controlador.isEvadido())
 					{

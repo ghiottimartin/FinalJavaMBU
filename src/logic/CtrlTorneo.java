@@ -114,4 +114,30 @@ public class CtrlTorneo {
 		
 		return torneoCombates;
 	}
+	
+	public int updateCombateActivo(int idTorneo){
+		int id_next_combate = 0;
+		int id_current_combate= 0;
+		System.out.println("Entro a updatecombateactivo");
+		System.out.println(idTorneo);
+		try {
+			id_current_combate = dataTorneo.getIdTorneoCombateActivo(idTorneo);
+			System.out.println(id_current_combate);
+		} catch (ApplicationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			id_next_combate = dataTorneo.getNextCombate(id_current_combate);
+			System.out.println(id_next_combate);
+			if(id_next_combate != 0){
+				dataTorneo.updateCombateActivo(id_current_combate, id_next_combate);
+			} 
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return id_next_combate;
+	}
 }

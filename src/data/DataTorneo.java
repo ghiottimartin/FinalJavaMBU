@@ -201,6 +201,43 @@ public class DataTorneo {
 		return idCombate;
 	}
 	
+	
+	public int getIdTorneoCombateActivo(int idTorneo) throws ApplicationException{
+		
+		int idTorneoCombate = 0;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select id_torneo_combate from torneo_combate where id_torneo=? and combate_activo =1 ");
+			stmt.setInt(1, idTorneo);
+			rs= stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				idTorneoCombate = rs.getInt("id_torneo_combate");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		    throw new ApplicationException(e,"Error en el sql al buscar el Personaje o Usuario");
+		} catch (ApplicationException ae) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException(ae, "Personaje y/o Usuario no encontrado");
+		}
+		finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return idTorneoCombate;
+	}
 	//select max(id_torneo_combate) from torneo_combate;
 	
 	public int getIdMaxTorneoCombate() throws ApplicationException{
@@ -295,6 +332,81 @@ public class DataTorneo {
 			}
 		}
 	  }
+	}
+	
+	public int getNextCombate(int id_current_combate) throws ApplicationException{
+		int next_combate = 0;
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select id_siguiente_combate from torneo_combate where id_torneo_combate = ?");
+			stmt.setInt(1, id_current_combate);
+			rs= stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				next_combate = rs.getInt("id_siguiente_combate");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		    throw new ApplicationException(e,"Error en el sql al traer el maximo de los torneo-combate");
+		} catch (ApplicationException ae) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException(ae, "Personaje y/o Usuario no encontrado");
+		}
+		finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+		return next_combate;
+	}
+	
+	
+	public void updateCombateActivo(int id_current_combate, int id_next_combate) throws ApplicationException {
+		PreparedStatement stmt=null;
+		PreparedStatement stmt2=null;
+
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"update torneo_combate set combate_activo = 0 where id_torneo_combate = ?");
+			stmt.setInt(1, id_current_combate);
+			stmt.execute();
+			
+			stmt2 = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"update torneo_combate set combate_activo = 1 where id_torneo_combate = ?");
+			stmt2.setInt(1, id_next_combate);
+			stmt2.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		    throw new ApplicationException(e,"Error en el sql al traer el maximo de los torneo-combate");
+		} catch (ApplicationException ae) {
+			// TODO Auto-generated catch block
+			throw new ApplicationException(ae, "Personaje y/o Usuario no encontrado");
+		}
+		finally {
+			try {
+				if(stmt!=null)stmt.close();
+				if(stmt2!=null)stmt2.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 		
 }

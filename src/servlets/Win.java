@@ -34,7 +34,14 @@ public class Win extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/Index.jsp").forward(request, response);
+		if(request.getParameter("next_combate") != null){
+			request.getRequestDispatcher("routes/IniciarCombate.jsp").forward(request, response);
+		}
+		
+		if(request.getParameter("volver") != null){
+			request.getRequestDispatcher("routes/Menu.jsp").forward(request, response);
+		}
+		
 	}
 
 }
