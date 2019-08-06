@@ -5,6 +5,7 @@ import utils.ApplicationException;
 import utils.SuperLogger;
 import data.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import org.apache.log4j.Level;
 public class CtrlCombate {
 	private Personaje pers1, pers2;
 	private DataPersonaje dataPer = new DataPersonaje();
+	private DataCombate dataCombate = new DataCombate();
 	private int vidaP1, vidaP2, energiaP1, energiaP2;
 	private String perTurno;
 	private String ganador;
@@ -355,7 +357,16 @@ private void notifyUser(String mensaje, Exception e, org.apache.logging.log4j.Le
 	SuperLogger.logger.log(l, mensaje, e);
 }
 
-
+public ArrayList<Ataque> getAtaquesOfPersonaje(int id_personaje) {
+	ArrayList<Ataque> ataques_personaje = new ArrayList<Ataque>();
+	try {
+		ataques_personaje = dataCombate.getAtaquesOfPersonaje(id_personaje);
+	} catch (ApplicationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return ataques_personaje;
+}
 
 
 
