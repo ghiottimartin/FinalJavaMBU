@@ -517,5 +517,72 @@ public class DataPersonaje {
 		return roles;
 	}
 	
+	public void updateExperienciaPersonaje(int id_personaje, int cant_experiencia) throws ApplicationException{
+		PreparedStatement stmt=null;
+		try {
+			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
+					"update personaje " +
+					"set experiencia = experiencia + ? " +
+					"where id_personaje = ?;");
+			stmt.setInt(1, cant_experiencia);
+			stmt.setInt(2, id_personaje);
+			stmt.execute();
+					
+		} catch (SQLException e) {
+			throw new ApplicationException(e,"Error en el sql al modificar el personaje");
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void levelUpPersonaje(AtributosRolNivel atr, int id_personaje, int id_next_nivel) throws ApplicationException{
+		PreparedStatement stmt=null;
+		try {
+			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
+					"update personaje " +
+					"set vida = ?, energia = ?, defensa = ?, evasion = ?, id_nivel = ? " +
+					"where id_personaje = ?;");
+			stmt.setInt(1, atr.getVida());
+			stmt.setInt(2, atr.getEnergia());
+			stmt.setInt(3, atr.getDefensa());
+			stmt.setInt(4, atr.getEvasion());
+			stmt.setInt(5, id_next_nivel);
+			stmt.setInt(6, id_personaje);
+			stmt.execute();
+					
+		} catch (SQLException e) {
+			throw new ApplicationException(e,"Error en el sql al modificar el personaje");
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 
 }

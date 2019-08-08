@@ -164,4 +164,24 @@ public class ControladorABMCPersonaje {
 		
 		return atr;
 	}
+	
+	public void updateExperienciaPersonaje (int id_personaje, int cant_experiencia){
+		try {
+			dataPer.updateExperienciaPersonaje(id_personaje, cant_experiencia);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void levelUpPersonaje(Personaje per, int id_next_nivel){
+		AtributosRolNivel atr = puntosTotalesSegunRolNivel(per.getId_rol(),id_next_nivel);
+		try {
+			System.out.println("VIDA DE ATR: " + atr.getVida());
+			dataPer.levelUpPersonaje(atr, per.getId(), id_next_nivel);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

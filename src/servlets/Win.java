@@ -35,6 +35,7 @@ public class Win extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("next_combate") != null){
+			
 			request.getRequestDispatcher("routes/IniciarCombate.jsp").forward(request, response);
 		}
 		

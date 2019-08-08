@@ -48,4 +48,40 @@ public class DataNivel {
 		
 		return nivel;
 	}
+	
+	public int getOneLevelByExperience(int experiencia) throws ApplicationException{
+		int id_nivel = 0;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select min(id_nivel) 'id_nivel' from nivel where experiencia_minima >= ?;",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1,experiencia);
+			rs = stmt.executeQuery();
+			if (rs!=null && rs.next()) {
+				id_nivel = rs.getInt("id_nivel");
+			}
+
+		} catch (SQLException e) {
+			throw new ApplicationException(e, "Error en el SQL");
+		} catch (ApplicationException ae) {
+			throw new ApplicationException(ae, "No existen roles");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return id_nivel;
+	}
 }

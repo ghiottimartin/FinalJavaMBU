@@ -1,3 +1,4 @@
+<%@page import="entidades.Personaje"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,7 +10,13 @@
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">	
 </head>
 <body>
-	<h1 align="center">Ganó el combate</h1>
+	<% 
+		Personaje p = ((Personaje)session.getAttribute("Personaje"));
+
+	%>
+	<h1 align="center">Ganó el combate  <%= p.getNombre() %></h1>
+	<label>Tu nivel es:  <%= p.getId_nivel() %></label>
+	<label>Tu vida es:  <%= p.getVida() %></label>
 	<form method="post" action="Win">
 		<button name="next_combate" class="btn btn-primary btn-lg" type="submit">Siguiente combate</button>
 	</form>

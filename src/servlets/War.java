@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Personaje;
 import entidades.Torneo;
 import logic.CtrlCombate;
 import logic.CtrlTorneo;
+import logic.ControladorABMCPersonaje;
 import utils.ApplicationException;
 
 /**
@@ -46,6 +48,7 @@ public class War extends HttpServlet {
 
 		controlador = (CtrlCombate)request.getSession().getAttribute("CtrlCombate");
 		CtrlTorneo ctrlTorneo = new CtrlTorneo();
+		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
 		PrintWriter out = response.getWriter(); 
 		if(request.getParameter("atacar")!= null){
 			try {
@@ -58,8 +61,16 @@ public class War extends HttpServlet {
 						request.getSession().setAttribute("msg", "personaje: "+ String.valueOf(controlador.getPerTurno()));
 						
 						Torneo t = (Torneo) request.getSession().getAttribute("torneo");
-						int id_next_combate = ctrlTorneo.updateCombateActivo(t.getId());
+						//Asignacion de experiencia
+						Personaje p = (Personaje) request.getSession().getAttribute("P1");
+						int cant_experiencia = controlador.getExperienciaFromCombate(ctrlTorneo.getIdCombateActivo(t.getId()));
+						ctrlPersonaje.updateExperienciaPersonaje(p.getId(), cant_experiencia);
 						
+						//Subida de nivel
+						int id_next_nivel = controlador.getNivelByExperiencia(cant_experiencia);
+						ctrlPersonaje.levelUpPersonaje(p, id_next_nivel);
+						int id_next_combate = ctrlTorneo.updateCombateActivo(t.getId());
+						request.getSession().setAttribute("Personaje", p); 	
 						if(id_next_combate == 0){
 							//va a pantalla de ganaste torneo
 							request.getRequestDispatcher("routes/Winner.jsp").forward(request, response);

@@ -17,6 +17,7 @@ public class CtrlCombate {
 	private Personaje pers1, pers2;
 	private DataPersonaje dataPer = new DataPersonaje();
 	private DataCombate dataCombate = new DataCombate();
+	private DataNivel dataNivel = new DataNivel();
 	private int vidaP1, vidaP2, energiaP1, energiaP2;
 	private String perTurno;
 	private String ganador;
@@ -368,10 +369,26 @@ public ArrayList<Ataque> getAtaquesOfPersonaje(int id_personaje) {
 	return ataques_personaje;
 }
 
+public int getExperienciaFromCombate(int id_combate){
+	int experiencia = 0;
+	try {
+		experiencia = dataCombate.getExperienciaFromCombate(id_combate);
+	} catch (ApplicationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return experiencia;
+}
 
+public int getNivelByExperiencia(int experiencia) {
+	int id_nivel = 0;
+	try {
+		id_nivel = dataNivel.getOneLevelByExperience(experiencia);
+	} catch (ApplicationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return id_nivel;
+}
 
-
-
-
-	
 }

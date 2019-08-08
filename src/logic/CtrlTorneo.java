@@ -140,4 +140,15 @@ public class CtrlTorneo {
 		
 		return id_next_combate;
 	}
+	
+	public int getIdCombateActivo(int id_torneo){
+		int id_combate_activo = 0;
+		try {
+			id_combate_activo = dataTorneo.getIdCombateActivo(id_torneo);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id_combate_activo;
+	}
 }
