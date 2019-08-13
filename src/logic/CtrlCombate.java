@@ -80,6 +80,17 @@ public class CtrlCombate {
 		this.energiaP2 = energiaP2;
 	}
 	
+	public int getEnergiabyTurno(int turno) {
+		if (turno==1)
+		{
+		return energiaP1;
+		}
+		else 
+		{
+		return energiaP2;
+		}
+	}
+	
 	public String getGanador() {
 		return ganador;
 	}
@@ -369,6 +380,18 @@ public ArrayList<Ataque> getAtaquesOfPersonaje(int id_personaje) {
 	return ataques_personaje;
 }
 
+public ArrayList<Ataque> getAtaquesOfPersonajeByEnergia(int id_personaje, int turno) {
+	ArrayList<Ataque> ataques_personaje = new ArrayList<Ataque>();
+	int energia = getEnergiabyTurno(turno);
+	try {
+		ataques_personaje = dataCombate.getAtaquesOfPersonajeByEnergia(id_personaje, energia);
+	} catch (ApplicationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return ataques_personaje;
+}
+
 public int getExperienciaFromCombate(int id_combate){
 	int experiencia = 0;
 	try {
@@ -389,6 +412,17 @@ public int getNivelByExperiencia(int experiencia) {
 		e.printStackTrace();
 	}
 	return id_nivel;
+}
+
+public int getIdPersonajeTurno(int turno) {
+	if (turno==1)
+	{
+	return pers1.getId();
+	}
+	else 
+	{
+	return pers2.getId();
+	}
 }
 
 }

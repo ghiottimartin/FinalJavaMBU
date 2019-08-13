@@ -147,6 +147,54 @@ public class DataCombate {
 		return lista;
 	}
 	
+	public ArrayList<Ataque> getAtaquesOfPersonajeByEnergia(int id_personaje, int energia) throws ApplicationException {
+		ResultSet rs=null;
+		PreparedStatement stmt=null;
+		ArrayList<Ataque> lista = new ArrayList<Ataque>();
+		Ataque att;
+		
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select ata.* from personaje_ataque pa inner join ataque ata on pa.id_ataque = ata.id_ataque where pa.id_personaje = ? and energia_requerida <= ? ;",PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, id_personaje);
+			stmt.setInt(2, energia);
+			rs=stmt.executeQuery();
+			if(rs!=null){							
+				while(rs.next())
+				{
+					att = new Ataque();
+					att.setId_ataque(rs.getInt("id_ataque"));
+					att.setEnergia_requerida(rs.getInt("energia_requerida"));
+					att.setNombre_ataque(rs.getString("nombre_ataque"));
+					
+					lista.add(att);
+				}
+			}		
+			
+			
+		} catch (SQLException e) {
+			ApplicationException ade=new ApplicationException(e, "Error al recuperar persoajes.\n"+e.getMessage());
+			throw ade;
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();;
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return lista;
+	}
+	
 	public int getExperienciaFromCombate(int id_combate) throws ApplicationException{
 		ResultSet rs = null;
 		PreparedStatement stmt = null;

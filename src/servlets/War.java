@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Personaje;
 import entidades.Torneo;
+import entidades.Ataque;
 import logic.CtrlCombate;
 import logic.CtrlTorneo;
 import logic.ControladorABMCPersonaje;
@@ -49,6 +51,7 @@ public class War extends HttpServlet {
 		controlador = (CtrlCombate)request.getSession().getAttribute("CtrlCombate");
 		CtrlTorneo ctrlTorneo = new CtrlTorneo();
 		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+		List<Ataque> ataques;
 		PrintWriter out = response.getWriter(); 
 		if(request.getParameter("atacar")!= null){
 			try {
@@ -94,6 +97,8 @@ public class War extends HttpServlet {
 					}
 					request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 					this.cambiaTurno();
+					ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
+					request.getSession().setAttribute("ataques", ataques);
 					//request.getRequestDispatcher("WEB-INF/Combate.jsp").forward(request, response);
 					request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);
 				}
@@ -110,6 +115,8 @@ public class War extends HttpServlet {
 			controlador.defensa(turno);			
 			request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 			this.cambiaTurno();
+			ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
+			request.getSession().setAttribute("ataques", ataques);
 			request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);
 			
 		}

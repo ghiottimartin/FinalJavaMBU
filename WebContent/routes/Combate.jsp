@@ -35,7 +35,7 @@
 		energia2 = combate.getEnergiaP2();
 		String nombrepersonaje = String.valueOf(p1.getNombre());
 		String nombreEnemigo = String.valueOf(p2.getNombre());
-		List<Ataque> ataques = combate.getAtaquesOfPersonaje(p1.getId());
+		List<Ataque> ataques = (List<Ataque>)session.getAttribute("ataques");
 		request.setAttribute("ataques", ataques);
 	%>
 	

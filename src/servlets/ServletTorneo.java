@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import entidades.Ataque;
 import entidades.Personaje;
 import entidades.Torneo;
 import entidades.Usuario;
 import logic.CtrlCombate;
 import logic.CtrlTorneo;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
@@ -88,6 +90,8 @@ public class ServletTorneo extends HttpServlet {
 			request.getSession().setAttribute("P1", p1);
 			request.getSession().setAttribute("P2", p2);
 			request.getSession().setAttribute("nombreTurno", p1.getNombre());
+			List<Ataque> ataques = ctrlCombate.getAtaquesOfPersonajeByEnergia(ctrlCombate.getIdPersonajeTurno(1),1);
+			request.getSession().setAttribute("ataques", ataques);
 			response.sendRedirect("routes/Combate.jsp");
 		}
 					
