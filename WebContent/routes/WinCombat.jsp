@@ -15,8 +15,16 @@
 
 	%>
 	<h1 align="center">Ganó el combate  <%= p.getNombre() %></h1>
+	</br>
 	<label>Tu nivel es:  <%= p.getId_nivel() %></label>
-	<label>Tu vida es:  <%= p.getVida() %></label>
+	</br>
+	<label>Tu Vida es:  <%= p.getVida() %></label>
+	</br>
+	<label>Tu Energia es:  <%= p.getEnergia() %></label>
+	</br>
+	<label>Tu Defensa es:  <%= p.getDefensa() %></label>
+	</br>
+	<label>Tu Evasion es:  <%= p.getEvasion() %></label>
 	<form method="post" action="Win">
 		<button name="next_combate" class="btn btn-primary btn-lg" type="submit">Siguiente combate</button>
 	</form>

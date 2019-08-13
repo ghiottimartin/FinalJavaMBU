@@ -70,7 +70,8 @@ public class War extends HttpServlet {
 						int id_next_nivel = controlador.getNivelByExperiencia(cant_experiencia);
 						ctrlPersonaje.levelUpPersonaje(p, id_next_nivel);
 						int id_next_combate = ctrlTorneo.updateCombateActivo(t.getId());
-						request.getSession().setAttribute("Personaje", p); 	
+						Personaje per = ctrlPersonaje.getById(p.getId());
+						request.getSession().setAttribute("Personaje", per); 	
 						if(id_next_combate == 0){
 							//va a pantalla de ganaste torneo
 							request.getRequestDispatcher("routes/Winner.jsp").forward(request, response);

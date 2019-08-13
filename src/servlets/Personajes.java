@@ -92,7 +92,7 @@ public class Personajes extends HttpServlet {
 		per.setVida(atr.getVida());
 		per.setEnergia(atr.getEnergia());
 		per.setDefensa(atr.getDefensa());
-		per.setEvasion(atr.getEnergia());
+		per.setEvasion(atr.getEvasion());
 		Rol selectedRole = (Rol)(request.getSession().getAttribute("selectedRole"));
 		per.setId_rol(selectedRole.getId_rol());
 		return per;
