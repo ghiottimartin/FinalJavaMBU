@@ -79,7 +79,8 @@
 			<br>
 			<br>
 			<button name="atacar" class="btn btn-primary btn-lg" type="submit">Atacar</button>
-			<button name="defender" class="btn btn-lg btn-default" type="submit">Defender</button>
+			<button name="defender" class="btn btn-success btn-default" type="submit">Defender</button>
+			<button name="continuar" class="btn btn-danger" type="submit">Continuar</button>
 		</div>
 	
 		<div class="col-md-4">

@@ -112,16 +112,55 @@ public class War extends HttpServlet {
 		
 		if(request.getParameter("defender")!= null) {
 			
+			if (turno ==1)
+			{
 			controlador.defensa(turno);			
 			request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 			this.cambiaTurno();
 			ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
 			request.getSession().setAttribute("ataques", ataques);
 			request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);
+			}
 			
 		}
 		
-		
+		if(request.getParameter("continuar")!= null) {
+			
+			if (turno == 2)
+			{		
+				ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
+				if (ataques.isEmpty() || ataques.size() == 0 || ataques == null)
+				{
+				controlador.defensa(turno);
+				}
+				else
+				{
+					int energia = controlador.getEnergiaFromAtaque(1);
+					try {
+						if(controlador.ataque(energia, turno))					
+						{	
+							//tiene que ir a la pantalla de perdida
+							request.getRequestDispatcher("routes/Loser.jsp").forward(request, response);
+						}
+						else{
+								if(controlador.isEvadido())
+								{
+									request.setAttribute("evadido", "El ataque fue evadido");
+									controlador.setEvadido(false);
+								}
+							}
+					} catch (ApplicationException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
+				this.cambiaTurno();
+				ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
+				request.getSession().setAttribute("ataques", ataques);
+				request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);		
+		    }		
+		}
 	}
 	
 
