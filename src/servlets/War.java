@@ -55,6 +55,7 @@ public class War extends HttpServlet {
 		PrintWriter out = response.getWriter(); 
 		if(request.getParameter("atacar")!= null){
 			try {
+				if(turno == 1){
 				int energia = controlador.getEnergiaFromAtaque(Integer.parseInt(request.getParameter("idAtaque")));
 				//if(controlador.ataque(Integer.parseInt(request.getParameter("energiaUsar")), turno))
 				if(controlador.ataque(energia, turno))
@@ -97,10 +98,12 @@ public class War extends HttpServlet {
 					}
 					request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 					this.cambiaTurno();
+					request.getSession().setAttribute("turno", turno);
 					ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
 					request.getSession().setAttribute("ataques", ataques);
 					//request.getRequestDispatcher("WEB-INF/Combate.jsp").forward(request, response);
 					request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);
+				}
 				}
 			} catch (NumberFormatException e) {
 				out.println("<script type=\"text/javascript\">alert('Error en la energia');</script>");
@@ -117,6 +120,7 @@ public class War extends HttpServlet {
 			controlador.defensa(turno);			
 			request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 			this.cambiaTurno();
+			request.getSession().setAttribute("turno", turno);
 			ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
 			request.getSession().setAttribute("ataques", ataques);
 			request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);
@@ -135,7 +139,8 @@ public class War extends HttpServlet {
 				}
 				else
 				{
-					int energia = controlador.getEnergiaFromAtaque(1);
+					Ataque ataque = controlador.randomAtaque(ataques);
+					int energia = controlador.getEnergiaFromAtaque(ataque.getId_ataque());
 					try {
 						if(controlador.ataque(energia, turno))					
 						{	
@@ -156,6 +161,7 @@ public class War extends HttpServlet {
 				}
 				request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 				this.cambiaTurno();
+				request.getSession().setAttribute("turno", turno);
 				ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
 				request.getSession().setAttribute("ataques", ataques);
 				request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);		
@@ -173,7 +179,6 @@ public class War extends HttpServlet {
 		{
 			turno = 1;
 		}
-		
 	}
 
 }

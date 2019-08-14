@@ -92,6 +92,7 @@ public class ServletTorneo extends HttpServlet {
 			request.getSession().setAttribute("nombreTurno", p1.getNombre());
 			List<Ataque> ataques = ctrlCombate.getAtaquesOfPersonajeByEnergia(ctrlCombate.getIdPersonajeTurno(1),1);
 			request.getSession().setAttribute("ataques", ataques);
+			request.getSession().setAttribute("turno",1);
 			response.sendRedirect("routes/Combate.jsp");
 		}
 					

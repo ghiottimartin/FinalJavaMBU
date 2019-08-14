@@ -6,6 +6,7 @@ import utils.SuperLogger;
 import data.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -22,6 +23,7 @@ public class CtrlCombate {
 	private String perTurno;
 	private String ganador;
 	private boolean evadido = false;
+	private static Random rand;
 	
 
 	public boolean isEvadido() {
@@ -423,6 +425,12 @@ public int getIdPersonajeTurno(int turno) {
 	{
 	return pers2.getId();
 	}
+}
+
+public static Ataque randomAtaque(List<Ataque> ataques) {
+rand = new Random();
+Ataque ataque = ataques.get(rand.nextInt(ataques.size()));
+return ataque;
 }
 
 }

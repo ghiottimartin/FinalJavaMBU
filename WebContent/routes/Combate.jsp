@@ -37,6 +37,7 @@
 		String nombreEnemigo = String.valueOf(p2.getNombre());
 		List<Ataque> ataques = (List<Ataque>)session.getAttribute("ataques");
 		request.setAttribute("ataques", ataques);
+		int turno = (int)session.getAttribute("turno");
 	%>
 	
 	<form method="post" class="form-pers1" action="${pageContext.request.contextPath}/War">
@@ -78,9 +79,21 @@
 			
 			<br>
 			<br>
+			<%
+		if( turno == 1)
+		{
+			%>				
 			<button name="atacar" class="btn btn-primary btn-lg" type="submit">Atacar</button>
 			<button name="defender" class="btn btn-success btn-default" type="submit">Defender</button>
+			<% 
+		}
+		else
+		{
+			%>				
 			<button name="continuar" class="btn btn-danger" type="submit">Continuar</button>
+			<% 
+		}
+	        %>
 		</div>
 	
 		<div class="col-md-4">
