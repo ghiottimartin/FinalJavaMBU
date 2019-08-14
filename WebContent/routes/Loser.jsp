@@ -4,9 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>PERDEDOOOR!!!</title>
+	
+	<style type="text/css">
+    <%@include file="bootstrap.min.css" %>
+    <%@include file="signin.css" %>
+	</style>	
 </head>
 <body>
-
+		<h1 align="center">Has perdido el torneo! mejor suerte la proxima</h1>
+		<form method="post" action="Win">
+			<button name="volver" class="btn btn-primary btn-lg" type="submit">Volver</button>
+		</form>
 </body>
 </html>
