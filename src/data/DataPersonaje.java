@@ -474,19 +474,32 @@ public class DataPersonaje {
 	
 	public ArrayList<Personaje> getByUser(int id_usuario) throws ApplicationException{
 		ArrayList<Personaje> personajes = new ArrayList<Personaje>();
+		Personaje p = null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select id_personaje from usuario_personaje where id_usuario=?");
+					"select per.* from usuario_personaje up inner join personaje per on up.id_personaje = per.id_personaje where up.id_usuario = ?;");
 			stmt.setInt(1, id_usuario);
 			rs= stmt.executeQuery();
+			rs= stmt.executeQuery();
 			if(rs!=null){
-				//getById
+				
 				while(rs.next()) {
-					Personaje per = this.getById(rs.getInt(1));
-					personajes.add(per);
+					p=new Personaje();
+					p.setId(rs.getInt("id_personaje"));
+					p.setNombre(rs.getString("nombre"));
+					p.setVida(rs.getInt("vida"));
+					p.setEnergia(rs.getInt("energia"));
+					p.setDefensa(rs.getInt("defensa"));
+					p.setEvasion(rs.getInt("evasion"));
+					p.setExperiencia(rs.getInt("experiencia"));
+					p.setId_nivel(rs.getInt("id_nivel"));
+					p.setId_rol(rs.getInt("id_tipo_personaje"));
+					
+					personajes.add(p);
 				}
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

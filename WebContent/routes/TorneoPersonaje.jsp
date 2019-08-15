@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
 <%@page import="entidades.Usuario"%>
+<%@page import="entidades.Personaje"%>
+<%@page import="logic.ControladorABMCPersonaje"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,11 +29,24 @@
 		%> <h1>Hola, <%= nom %> <%= ape %> </h1> 
 		<% if(u == null){
 			response.sendRedirect("index.jsp");
-		} %>
+		} 
+		
+		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+		List<Personaje> personajes = ctrlPersonaje.recuperarPersonajesDeUsuario(u.getId());
+		request.setAttribute("personajes", personajes);
+		
+		
+		%>
 		
 		<div class="d-flex flex-column align-items-center">
- 				 <label>Id Personaje:</label>
-			<input class="form-control" id="email" name="idPersonaje" type="int" placeholder="Id" value="" />
+ 			<label>Elija a su personaje</label>
+			<select name="idPersonaje" class="form-control col-md-12">
+			  <c:forEach items="${personajes}" var="personaje">
+		     	<option value="${personaje.id}">
+		     		<c:out value="${personaje.nombre}"/>
+		     	</option>    	
+		      </c:forEach>
+			</select>
 			<div class="botones">
 				<button name="seleccionar" type="submit" class="btn btn-success">Seleccionar</button>
 			</div>
