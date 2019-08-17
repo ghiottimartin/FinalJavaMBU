@@ -27,10 +27,13 @@
 		
 		<div class="d-flex flex-column align-items-center">
 			<div class="p-2">
-				<button name="nuevo" type="submit" class="button btn btn-primary btn-lg">Crear nuevo Thorneo</button>
+				<button name="nuevo" type="submit" class="button btn btn-primary btn-lg">Crear nuevo Torneo</button>
 			</div>
 			<div class="p-2">
-				<button name="volver" type="submit" class="button btn btn-primary btn-lg">Volver</button>
+				<button name="cargar" type="submit" class="button btn btn-primary btn-lg">Cargar partida</button>
+			</div>
+			<div class="p-2">
+				<button name="volver" type="submit" class="button btn btn-success btn-lg">Volver</button>
 			</div>
 		</div>
 	</form>	

@@ -79,6 +79,9 @@ public class ServletTorneo extends HttpServlet {
 		if(request.getParameter("nuevo")!= null){
 			response.sendRedirect("routes/TorneoPersonaje.jsp");
 		}
+		if(request.getParameter("cargar")!= null){
+			response.sendRedirect("routes/CargaTorneo.jsp");
+		}
 		if(request.getParameter("iniciar")!= null){
 			Torneo t = (Torneo)request.getSession().getAttribute("torneo");
 			CtrlTorneo ctrlTorneo = new CtrlTorneo();

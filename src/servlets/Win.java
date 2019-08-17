@@ -43,6 +43,10 @@ public class Win extends HttpServlet {
 			request.getRequestDispatcher("routes/Menu.jsp").forward(request, response);
 		}
 		
+		if(request.getParameter("guardar") != null){
+			request.getRequestDispatcher("routes/GuardarPartida.jsp").forward(request, response);
+		}
+		
 	}
 
 }
