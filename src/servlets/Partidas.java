@@ -12,6 +12,7 @@ import entidades.Partida;
 import entidades.Torneo;
 import entidades.Usuario;
 import logic.CtrlPartidas;
+import logic.CtrlTorneo;
 import utils.ApplicationException;
 
 /**
@@ -68,6 +69,30 @@ public class Partidas extends HttpServlet {
 		
 		if(request.getParameter("cargar") != null){
 			//Do something...
+			CtrlPartidas partidas = new CtrlPartidas();
+			int id_partida = Integer.parseInt(request.getParameter("selectedPartida"));
+			//int idUsuario = getIdUsuario(request);
+			int idUsuarioPersonaje = partidas.getIdUsuarioPersonajeFromTorneo(id_partida);
+			int id_torneo = partidas.getIdTorneo(id_partida);
+			
+
+			if(idUsuarioPersonaje != 0){
+				Torneo t = new Torneo();
+				t.setIdUsuarioPersonaje(idUsuarioPersonaje);
+				t.setId(id_torneo);
+				try {
+					//ctrl.create(t);
+					request.getSession().setAttribute("torneo", t);
+					System.out.println("se cargó el torneo");
+					response.sendRedirect("routes/IniciarCombate.jsp");
+										
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else{
+				System.out.println("NO se cargó el torneo");
+			}
 		}
 	}
 	
@@ -77,6 +102,12 @@ public class Partidas extends HttpServlet {
 		int idUsuario = Integer.parseInt(String.valueOf(u.getId()));
 		System.out.println(idUsuario);
 		return idUsuario;
+	}
+	
+	public int getIdPersonaje(HttpServletRequest request) {
+		int idPersonaje = Integer.parseInt(request.getParameter("idPersonaje"));
+		System.out.println(idPersonaje);
+		return idPersonaje;
 	}
 
 }

@@ -21,4 +21,12 @@ public class CtrlPartidas {
 		return partidas;
 	}
 	
+	public int getIdUsuarioPersonajeFromTorneo(int id_partida){
+		return dataPar.getIdUsuarioPersonajeFromTorneo(id_partida);
+	}
+	
+	public int getIdTorneo(int id_partida){
+		return dataPar.getIdTorneo(id_partida);
+	}
+	
 }

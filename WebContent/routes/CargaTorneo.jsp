@@ -32,7 +32,7 @@
 	%>
 	<h2>Seleccione la partida que desea cargar</h2>
 	<div class="container">
-		<form method="post" action="Partidas">
+		<form method="post" action="${pageContext.request.contextPath}/Partidas">
 			<select name="selectedPartida" class="form-control col-md-12">
 			  <c:forEach items="${partidas}" var="partida">
 		     	<option value="${partida.id_partida}">

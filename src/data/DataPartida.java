@@ -96,5 +96,85 @@ public class DataPartida {
 		System.out.println(partidas);
 		return partidas;
 	}
+	
+	public int getIdUsuarioPersonajeFromTorneo(int id_partida){
+		int id_usuario_personaje = 0;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select t.id_usuario_personaje from partida par inner join torneo t on par.id_torneo = t.id_torneo where par.id_partida = ?;",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, id_partida);
+			rs = stmt.executeQuery();
+			if (rs != null && rs.next()) {
+				id_usuario_personaje = rs.getInt("id_usuario_personaje");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return id_usuario_personaje;
+	}
+	
+	public int getIdTorneo(int id_partida){
+		int id_torneo = 0;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		
+		
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select id_torneo from partida where id_partida = ?",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, id_partida);
+			rs = stmt.executeQuery();
+			if (rs != null && rs.next()) {
+				id_torneo = rs.getInt("id_torneo");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return id_torneo;
+	}
 
 }
