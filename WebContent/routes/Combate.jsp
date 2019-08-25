@@ -67,23 +67,31 @@
 			<br>
 			<input name="nombreTurno" type="text" class="form-control" disabled value="<%=String.valueOf(session.getAttribute("nombreTurno")) %>" >
 			<br>
+		
+			<br>
+			<br>
+			<%
+		if( turno == 1)
+		{
+			%>
+		    <%
+			if(ataques!=null && ataques.isEmpty() == false)
+		    {	%>	
 			<h2>Elegir Ataque</h2>
 
 		    <select name="idAtaque" class="form-control">
 			  <c:forEach items="${ataques}" var="ataque">
 		     	<option value="${ataque.id_ataque}">
-		     		<c:out value="${ataque.nombre_ataque}"/>
+		     		<c:out value="${ataque.nombre_ataque}"/> - Requiere: <c:out value="${ataque.energia_requerida}"/> de energia
 		     	</option>    	
 		      </c:forEach>
 			</select>
 			
 			<br>
 			<br>
-			<%
-		if( turno == 1)
-		{
-			%>				
+		
 			<button name="atacar" class="btn btn-primary btn-lg" type="submit">Atacar</button>
+		 <% }%>
 			<button name="defender" class="btn btn-success btn-default" type="submit">Defender</button>
 			<% 
 		}

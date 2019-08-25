@@ -49,6 +49,7 @@ public class War extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		controlador = (CtrlCombate)request.getSession().getAttribute("CtrlCombate");
+		turno = (int)request.getSession().getAttribute("turno");
 		CtrlTorneo ctrlTorneo = new CtrlTorneo();
 		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
 		List<Ataque> ataques;
