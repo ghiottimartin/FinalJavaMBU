@@ -194,22 +194,24 @@ public boolean evadir(int turno) {
 	float numAle = rnd.nextFloat();
 
 	boolean evade = false;
+	float evasion;
+	
 	if (turno == 1)
 	{
-		//(numAleatorio*100)>puntosDeEvasion
-		if ((numAle*100)<pers2.getEvasion())
-		{
-			evade = true;
-		}
+		evasion = pers2.getEvasion() / 4;
 	}
-	
 	else
 	{
-		//(numAleatorio*100)>puntosDeEvasion
-		if ((numAle*100)<pers1.getEvasion())
-		{
-			evade = true;
-		}
+		evasion = pers1.getEvasion() / 4;
+	}
+		
+	//int evasion = pers2.getEvasion() / 4;
+	if (evasion > 80) evasion = 80;
+	
+	//(numAleatorio*100)>puntosDeEvasion
+	if ((numAle*100)<evasion)
+	{
+		evade = true;
 	}
 	
 	return evade;
@@ -289,10 +291,12 @@ public void defensa(int turno) {
 }
 
 public void recuperaEnergia(int turno) {
+	double proporcionEnergia = 0.3;
 	if (turno ==1)
 	{
 
-		energiaP1 = energiaP1 + (pers1.getEnergia() * pers1.getDefensa())/100;
+		//energiaP1 = energiaP1 + (pers1.getEnergia() * pers1.getDefensa())/100;
+		energiaP1 = (int) (energiaP1 + (pers1.getDefensa())*proporcionEnergia);
 	
 		if (energiaP1 > pers1.getEnergia())
 		{
@@ -303,7 +307,7 @@ public void recuperaEnergia(int turno) {
 	else
 	{
 
-		energiaP2 = energiaP2 + (pers2.getEnergia() * pers2.getDefensa())/100;
+		energiaP2 = (int) (energiaP2 + (pers2.getDefensa())*proporcionEnergia);
 		
 		if (energiaP2 > pers2.getEnergia())
 		{
@@ -314,10 +318,12 @@ public void recuperaEnergia(int turno) {
 }
 
 public void recuperaVida(int turno) {
+	double proporcionVida = 0.2;
 	if (turno ==1)
 	{
 		//vidaARecuperar = vidaOriginal * defensa / 250
-		vidaP1 = vidaP1 + (pers1.getVida() * pers1.getDefensa())/250;
+		//vidaP1 = vidaP1 + (pers1.getVida() * pers1.getDefensa())/250;
+		vidaP1 = (int) (vidaP1 + (pers1.getDefensa())*proporcionVida);
 		if (vidaP1 > pers1.getVida())
 		{
 			vidaP1 = pers1.getVida();
@@ -326,7 +332,7 @@ public void recuperaVida(int turno) {
 	else
 	{
 	
-		vidaP2 = vidaP2 + (pers2.getVida() * pers2.getDefensa())/250;
+		vidaP2 = (int) (vidaP2 + (pers2.getDefensa())*proporcionVida);
 		if (vidaP2 > pers2.getVida())
 		{
 			vidaP2 = pers2.getVida();

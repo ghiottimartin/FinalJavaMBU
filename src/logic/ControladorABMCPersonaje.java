@@ -177,6 +177,7 @@ public class ControladorABMCPersonaje {
 	public void levelUpPersonaje(Personaje per, int id_next_nivel){
 		AtributosRolNivel atr = puntosTotalesSegunRolNivel(per.getId_rol(),id_next_nivel);
 		try {
+			System.out.println("ID next nivel: " + id_next_nivel);
 			System.out.println("VIDA DE ATR: " + atr.getVida());
 			dataPer.levelUpPersonaje(atr, per.getId(), id_next_nivel);
 		} catch (ApplicationException e) {

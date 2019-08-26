@@ -72,10 +72,11 @@ public class War extends HttpServlet {
 						ctrlPersonaje.updateExperienciaPersonaje(p.getId(), cant_experiencia);
 						
 						//Subida de nivel
-						int id_next_nivel = controlador.getNivelByExperiencia(cant_experiencia);
-						ctrlPersonaje.levelUpPersonaje(p, id_next_nivel);
-						int id_next_combate = ctrlTorneo.updateCombateActivo(t.getId());
 						Personaje per = ctrlPersonaje.getById(p.getId());
+						int id_next_nivel = controlador.getNivelByExperiencia(per.getExperiencia());
+						ctrlPersonaje.levelUpPersonaje(per, id_next_nivel);
+						int id_next_combate = ctrlTorneo.updateCombateActivo(t.getId());
+						per = ctrlPersonaje.getById(p.getId());
 						request.getSession().setAttribute("Personaje", per); 	
 						if(id_next_combate == 0){
 							//va a pantalla de ganaste torneo

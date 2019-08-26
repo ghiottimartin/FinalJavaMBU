@@ -55,7 +55,7 @@ public class DataNivel {
 		PreparedStatement stmt = null;
 		
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select min(id_nivel) 'id_nivel' from nivel where experiencia_minima >= ?;",
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select max(id_nivel) 'id_nivel' from nivel where experiencia_minima <= ?;",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1,experiencia);
 			rs = stmt.executeQuery();
