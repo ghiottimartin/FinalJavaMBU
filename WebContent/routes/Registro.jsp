@@ -21,12 +21,12 @@
 	
 	h1 {
 		text-align: center;
-		color: white;
+		color: black;
 		margin-bottom: 20px;
 	}
 	
 	label {
-		color: white;
+		color: black;
 	}
 	
 	input {
@@ -43,6 +43,7 @@
 	button {
 		align-self: center;
 		min-width: 150px;
+		margin-bottom: 20px;
 	}
 </style>
 </head>
