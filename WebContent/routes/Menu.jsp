@@ -23,6 +23,10 @@
 	background-color: #0072DD;
 }
 
+.descripcionMenu p, .descripcionMenu h1 {
+	color: white;
+}
+
 .descripcionMenu p {
 	margin-left: 10px;
 }
@@ -132,7 +136,7 @@
 					<h2>Ataques</h2>
 					<p>
 						<strong>Función administradora.</strong> Agregar ataques para
-						poder ser seleccionado por los usuarios en la creaciÃ³n de sus
+						poder ser seleccionado por los usuarios en la creación de sus
 						presonajes.
 					</p>
 					<button name="ataques"

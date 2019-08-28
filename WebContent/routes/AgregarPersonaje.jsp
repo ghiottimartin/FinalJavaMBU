@@ -54,6 +54,11 @@ h1 {
 label {
 	margin-top: 10px;
 }
+
+h1, h3, label,p {
+	color: white;
+}
+
 .botones {
 	display: flex;
 	justify-content: center;
@@ -61,35 +66,69 @@ label {
 
 .botones button {
 	width: 250px;
-	margin-top: 20px; 
+	margin-top: 20px;
 	margin-right: 10px;
 }
 </style>
 </head>
 <body>
+	<%
+		Usuario u = (Usuario) session.getAttribute("usuario");
+		if (u == null) {
+			response.sendRedirect("index.jsp");
+		} else {
+			String nom = String.valueOf(u.getNombre());
+			String ape = String.valueOf(u.getApellido());
+
+		} ;
+
+		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+		List<Rol> roles = ctrlPersonaje.getAllRoles();
+		request.setAttribute("roles", roles);
+
+		AtributosRolNivel atr = new AtributosRolNivel();
+		if ((AtributosRolNivel) session.getAttribute("atributos") != null) {
+			atr = (AtributosRolNivel) session.getAttribute("atributos");
+
+		} ;
+
+		Rol currentRol = (Rol) session.getAttribute("selectedRole");
+	%>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a
+		class="navbar-brand" href="#">Guerra!</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown my-2 my-sm-0"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <%=u.getNombreUsuario()%>
+			</a> <%
+ 	if (u != null && u.getRol().equals("admin")) {
+ %>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<div class="dropdown-item">
+						<button name="ataques" class="btn btn-default btn-sm">Ataques</button>
+					</div>
+					<div class="dropdown-divider"></div>
+					<div class="dropdown-item">
+						<button name="exit" class="btn btn-danger btn-sm">Salir</button>
+					</div>
+				</div> <%
+ 	}
+ %></li>
+		</ul>
+	</div>
+	</nav>
+
 	<div class="container" id="app">
-		<%
-			Usuario u = (Usuario) session.getAttribute("usuario");
-			if (u == null) {
-				response.sendRedirect("index.jsp");
-			} else {
-				String nom = String.valueOf(u.getNombre());
-				String ape = String.valueOf(u.getApellido());
-
-			} ;
-
-			ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
-			List<Rol> roles = ctrlPersonaje.getAllRoles();
-			request.setAttribute("roles", roles);
-
-			AtributosRolNivel atr = new AtributosRolNivel();
-			if ((AtributosRolNivel) session.getAttribute("atributos") != null) {
-				atr = (AtributosRolNivel) session.getAttribute("atributos");
-
-			} ;
-
-			Rol currentRol = (Rol) session.getAttribute("selectedRole");
-		%>
 		<h1>Creación de personajes</h1>
 		<p class="textoElija">Por favor elija primero el rol del
 			personaje.</p>
@@ -156,7 +195,7 @@ label {
 			<div class="botones">
 				<button name="agregarAtaques" type="submit" class="btn btn-info">Agregar
 					ataques</button>
-				<button name="cancelar" type="submit" class="btn btn-light">Cancelar</button>
+				<button name="cancelar" type="submit" class="btn btn-light">Volver</button>
 			</div>
 		</form>
 	</div>

@@ -23,6 +23,9 @@
 <style type="text/css">
 body {
 	background-color: #0072DD;
+}
+
+.container {
 	margin-top: 30px;
 }
 
@@ -30,7 +33,7 @@ span {
 	font-size: 20px;
 }
 
-td {
+td, th {
 	color: white;
 }
 
@@ -75,6 +78,41 @@ td {
 </style>
 </head>
 <body>
+	<%
+		Usuario u = (Usuario) session.getAttribute("usuario");
+	%>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Guerra!</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown my-2 my-sm-0"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> <%=u.getNombreUsuario()%>
+				</a> <%
+ 	if (u != null && u.getRol().equals("admin")) {
+ %>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<div class="dropdown-item">
+							<button name="ataques" class="btn btn-default btn-sm">Ataques</button>
+						</div>
+						<div class="dropdown-divider"></div>
+						<div class="dropdown-item">
+							<button name="exit" class="btn btn-danger btn-sm">Salir</button>
+						</div>
+					</div> <%
+ 	}
+ %></li>
+			</ul>
+		</div>
+	</nav>
 	<div id="app" class="container">
 		<script type="text/javascript">
 			function callServlet() {
@@ -85,9 +123,15 @@ td {
 			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
 			List<Ataque> ataques = ctrlAtaque.getAll();
 			request.setAttribute("ataques", ataques);
-			Usuario u = (Usuario) session.getAttribute("usuario");
+			if (u == null) {
+				response.sendRedirect("index.jsp");
+			} else {
+				String nom = String.valueOf(u.getNombre());
+				String ape = String.valueOf(u.getApellido());
+			}
 			int idAtaqueABorrar = 0;
 		%>
+
 		<table class="table">
 			<thead>
 				<tr>
@@ -124,7 +168,7 @@ td {
 													style="text-decoration: none; margin-left: 30px; float: left;">
 													<button
 														style="border: 1px solid black; text-decoration: none;"
-														class="btn btn-success">Cancelar</button>
+														class="btn btn-light">Cancelar</button>
 												</a>
 											</div>
 										</div>
@@ -137,7 +181,8 @@ td {
 						<td><a
 							href="${pageContext.request.contextPath}/Ataques?edit=true&id=<c:out value="${ataque.id_ataque}" />">
 								<button class="btn btn-success">Editar</button>
-						</a> <a href="${pageContext.request.contextPath}/Ataques?erase=true&id=<c:out value="${ataque.id_ataque}" />">
+						</a> <a
+							href="${pageContext.request.contextPath}/Ataques?erase=true&id=<c:out value="${ataque.id_ataque}" />">
 								<button class="btn btn-danger">Borrar</button>
 						</a></td>
 					</tr>
@@ -145,9 +190,9 @@ td {
 			</tbody>
 		</table>
 		<a href="/WebPage/routes/ABMAtaques/nuevoAtaque.jsp">
-			<button class="btn btn-light">Agregar ataque</button>
+			<button class="btn btn-info">Agregar ataque</button>
 		</a> <a href="/WebPage/routes/Menu.jsp">
-			<button class="btn btn-success">Volver</button>
+			<button class="btn btn-light">Volver</button>
 		</a>
 	</div>
 	<script language="javascript" type="text/javascript">

@@ -22,6 +22,14 @@ body {
 	background-color: #0072DD;
 }
 
+h1 {
+	color: white;
+}
+
+p {
+	text-align: center;
+}
+
 .contenedorLogin img {
 	margin: 0 auto;
 	max-width: 150px;
@@ -99,8 +107,8 @@ label {
 				%>
 			</div>
 			<div class="botones">
-				<button name="login" type="submit" class="btn btn-light btn-lg">Login</button>
-				<button name="registro" type="submit" class="btn btn-success btn-lg">Registro</button>
+				<button name="login" type="submit" class="btn btn-info">Login</button>
+				<button name="registro" type="submit" class="btn btn-light">Registro</button>
 			</div>
 
 

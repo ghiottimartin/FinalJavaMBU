@@ -51,8 +51,6 @@ public class Registro extends HttpServlet {
 			CtrlRegistro ctrl = new CtrlRegistro();
 			Usuario currentUser = this.mapUserFromForm(request);
 			try {
-				// hacer validaciones
-				// if(this.validateUser(currentUser, request.getParameter("passwordRepeated"))){
 				request.getSession().setAttribute("emailErroneo", "false");
 				if(this.validateMail(currentUser.getEmail())) {
 					request.getSession().setAttribute("emailErroneo", "true");
