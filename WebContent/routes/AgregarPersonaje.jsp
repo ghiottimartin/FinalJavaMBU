@@ -76,11 +76,7 @@ h1, h3, label,p {
 		Usuario u = (Usuario) session.getAttribute("usuario");
 		if (u == null) {
 			response.sendRedirect("index.jsp");
-		} else {
-			String nom = String.valueOf(u.getNombre());
-			String ape = String.valueOf(u.getApellido());
-
-		} ;
+		}
 
 		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
 		List<Rol> roles = ctrlPersonaje.getAllRoles();
@@ -193,7 +189,7 @@ h1, h3, label,p {
 				</div>
 			</div>
 			<div class="botones">
-				<button name="agregarAtaques" type="submit" class="btn btn-info">Agregar
+				<button name="agregarAtaques" type="submit" class="btn btn-success">Agregar
 					ataques</button>
 				<button name="cancelar" type="submit" class="btn btn-light">Volver</button>
 			</div>

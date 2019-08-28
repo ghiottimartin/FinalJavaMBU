@@ -80,6 +80,9 @@ td, th {
 <body>
 	<%
 		Usuario u = (Usuario) session.getAttribute("usuario");
+	if (u == null) {
+		response.sendRedirect("index.jsp");
+	} 
 	%>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="#">Guerra!</a>
@@ -190,7 +193,7 @@ td, th {
 			</tbody>
 		</table>
 		<a href="/WebPage/routes/ABMAtaques/nuevoAtaque.jsp">
-			<button class="btn btn-info">Agregar ataque</button>
+			<button class="btn btn-success">Agregar ataque</button>
 		</a> <a href="/WebPage/routes/Menu.jsp">
 			<button class="btn btn-light">Volver</button>
 		</a>

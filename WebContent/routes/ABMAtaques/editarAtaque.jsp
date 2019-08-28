@@ -99,8 +99,8 @@ label {
 				</div>
 			</div>
 			<div class="botones">
-				<button name="editarAtaque" class="btn btn-light btn-lg">Editar</button>
-				<button name="volver" type="submit" class="btn btn-success btn-lg">Volver</button>
+				<button name="editarAtaque" class="btn btn-success">Editar</button>
+				<button name="volver" type="submit" class="btn btn-light">Volver</button>
 			</div>
 		</form>
 	</div>

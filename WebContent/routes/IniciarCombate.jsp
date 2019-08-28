@@ -21,21 +21,58 @@
 
 body {
 	background-color: #0072DD;
-	margin: 30px 0 30px 0;
 }
 
-h1,h3 {
+h1, h3, label {
 	text-align: center;
 	margin-top: 100px;
+	color: white;
 }
 </style>
 </head>
 <body>
+	<%
+		Usuario u = (Usuario) session.getAttribute("usuario");
+		if (u == null) {
+			response.sendRedirect("index.jsp");
+		}
+	%>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Guerra!</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown my-2 my-sm-0"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> <%=u.getNombreUsuario()%>
+				</a> <%
+ 	if (u != null && u.getRol().equals("admin")) {
+ %>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<div class="dropdown-item">
+							<button name="ataques" class="btn btn-default btn-sm">Ataques</button>
+						</div>
+						<div class="dropdown-divider"></div>
+						<div class="dropdown-item">
+							<button name="exit" class="btn btn-danger btn-sm">Salir</button>
+						</div>
+					</div> <%
+ 	}
+ %></li>
+			</ul>
+		</div>
+	</nav>
 	<div class="container">
 		<form method="post" action="${pageContext.request.contextPath}/Torneo"
 			id="tournament" class="">
 			<%
-				Usuario u = (Usuario) session.getAttribute("usuario");
 				String nom = String.valueOf(u.getNombre());
 				String ape = String.valueOf(u.getApellido());
 				Torneo t = (Torneo) session.getAttribute("torneo");
@@ -66,7 +103,7 @@ h1,h3 {
 			<div class="d-flex flex-column align-items-center">
 				<label>Esta a punto de iniciar el combate</label>
 				<div class="botones">
-					<button name="iniciar" type="submit" class="btn btn-light">Iniciar</button>
+					<button name="iniciar" type="submit" class="btn btn-success">Iniciar</button>
 				</div>
 			</div>
 		</form>

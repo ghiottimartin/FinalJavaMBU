@@ -107,7 +107,7 @@ label {
 				%>
 			</div>
 			<div class="botones">
-				<button name="login" type="submit" class="btn btn-info">Login</button>
+				<button name="login" type="submit" class="btn btn-success">Login</button>
 				<button name="registro" type="submit" class="btn btn-light">Registro</button>
 			</div>
 

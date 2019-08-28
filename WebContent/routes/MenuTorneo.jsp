@@ -97,15 +97,15 @@ button {
 
 			<div class="botones s d-flex flex-column align-items-center">
 				<div class="p-2">
-					<button name="nuevo" type="submit" class="btn btn-light btn-lg">Crear
+					<button name="nuevo" type="submit" class="btn btn-success">Crear
 						nuevo Torneo</button>
 				</div>
 				<div class="p-2">
-					<button name="cargar" type="submit" class="btn btn-light btn-lg">Cargar
+					<button name="cargar" type="submit" class="btn btn-success">Cargar
 						partida</button>
 				</div>
 				<div class="p-2">
-					<button name="volver" type="submit" class="btn btn-success">Volver</button>
+					<button name="volver" type="submit" class="btn btn-light">Volver</button>
 				</div>
 			</div>
 		</form>
