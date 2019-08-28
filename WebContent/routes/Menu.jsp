@@ -42,6 +42,7 @@
 	margin: 10px;
 	padding: 10px;
 	height: 230px;
+	align-items: center;
 }
 
 .contenedorMenu p {

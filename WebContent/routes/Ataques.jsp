@@ -23,6 +23,7 @@
 <style type="text/css">
 body {
 	background-color: #0072DD;
+	margin-top: 30px;
 }
 
 span {
@@ -93,6 +94,7 @@ td {
 					<th scope="col">ID</th>
 					<th scope="col">Nombre Ataque</th>
 					<th scope="col">Energia</th>
+					<th scope="col"></th>
 					<th scope="col">Acciones</th>
 				</tr>
 			</thead>
@@ -122,7 +124,7 @@ td {
 													style="text-decoration: none; margin-left: 30px; float: left;">
 													<button
 														style="border: 1px solid black; text-decoration: none;"
-														class="btn btn-light">Cancelar</button>
+														class="btn btn-success">Cancelar</button>
 												</a>
 											</div>
 										</div>
@@ -145,7 +147,7 @@ td {
 		<a href="/WebPage/routes/ABMAtaques/nuevoAtaque.jsp">
 			<button class="btn btn-light">Agregar ataque</button>
 		</a> <a href="/WebPage/routes/Menu.jsp">
-			<button class="btn btn-light">Volver</button>
+			<button class="btn btn-success">Volver</button>
 		</a>
 	</div>
 	<script language="javascript" type="text/javascript">

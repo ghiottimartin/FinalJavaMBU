@@ -6,134 +6,166 @@
 <%@page import="logic.CtrlTorneo"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Combate</title>
-	
-	
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">	
+
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous">
+<style>
+body {
+	background-color: #0072DD;
+	margin: 30px 0 30px 0;
+	padding: 0 10px;
+}
+
+input {
+	width: 350px !important;
+}
+
+.filas {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 0 20px;
+}
+
+.columas {
+	display: flex;
+	flex-direction: column;
+}
+
+button {
+	width: 150px;
+}
+
+.columna .boton1 {
+	margin-left: 30px;
+}
+
+h2 {
+	text-align: center;
+}
+</style>
 </head>
 
 <body>
 	<h1 class="headings-principal" align="center">Combate!</h1>
-	<% 
-		Personaje p1= ((Personaje)session.getAttribute("P1"));
-		Personaje p2= ((Personaje)session.getAttribute("P2"));
-		CtrlCombate combate = (CtrlCombate)session.getAttribute("CtrlCombate");
-		int vida1,vida2,energia1,energia2;
+	<%
+		Personaje p1 = ((Personaje) session.getAttribute("P1"));
+		Personaje p2 = ((Personaje) session.getAttribute("P2"));
+		CtrlCombate combate = (CtrlCombate) session.getAttribute("CtrlCombate");
+		int vida1, vida2, energia1, energia2;
 		vida1 = combate.getVidaP1();
 		vida2 = combate.getVidaP2();
 		energia1 = combate.getEnergiaP1();
 		energia2 = combate.getEnergiaP2();
 		String nombrepersonaje = String.valueOf(p1.getNombre());
 		String nombreEnemigo = String.valueOf(p2.getNombre());
-		List<Ataque> ataques = (List<Ataque>)session.getAttribute("ataques");
+		List<Ataque> ataques = (List<Ataque>) session.getAttribute("ataques");
 		request.setAttribute("ataques", ataques);
-		int turno = (int)session.getAttribute("turno");
+		int turno = (int) session.getAttribute("turno");
 	%>
-	
-	<form method="post" class="form-pers1" action="${pageContext.request.contextPath}/War">
-	
-	<div class="row">	
-		<div class="col-md-4">
-			<h2><%= nombrepersonaje %></h2>
-			<label>Nombre</label>
-		    <input name="nombre1" type="text"  class="form-control" disabled value="<%=p1.getNombre()%>">
-			<br>
-			<label>Vida</label>
-		    <input name="vida1" type="text"  class="form-control" disabled value="<%=String.valueOf(vida1) %>">
-			<br>
-			<label>Energia</label>
-		    <input name="energia1" type="text" class="form-control" disabled value="<%=String.valueOf(energia1) %>">
-		    <br>
-			<label>Defensa</label>
-		    <input name="defensa1" type="text" class="form-control" disabled value="<%=p1.getDefensa() %>">
-		    <br>
-			<label>Evasion</label>
-		    <input name="evasion1" type="text" class="form-control" disabled value="<%=p1.getEvasion() %>">
-		    
-		</div>
-	
-		<div class="col-md-4">
-			<h2>Turno</h2>
-			<br>
-			<input name="nombreTurno" type="text" class="form-control" disabled value="<%=String.valueOf(session.getAttribute("nombreTurno")) %>" >
-			<br>
-		
-			<br>
-			<br>
-			<%
-		if( turno == 1)
-		{
-			%>
-		    <%
-			if(ataques!=null && ataques.isEmpty() == false)
-		    {	%>	
-			<h2>Elegir Ataque</h2>
 
-		    <select name="idAtaque" class="form-control">
-			  <c:forEach items="${ataques}" var="ataque">
-		     	<option value="${ataque.id_ataque}">
-		     		<c:out value="${ataque.nombre_ataque}"/> - Requiere: <c:out value="${ataque.energia_requerida}"/> de energia
-		     	</option>    	
-		      </c:forEach>
-			</select>
-			
-			<br>
-			<br>
-		
-			<button name="atacar" class="btn btn-primary btn-lg" type="submit">Atacar</button>
-		 <% }%>
-			<button name="defender" class="btn btn-success btn-default" type="submit">Defender</button>
-			<% 
-		}
-		else
-		{
-			%>				
-			<button name="continuar" class="btn btn-danger" type="submit">Continuar</button>
-			<% 
-		}
-	        %>
+	<form method="post" class="form-pers1"
+		action="${pageContext.request.contextPath}/War">
+
+		<div class="filas">
+			<div class="columna">
+				<h2><%=nombrepersonaje%></h2>
+				<label>Nombre</label> <input name="nombre1" type="text"
+					class="form-control" disabled value="<%=p1.getNombre()%>">
+				<br> <label>Vida</label> <input name="vida1" type="text"
+					class="form-control" disabled value="<%=String.valueOf(vida1)%>">
+				<br> <label>Energia</label> <input name="energia1" type="text"
+					class="form-control" disabled value="<%=String.valueOf(energia1)%>">
+				<br> <label>Defensa</label> <input name="defensa1" type="text"
+					class="form-control" disabled value="<%=p1.getDefensa()%>">
+				<br> <label>Evasion</label> <input name="evasion1" type="text"
+					class="form-control" disabled value="<%=p1.getEvasion()%>">
+
+			</div>
+
+			<div class="columna">
+				<h2>Turno</h2>
+				<br> <input name="nombreTurno" type="text" class="form-control"
+					disabled
+					value="<%=String.valueOf(session.getAttribute("nombreTurno"))%>">
+				<br> <br> <br>
+				<%
+					if (turno == 1) {
+				%>
+				<%
+					if (ataques != null && ataques.isEmpty() == false) {
+				%>
+				<h2>Elegir Ataque</h2>
+
+				<select name="idAtaque" class="form-control">
+					<c:forEach items="${ataques}" var="ataque">
+						<option value="${ataque.id_ataque}">
+							<c:out value="${ataque.nombre_ataque}" /> - Requiere:
+							<c:out value="${ataque.energia_requerida}" /> de energia
+						</option>
+					</c:forEach>
+				</select> <br> <br>
+
+				<button name="atacar" class="btn btn-danger boton1" type="submit">Atacar</button>
+				<%
+					}
+				%>
+				<button name="defender" class="btn btn-success btn-default"
+					type="submit">Defender</button>
+				<%
+					} else {
+				%>
+				<button name="continuar" class="btn btn-danger" type="submit">Continuar</button>
+				<%
+					}
+				%>
+			</div>
+
+			<div class="columna">
+				<h2><%=nombreEnemigo%></h2>
+				<label>Nombre</label> <input name="nombre1" type="text"
+					class="form-control" disabled value="<%=p2.getNombre()%>">
+				<br> <label>Vida</label> <input name="vida1" type="text"
+					class="form-control" disabled value="<%=String.valueOf(vida2)%>">
+				<br> <label>Energia</label> <input name="energia1" type="text"
+					class="form-control" disabled value="<%=String.valueOf(energia2)%>">
+				<br> <label>Defensa</label> <input name="defensa1" type="text"
+					class="form-control" disabled value="<%=p2.getDefensa()%>">
+				<br> <label>Evasion</label> <input name="evasion1" type="text"
+					class="form-control" disabled value="<%=p2.getEvasion()%>">
+
+			</div>
 		</div>
-	
-		<div class="col-md-4">
-			<h2><%= nombreEnemigo %></h2>
-			<label>Nombre</label>
-		    <input name="nombre1" type="text"  class="form-control" disabled value="<%=p2.getNombre()%>">
-			<br>
-			<label>Vida</label>
-		    <input name="vida1" type="text"  class="form-control" disabled value="<%=String.valueOf(vida2) %>">
-			<br>
-			<label>Energia</label>
-		    <input name="energia1" type="text" class="form-control" disabled value="<%=String.valueOf(energia2) %>">
-		    <br>
-			<label>Defensa</label>
-		    <input name="defensa1" type="text" class="form-control" disabled value="<%=p2.getDefensa() %>">
-		    <br>
-			<label>Evasion</label>
-		    <input name="evasion1" type="text" class="form-control" disabled value="<%=p2.getEvasion() %>">
-			
+
+		<div>
+			<%
+				if (request.getAttribute("evadido") != null) {
+			%>
+			<div>
+				<h2><%=request.getAttribute("evadido")%></h2>
+			</div>
+			<%
+				}
+			%>
 		</div>
-	</div>
-	
-	<div>
-	<%
-		if(request.getAttribute("evadido")!=null)
-		{
-			%>	<div>
-					<h2><%=request.getAttribute("evadido") %></h2>					
-				</div> <% 
-		}
-	%>
-	</div>
 	</form>
 
 </body>
