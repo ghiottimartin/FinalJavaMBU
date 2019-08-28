@@ -456,4 +456,15 @@ Ataque ataque = ataques.get(rand.nextInt(ataques.size()));
 return ataque;
 }
 
+public double getProporcionVida(){
+double vidaTotal = (double)pers2.getVida();
+double vidaPelea = (double)getVidaP2();
+System.out.println("proporcion vida");
+System.out.println(vidaTotal);
+System.out.println(vidaPelea);
+double proporcionVida = (vidaPelea / vidaTotal);
+System.out.println(proporcionVida);
+return proporcionVida;
+}
+
 }

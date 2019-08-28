@@ -158,7 +158,9 @@ public class War extends HttpServlet {
 			{		
 				Personaje p = (Personaje) request.getSession().getAttribute("P2");
 				ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
-				if (ataques.isEmpty() || ataques.size() == 0 || ataques == null)
+				int vidaP2 = controlador.getVidaP2();
+				double proporcionVidaP2 = controlador.getProporcionVida();
+				if (ataques.isEmpty() || ataques.size() == 0 || ataques == null || vidaP2 <= 10 || proporcionVidaP2 <= 0.2)
 				{
 				mensajes =  mensajes + "\n\n" + String.valueOf(p.getNombre()) + " Ha defendido";
 				request.setAttribute("mensaje", mensajes);	

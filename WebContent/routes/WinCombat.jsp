@@ -28,6 +28,7 @@
 	<form method="post" action="Win">
 		<button name="next_combate" class="btn btn-primary btn-lg" type="submit">Siguiente combate</button>
 		<button name="guardar" class="btn btn-success btn-lg" type="submit">Guardar partida</button>
+		<button name="editarAtaques" class="btn btn-success btn-lg" type="submit">Editar Ataques</button>
 	</form>
 </body>
 </html>

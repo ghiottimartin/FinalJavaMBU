@@ -33,6 +33,16 @@ public class ControladorABMAtaque {
 		return ataques;
 	}
 	
+	public ArrayList<Ataque> getNewByEnergy(int max_energy, int id_personaje){
+		ArrayList<Ataque> ataques = new ArrayList<Ataque>();
+		try{
+			ataques = this.dataAtaque.getNewAtaquesByEnergy(max_energy,id_personaje);
+		} catch (Exception e){
+			
+		}
+		return ataques;
+	}
+	
 	public void add(Ataque ataque) throws ApplicationException {
 		this.dataAtaque.add(ataque);
 	}
