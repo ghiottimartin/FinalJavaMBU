@@ -35,7 +35,8 @@ public class Win extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("next_combate") != null){
-			
+			String mensaje = "Resumen de la pelea:\n\n";
+			request.getSession().setAttribute("mensaje", mensaje);
 			request.getRequestDispatcher("routes/IniciarCombate.jsp").forward(request, response);
 		}
 		

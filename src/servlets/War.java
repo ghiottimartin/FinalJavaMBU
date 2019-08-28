@@ -26,6 +26,7 @@ public class War extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private int turno=1;
     private CtrlCombate controlador ;
+    private String mensajes = "Resumen de la pelea: ";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -57,7 +58,12 @@ public class War extends HttpServlet {
 		if(request.getParameter("atacar")!= null){
 			try {
 				if(turno == 1){
-				int energia = controlador.getEnergiaFromAtaque(Integer.parseInt(request.getParameter("idAtaque")));
+				Ataque ataque = controlador.getAtaque(Integer.parseInt(request.getParameter("idAtaque")));
+				//int energia = controlador.getEnergiaFromAtaque(Integer.parseInt(request.getParameter("idAtaque")));
+				int energia = ataque.getEnergia_requerida();
+				Personaje p = (Personaje) request.getSession().getAttribute("P1");
+				mensajes = mensajes + "\n\n" + String.valueOf(p.getNombre()) + " Ha atacado usando el ataque " + ataque.getNombre_ataque();
+				request.setAttribute("mensaje", mensajes);
 				//if(controlador.ataque(Integer.parseInt(request.getParameter("energiaUsar")), turno))
 				if(controlador.ataque(energia, turno))
 				{
@@ -67,7 +73,7 @@ public class War extends HttpServlet {
 						
 						Torneo t = (Torneo) request.getSession().getAttribute("torneo");
 						//Asignacion de experiencia
-						Personaje p = (Personaje) request.getSession().getAttribute("P1");
+						//Personaje p = (Personaje) request.getSession().getAttribute("P1");
 						int cant_experiencia = controlador.getExperienciaFromCombate(ctrlTorneo.getIdCombateActivo(t.getId()));
 						ctrlPersonaje.updateExperienciaPersonaje(p.getId(), cant_experiencia);
 						
@@ -80,23 +86,35 @@ public class War extends HttpServlet {
 						request.getSession().setAttribute("Personaje", per); 	
 						if(id_next_combate == 0){
 							//va a pantalla de ganaste torneo
+							mensajes = "Resumen de la pelea: ";
 							request.getRequestDispatcher("routes/Winner.jsp").forward(request, response);
 						} else {
 							//va a pantalla ganaste combate WinCombat.jsp
+							mensajes = "Resumen de la pelea: ";
 							request.getRequestDispatcher("routes/WinCombat.jsp").forward(request, response);
 						}		
 						
 					}
 					else {
 						//tiene que ir a la pantalla de perdida
+						mensajes = "Resumen de la pelea: ";
 						request.getRequestDispatcher("routes/Loser.jsp").forward(request, response);
 					}
 					
 				}else{
 					if(controlador.isEvadido())
 					{
-						request.setAttribute("evadido", "El ataque fue evadido");
+						mensajes = mensajes + "\n" + "El ataque fue evadido";
+						request.setAttribute("mensaje", mensajes);
+						//request.setAttribute("evadido", "El ataque fue evadido");
 						controlador.setEvadido(false);
+					}
+					else
+					{
+						mensajes = mensajes + "\n" + "Quito a su rival "+ ataque.getEnergia_requerida() + " de vida";
+						request.setAttribute("mensaje", mensajes);
+						//request.setAttribute("evadido", "Quito a su rival "+ ataque.getEnergia_requerida() + " de vida");
+						//request.setAttribute("mensaje", String.valueOf(p.getNombre()) + " Ha atacado usando el ataque " + ataque.getNombre_ataque());
 					}
 					request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 					this.cambiaTurno();
@@ -119,6 +137,10 @@ public class War extends HttpServlet {
 			
 			if (turno ==1)
 			{
+			Personaje p = (Personaje) request.getSession().getAttribute("P1");
+			//mensajes = (String) request.getSession().getAttribute("mensaje");
+			mensajes = mensajes + "\n\n" + String.valueOf(p.getNombre()) + " Ha defendido";
+			request.setAttribute("mensaje", mensajes);
 			controlador.defensa(turno);			
 			request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 			this.cambiaTurno();
@@ -134,9 +156,12 @@ public class War extends HttpServlet {
 			
 			if (turno == 2)
 			{		
+				Personaje p = (Personaje) request.getSession().getAttribute("P2");
 				ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),turno);
 				if (ataques.isEmpty() || ataques.size() == 0 || ataques == null)
 				{
+				mensajes =  mensajes + "\n\n" + String.valueOf(p.getNombre()) + " Ha defendido";
+				request.setAttribute("mensaje", mensajes);	
 				controlador.defensa(turno);
 				request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 				this.cambiaTurno();
@@ -147,19 +172,29 @@ public class War extends HttpServlet {
 				}
 				else
 				{
+					
 					Ataque ataque = controlador.randomAtaque(ataques);
+					mensajes = mensajes + "\n\n" + String.valueOf(p.getNombre()) + " Ha atacado usando el ataque " + ataque.getNombre_ataque();
+					request.setAttribute("mensaje", mensajes);
 					int energia = controlador.getEnergiaFromAtaque(ataque.getId_ataque());
 					try {
 						if(controlador.ataque(energia, turno))					
 						{	
 							//tiene que ir a la pantalla de perdida
+							mensajes = "Resumen de la pelea: ";
 							request.getRequestDispatcher("routes/Loser.jsp").forward(request, response);
 						}
 						else{
 								if(controlador.isEvadido())
 								{
-									request.setAttribute("evadido", "El ataque fue evadido");
+									mensajes = mensajes + "\n" + "El ataque fue evadido";
+									request.setAttribute("mensaje", mensajes);
 									controlador.setEvadido(false);
+								}
+								else
+								{
+									mensajes = mensajes + "\n" + "Quito a su rival "+ ataque.getEnergia_requerida() + " de vida";
+									request.setAttribute("mensaje", mensajes);
 								}
 								request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 								this.cambiaTurno();

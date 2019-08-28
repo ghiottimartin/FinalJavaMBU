@@ -35,6 +35,7 @@
 		energia2 = combate.getEnergiaP2();
 		String nombrepersonaje = String.valueOf(p1.getNombre());
 		String nombreEnemigo = String.valueOf(p2.getNombre());
+		//String mensaje = session.getAttribute("mensaje").toString();
 		List<Ataque> ataques = (List<Ataque>)session.getAttribute("ataques");
 		request.setAttribute("ataques", ataques);
 		int turno = (int)session.getAttribute("turno");
@@ -102,6 +103,18 @@
 			<% 
 		}
 	        %>
+	        
+	        <br>
+	        <br>
+		<%
+		if(request.getAttribute("mensaje")!=null)
+		{
+			%>
+	        <textarea name="mensajes" rows="10" cols="60" value="hola" disabled><%=request.getAttribute("mensaje") %></textarea>
+			<% 
+		}
+	
+		%>
 		</div>
 	
 		<div class="col-md-4">
@@ -124,16 +137,6 @@
 		</div>
 	</div>
 	
-	<div>
-	<%
-		if(request.getAttribute("evadido")!=null)
-		{
-			%>	<div>
-					<h2><%=request.getAttribute("evadido") %></h2>					
-				</div> <% 
-		}
-	%>
-	</div>
 	</form>
 
 </body>

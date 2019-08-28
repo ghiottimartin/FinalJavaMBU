@@ -364,6 +364,23 @@ public int getEnergiaFromAtaque(int idAtaque)
 
 };
 
+public Ataque getAtaque(int idAtaque)
+{
+	//revisar este metodo
+	ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
+	Ataque ataque = new Ataque();
+	try {
+		ataque = ctrlAtaque.get(idAtaque);
+		return ataque;
+	} catch (ApplicationException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return ataque;
+	}
+
+};
+
+
 
 // Fin de metodos Ataque-Energia
 
