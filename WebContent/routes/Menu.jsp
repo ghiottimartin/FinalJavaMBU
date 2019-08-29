@@ -58,15 +58,8 @@
 <body>
 	<%
 		Usuario u = (Usuario) session.getAttribute("usuario");
-		String nom = "";
-		String ape = "";
-		if (u != null) {
-			nom = String.valueOf(u.getNombre());
-			ape = String.valueOf(u.getApellido());
-		}
 		if (u == null) {
-			System.out.print("No esta logueado");
-			response.sendRedirect("/WebPage/index.jsp");
+			response.sendRedirect("index.jsp");
 		}
 	%>
 

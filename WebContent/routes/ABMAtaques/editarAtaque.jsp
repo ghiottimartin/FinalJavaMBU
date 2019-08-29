@@ -14,10 +14,17 @@
 <link href="C:\Users\Juan Lucas\git\Web\Web\build\css\signin.css"
 	rel="stylesheet">
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
 
 <style type="text/css">
 body {
@@ -80,7 +87,7 @@ label {
 <body>
 	<%
 		Ataque ataque = (Ataque) session.getAttribute("ataque");
-		session.setAttribute("ataque",ataque);
+		session.setAttribute("ataque", ataque);
 	%>
 	<div class="contenedorLogin">
 		<h1 align="center">Editar Ataque</h1>
@@ -90,12 +97,14 @@ label {
 			<div class="inputs">
 				<div class="contenedorInput">
 					<input class="form-control" id="nombre_ataque" name="nombre_ataque"
-						type="string" placeholder="Nombre Ataque" value="<c:out value="${ataque.nombre_ataque}"/>"/>
+						type="string" placeholder="Nombre Ataque"
+						value="<c:out value="${ataque.nombre_ataque}"/>" />
 				</div>
 				<div class="contenedorInput">
 					<input class="form-control" id="energia_requerida"
 						name="energia_requerida" type="number"
-						placeholder="Energia Requerida" value="<c:out value="${ataque.energia_requerida}"/>">
+						placeholder="Energia Requerida"
+						value="<c:out value="${ataque.energia_requerida}"/>">
 				</div>
 			</div>
 			<div class="botones">
@@ -104,28 +113,16 @@ label {
 			</div>
 		</form>
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
-<script>
-vm = new Vue({
-	  el: '#app',
-	  data: {
-		  nombre_ataque: 'Hola',
-		  energia_ataque: 100,
-	  },
-})
-
-</script>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
 	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+	<script>
+		vm = new Vue({
+			el : '#app',
+			data : {
+				nombre_ataque : 'Hola',
+				energia_ataque : 100,
+			},
+		})
+	</script>
 </body>
 </html>

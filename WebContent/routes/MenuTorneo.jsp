@@ -44,6 +44,9 @@ button {
 <body>
 	<%
 		Usuario u = (Usuario) session.getAttribute("usuario");
+		if (u == null) {
+			response.sendRedirect("index.jsp");
+		}
 	%>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="#">Guerra!</a>

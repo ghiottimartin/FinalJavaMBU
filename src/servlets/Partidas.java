@@ -47,6 +47,7 @@ public class Partidas extends HttpServlet {
 		}
 		
 		if(request.getParameter("guardar") != null){
+			request.getSession().setAttribute("saved_game", 0);
 			//Proceso de guardado
 			Partida par = new Partida();
 			Torneo t = (Torneo)request.getSession().getAttribute("torneo");

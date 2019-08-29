@@ -44,49 +44,46 @@ button {
 		Usuario u = (Usuario) session.getAttribute("usuario");
 		if (u == null) {
 			response.sendRedirect("index.jsp");
-		} else {
-			String nom = String.valueOf(u.getNombre());
-			String ape = String.valueOf(u.getApellido());
-
 		}
-
 		CtrlPartidas ctrlPartidas = new CtrlPartidas();
 		List<Partida> partidas = ctrlPartidas.getAllFromUser(u.getId());
 		request.setAttribute("partidas", partidas);
 	%>
+	<form method="post" action="${pageContext.request.contextPath}/Menu"
+		id="menu">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a
+			class="navbar-brand" href="#">Guerra!</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a
-		class="navbar-brand" href="#">Guerra!</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarSupportedContent"
-		aria-controls="navbarSupportedContent" aria-expanded="false"
-		aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item dropdown my-2 my-sm-0"><a
-				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> <%=u.getNombreUsuario()%>
-			</a> <%
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown my-2 my-sm-0"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> <%=u.getNombreUsuario()%>
+				</a> <%
  	if (u != null && u.getRol().equals("admin")) {
  %>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<div class="dropdown-item">
-						<button name="ataques" class="btn btn-default btn-sm">Ataques</button>
-					</div>
-					<div class="dropdown-divider"></div>
-					<div class="dropdown-item">
-						<button name="exit" class="btn btn-danger btn-sm">Salir</button>
-					</div>
-				</div> <%
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<div class="dropdown-item">
+							<button name="ataques" class="btn btn-default btn-sm">Ataques</button>
+						</div>
+						<div class="dropdown-divider"></div>
+						<div class="dropdown-item">
+							<button name="exit" class="btn btn-danger btn-sm">Salir</button>
+						</div>
+					</div> <%
  	}
  %></li>
-		</ul>
-	</div>
-	</nav>
+			</ul>
+		</div>
+		</nav>
+	</form>
 	<h2>Seleccione la partida que desea cargar</h2>
 	<div class="container">
 		<form method="post"
