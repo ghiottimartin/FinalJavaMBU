@@ -45,7 +45,7 @@ public class Partidas extends HttpServlet {
 		if(request.getParameter("volver") != null){
 			int playing = (int) request.getSession().getAttribute("playing");
 			request.getSession().setAttribute("saved_game", null);
-			request.getSession().setAttribute("saved_game", null);
+			request.getSession().setAttribute("playing", 0);
 			if (playing == 1)
 			request.getRequestDispatcher("routes/WinCombat.jsp").forward(request, response);
 			else
@@ -59,7 +59,6 @@ public class Partidas extends HttpServlet {
 			par.setDescripcion(request.getParameter("descripcion"));
 			par.setId_torneo(t.getId());
 			par.setId_usuario(this.getIdUsuario(request));
-			request.getSession().setAttribute("playing", 1);
 			
 			CtrlPartidas partidas = new CtrlPartidas();
 			try {
