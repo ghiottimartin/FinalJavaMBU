@@ -25,9 +25,9 @@ public class CtrlTorneo {
 		int id_torneo = tor.getId();
 		System.out.print(id_torneo);
 		ArrayList<TorneoCombate> tcArray = this.getTorneoCombateToInsert(id_torneo);
-		System.out.println(tcArray);
-		System.out.println(tcArray.size());
-		System.out.println(tcArray.get(1).getCombate_activo());
+//		System.out.println(tcArray);
+//		System.out.println(tcArray.size());
+//		System.out.println(tcArray.get(1).getCombate_activo());
 		dataTorneo.addTorneoCombates(tcArray);
 	}
 	
