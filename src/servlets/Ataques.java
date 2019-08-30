@@ -75,6 +75,11 @@ public class Ataques extends HttpServlet {
 				ctrlAtaque.delete(Integer.parseInt(request.getParameter("id")));
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
+			System.out.println(request.getParameter("ataqueAborrar"));
+			if(request.getParameter("ataqueAborrar") != null) {
+				System.out.println("Ataque a Borrar: ");
+				System.out.println(request.getParameter("ataqueAborrar"));
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

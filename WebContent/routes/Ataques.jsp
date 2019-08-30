@@ -9,18 +9,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Ataques | Fight Club</title>
+<title>Menu | Fight Club</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-<style type="text/css">
+<style>
 body {
 	background-color: #0072DD;
 }
@@ -35,26 +29,6 @@ span {
 
 td, th {
 	color: white;
-}
-
-.modal {
-	padding: 20px;
-	height: 200px;
-}
-
-.modal .cartel p, .modal .cartel button {
-	margin: 0 auto;
-	display: block;
-}
-
-.modal .cartel p {
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-.close-modal {
-	top: 10px !important;
-	right: 10px !important;
 }
 
 .contenedorBotones {
@@ -75,6 +49,24 @@ td, th {
 	margin: 0 auto;
 	display: block;
 }
+
+h1 {
+	color: white;
+}
+
+.modal-footer {
+	border: none;
+	display: flex;
+	justify-content: center;
+}
+
+.modal-header {
+	border: none;
+}
+
+.modal-content {
+	margin-top: 200px;
+}
 </style>
 </head>
 <body>
@@ -83,6 +75,13 @@ td, th {
 		if (u == null) {
 			response.sendRedirect("index.jsp");
 		}
+		ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
+		List<Ataque> ataques = ctrlAtaque.getAll();
+		request.setAttribute("ataques", ataques);
+		if (u == null) {
+			response.sendRedirect("index.jsp");
+		}
+		int idAtaqueABorrar = 0;
 	%>
 	<form method="post" action="${pageContext.request.contextPath}/Menu"
 		id="menu">
@@ -119,25 +118,28 @@ td, th {
 			</div>
 		</nav>
 	</form>
-	<div id="app" class="container">
-		<script type="text/javascript">
-			function callServlet() {
-				alert(confirm("HOLA"));
-			}
-		</script>
-		<%
-			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
-			List<Ataque> ataques = ctrlAtaque.getAll();
-			request.setAttribute("ataques", ataques);
-			if (u == null) {
-				response.sendRedirect("index.jsp");
-			} else {
-				String nom = String.valueOf(u.getNombre());
-				String ape = String.valueOf(u.getApellido());
-			}
-			int idAtaqueABorrar = 0;
-		%>
-
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">¿Realmente
+						desea borrar el ataque?</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Si</button>
+					<button type="button" data-dismiss="modal" class="btn btn-success">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<h1>ABM Ataques</h1>
 		<table class="table">
 			<thead>
 				<tr>
@@ -151,46 +153,22 @@ td, th {
 			<tbody>
 				<c:forEach items="${ataques}" var="ataque">
 					<tr>
-						<td><c:out value="${ataque.id_ataque}" />
-							<div id="ex1" class="modal">
-								<div class="cartel">
-									<div class="row">
-										<p class="mensajeBorrado">Seguro que desea borrar el
-											ataque?</p>
-									</div>
-									<div class="row">
-										<div class="contenedorBotones">
-
-											<div class="itemLeft">
-												<a
-													style="color: transparent; text-decoration: none; margin-left: 30px; float: left;"
-													href="${pageContext.request.contextPath}/Ataques?erase=true&id=<c:out value="${ataque.id_ataque}" />">
-													<button name="borrarAtaque" style="text-decoration: none;"
-														class="btn btn-success">Aceptar</button>
-												</a>
-											</div>
-											<div class="itemRight">
-												<a href="#" rel="modal:close"
-													style="text-decoration: none; margin-left: 30px; float: left;">
-													<button
-														style="border: 1px solid black; text-decoration: none;"
-														class="btn btn-light">Cancelar</button>
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div></td>
+						<td><c:out value="${ataque.id_ataque}" /></td>
 						<td><c:out value="${ataque.nombre_ataque}" /></td>
 						<td><c:out value="${ataque.energia_requerida}" />
 						<td>
-						<td><a
+						<td style="display:flex;"><a
 							href="${pageContext.request.contextPath}/Ataques?edit=true&id=<c:out value="${ataque.id_ataque}" />">
-								<button class="btn btn-success">Editar</button>
-						</a> <a
-							href="${pageContext.request.contextPath}/Ataques?erase=true&id=<c:out value="${ataque.id_ataque}" />">
-								<button class="btn btn-danger">Borrar</button>
-						</a></td>
+								<button style="margin-right:10px" class="btn btn-success">Editar</button>
+						</a>
+							<form method="post"
+								action="${pageContext.request.contextPath}/Ataques" id="menu">
+								<a data-toggle="modal" data-target="#exampleModal">
+									<button class="btn btn-danger">Borrar</button> <input
+									type="submit" class="ataqueABorrar" name="ataqueABorrar"
+									value="Borrar${ataque.id_ataque}" />
+								</a>
+							</form></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -201,13 +179,6 @@ td, th {
 			<button class="btn btn-light">Volver</button>
 		</a>
 	</div>
-	<script language="javascript" type="text/javascript">
-		borrarAtaque(idAtaque)
-		{
-			alert(idAtaque);
-		}
-	</script>
-
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -219,6 +190,8 @@ td, th {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
+
+
+
 </body>
 </html>
-
