@@ -49,6 +49,7 @@ public class Win extends HttpServlet {
 		}
 		
 		if(request.getParameter("guardar") != null){
+			request.getSession().setAttribute("playing", 1);
 			request.getRequestDispatcher("routes/GuardarPartida.jsp").forward(request, response);
 		}
 		if(request.getParameter("editarAtaques") != null){

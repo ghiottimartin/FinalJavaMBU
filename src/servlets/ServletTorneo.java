@@ -93,8 +93,6 @@ public class ServletTorneo extends HttpServlet {
 			request.getSession().setAttribute("P1", p1);
 			request.getSession().setAttribute("P2", p2);
 			request.getSession().setAttribute("nombreTurno", p1.getNombre());
-			String mensaje = "Resumen de la pelea:\n\n";
-			request.getSession().setAttribute("mensaje", mensaje);
 			List<Ataque> ataques = ctrlCombate.getAtaquesOfPersonajeByEnergia(ctrlCombate.getIdPersonajeTurno(1),1);
 			request.getSession().setAttribute("ataques", ataques);
 			request.getSession().setAttribute("turno",1);

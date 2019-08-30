@@ -43,6 +43,12 @@ public class Partidas extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getParameter("volver") != null){
+			int playing = (int) request.getSession().getAttribute("playing");
+			request.getSession().setAttribute("saved_game", null);
+			request.getSession().setAttribute("playing", 0);
+			if (playing == 1)
+			request.getRequestDispatcher("routes/WinCombat.jsp").forward(request, response);
+			else
 			request.getRequestDispatcher("routes/Menu.jsp").forward(request, response);
 		}
 		
