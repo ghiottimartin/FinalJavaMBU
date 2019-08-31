@@ -130,7 +130,7 @@
 					<p>
 						<strong>Función administradora.</strong> Agregar ataques para
 						poder ser seleccionado por los usuarios en la creación de sus
-						presonajes.
+						personajes.
 					</p>
 					<button name="ataques"
 						class="button btn btn-primary btn-lg btn-block">Ataques</button>

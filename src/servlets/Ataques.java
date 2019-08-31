@@ -72,7 +72,13 @@ public class Ataques extends HttpServlet {
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
 			if (request.getParameter("erase") != null) {
-				ctrlAtaque.delete(Integer.parseInt(request.getParameter("id")));
+				Ataque ataqueBorrar = ctrlAtaque.get(Integer.parseInt(request.getParameter("id")));
+				request.getSession().setAttribute("ataque", ataqueBorrar);
+				response.sendRedirect("/WebPage/routes/ABMAtaques/borrarAtaque.jsp");
+			}
+			if (request.getParameter("borrarAtaque") != null) {
+				Ataque ataque = (Ataque) request.getSession().getAttribute("ataque");
+				ctrlAtaque.delete(ataque.getId_ataque());
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
 		} catch (Exception e) {

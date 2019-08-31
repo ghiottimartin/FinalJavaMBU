@@ -120,22 +120,10 @@ td, th {
 		</nav>
 	</form>
 	<div id="app" class="container">
-		<script type="text/javascript">
-			function callServlet() {
-				alert(confirm("HOLA"));
-			}
-		</script>
 		<%
 			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
 			List<Ataque> ataques = ctrlAtaque.getAll();
 			request.setAttribute("ataques", ataques);
-			if (u == null) {
-				response.sendRedirect("index.jsp");
-			} else {
-				String nom = String.valueOf(u.getNombre());
-				String ape = String.valueOf(u.getApellido());
-			}
-			int idAtaqueABorrar = 0;
 		%>
 
 		<table class="table">
@@ -201,13 +189,6 @@ td, th {
 			<button class="btn btn-light">Volver</button>
 		</a>
 	</div>
-	<script language="javascript" type="text/javascript">
-		borrarAtaque(idAtaque)
-		{
-			alert(idAtaque);
-		}
-	</script>
-
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
