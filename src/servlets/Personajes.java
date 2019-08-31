@@ -16,6 +16,7 @@ import entidades.AtributosRolNivel;
 import entidades.Usuario;
 import entidades.Rol;
 import logic.ControladorABMCPersonaje;
+import utils.ApplicationException;
 
 /**
  * Servlet implementation class Personajes
@@ -23,54 +24,58 @@ import logic.ControladorABMCPersonaje;
 @WebServlet("/Personajes")
 public class Personajes extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Personajes() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Personajes() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
 		HttpSession session = request.getSession();
-		if(request.getParameter("guardarPersonaje") != null){
-			//Personaje per = this.mapCharacterFromForm(request);
-			Personaje per = (Personaje)request.getSession().getAttribute("currentPersonaje");
+		if (request.getParameter("guardarPersonaje") != null) {
+			// Personaje per = this.mapCharacterFromForm(request);
+			Personaje per = (Personaje) request.getSession().getAttribute("currentPersonaje");
 			Usuario currentUser = (Usuario) session.getAttribute("usuario");
 			try {
-				 int id_personaje = ctrlPersonaje.agregarPersonaje(per);
-				 ctrlPersonaje.insertarPersonajeUsuario(id_personaje, currentUser.getId());
+				int id_personaje = ctrlPersonaje.agregarPersonaje(per);
+				ctrlPersonaje.insertarPersonajeUsuario(id_personaje, currentUser.getId());
 				String selected_attacks[] = request.getParameterValues("selectedAttacks");
-			     for(String id_attack :selected_attacks)
-			     { 	 
-			    	 ctrlPersonaje.insertarPersonajeAtaque(id_personaje, Integer.parseInt(id_attack));
-			     }
-			     response.sendRedirect("routes/Menu.jsp");
-			} catch (Exception e) {
-				e.printStackTrace();
+				for (String id_attack : selected_attacks) {
+					ctrlPersonaje.insertarPersonajeAtaque(id_personaje, Integer.parseInt(id_attack));
+				}
+				response.sendRedirect("routes/Menu.jsp");
+			} catch (ApplicationException e) {
+				request.getSession().setAttribute("error", e.getMessage());
+				response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 			}
 		}
-		
-		if(request.getParameter("agregarAtaques") != null){
-			Personaje currentPersonaje = this.mapCharacterFromForm(request); 
+
+		if (request.getParameter("agregarAtaques") != null) {
+			Personaje currentPersonaje = this.mapCharacterFromForm(request);
 			request.getSession().setAttribute("currentPersonaje", currentPersonaje);
 			response.sendRedirect("routes/AgregarAtaquesPersonaje.jsp");
 		}
-		
-		if(request.getParameter("selectRole") != null){
+
+		if (request.getParameter("selectRole") != null) {
 			String selected_role[] = request.getParameterValues("selectedRole");
 			int id_role = Integer.parseInt(selected_role[0]);
 			AtributosRolNivel atr = ctrlPersonaje.puntosTotalesSegunRolNivel(id_role, 1);
@@ -79,21 +84,21 @@ public class Personajes extends HttpServlet {
 			request.getSession().setAttribute("atributos", atr);
 			request.getRequestDispatcher("routes/AgregarPersonaje.jsp").forward(request, response);
 		}
-		
-		if(request.getParameter("cancelar") != null){
+
+		if (request.getParameter("cancelar") != null) {
 			response.sendRedirect("routes/Menu.jsp");
 		}
 	}
-	
-	public Personaje mapCharacterFromForm(HttpServletRequest request){
+
+	public Personaje mapCharacterFromForm(HttpServletRequest request) {
 		Personaje per = new Personaje();
-		AtributosRolNivel atr = (AtributosRolNivel)request.getSession().getAttribute("atributos");
+		AtributosRolNivel atr = (AtributosRolNivel) request.getSession().getAttribute("atributos");
 		per.setNombre(request.getParameter("nombre"));
 		per.setVida(atr.getVida());
 		per.setEnergia(atr.getEnergia());
 		per.setDefensa(atr.getDefensa());
 		per.setEvasion(atr.getEvasion());
-		Rol selectedRole = (Rol)(request.getSession().getAttribute("selectedRole"));
+		Rol selectedRole = (Rol) (request.getSession().getAttribute("selectedRole"));
 		per.setId_rol(selectedRole.getId_rol());
 		return per;
 	}

@@ -13,34 +13,16 @@ public class ControladorABMAtaque {
 		
 	}
 	
-	public ArrayList<Ataque> getAll(){
-		ArrayList<Ataque> ataques = new ArrayList<Ataque>();
-		try{
-			ataques = this.dataAtaque.getAllAtaques();
-		} catch (Exception e){
-			
-		}
-		return ataques;
+	public ArrayList<Ataque> getAll() throws ApplicationException{
+		return  this.dataAtaque.getAllAtaques();
 	}
 	
-	public ArrayList<Ataque> getAllByEnergy(int max_energy){
-		ArrayList<Ataque> ataques = new ArrayList<Ataque>();
-		try{
-			ataques = this.dataAtaque.getAllAtaquesByEnergy(max_energy);
-		} catch (Exception e){
-			
-		}
-		return ataques;
+	public ArrayList<Ataque> getAllByEnergy(int max_energy) throws ApplicationException{
+		return  this.dataAtaque.getAllAtaquesByEnergy(max_energy);
 	}
 	
-	public ArrayList<Ataque> getNewByEnergy(int max_energy, int id_personaje){
-		ArrayList<Ataque> ataques = new ArrayList<Ataque>();
-		try{
-			ataques = this.dataAtaque.getNewAtaquesByEnergy(max_energy,id_personaje);
-		} catch (Exception e){
-			
-		}
-		return ataques;
+	public ArrayList<Ataque> getNewByEnergy(int max_energy, int id_personaje) throws ApplicationException{
+		return this.dataAtaque.getNewAtaquesByEnergy(max_energy,id_personaje);
 	}
 	
 	public void add(Ataque ataque) throws ApplicationException {

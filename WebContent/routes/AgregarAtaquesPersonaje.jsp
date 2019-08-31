@@ -6,6 +6,7 @@
 <%@page import="entidades.Rol"%>
 <%@page import="entidades.Usuario"%>
 <%@page import="logic.ControladorABMAtaque"%>
+<%@page import="utils.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -46,9 +47,15 @@ button {
 	<%
 		Personaje currPers = (Personaje) request.getSession().getAttribute("currentPersonaje");
 		Rol currentRol = (Rol) request.getSession().getAttribute("selectedRole");
-		ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
-		List<Ataque> ataques = ctrlAtaque.getAllByEnergy(currPers.getEnergia());
-		request.setAttribute("ataques", ataques);
+		try {
+			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
+			List<Ataque> ataques = ctrlAtaque.getAllByEnergy(currPers.getEnergia());
+			request.setAttribute("ataques", ataques);	
+		} catch (ApplicationException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+		}
+		
 		Usuario u = (Usuario) session.getAttribute("usuario");
 		if (u == null) {
 			response.sendRedirect("index.jsp");

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page import="logic.ControladorABMAtaque"%>
 <%@page import="java.util.*"%>
+<%@page import="utils.*"%>
 <%@page import="entidades.Ataque"%>
 <%@page import="entidades.Usuario"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -121,9 +122,14 @@ td, th {
 	</form>
 	<div id="app" class="container">
 		<%
-			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
-			List<Ataque> ataques = ctrlAtaque.getAll();
-			request.setAttribute("ataques", ataques);
+			try {
+				ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
+				List<Ataque> ataques = ctrlAtaque.getAll();
+				request.setAttribute("ataques", ataques);
+			} catch (ApplicationException e) {
+				request.getSession().setAttribute("error", e.getMessage());
+				response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+			}
 		%>
 
 		<table class="table">
@@ -139,36 +145,7 @@ td, th {
 			<tbody>
 				<c:forEach items="${ataques}" var="ataque">
 					<tr>
-						<td><c:out value="${ataque.id_ataque}" />
-							<div id="ex1" class="modal">
-								<div class="cartel">
-									<div class="row">
-										<p class="mensajeBorrado">Seguro que desea borrar el
-											ataque?</p>
-									</div>
-									<div class="row">
-										<div class="contenedorBotones">
-
-											<div class="itemLeft">
-												<a
-													style="color: transparent; text-decoration: none; margin-left: 30px; float: left;"
-													href="${pageContext.request.contextPath}/Ataques?erase=true&id=<c:out value="${ataque.id_ataque}" />">
-													<button name="borrarAtaque" style="text-decoration: none;"
-														class="btn btn-success">Aceptar</button>
-												</a>
-											</div>
-											<div class="itemRight">
-												<a href="#" rel="modal:close"
-													style="text-decoration: none; margin-left: 30px; float: left;">
-													<button
-														style="border: 1px solid black; text-decoration: none;"
-														class="btn btn-light">Cancelar</button>
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div></td>
+						<td><c:out value="${ataque.id_ataque}" /></td>
 						<td><c:out value="${ataque.nombre_ataque}" /></td>
 						<td><c:out value="${ataque.energia_requerida}" />
 						<td>

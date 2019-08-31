@@ -13,7 +13,7 @@ public class DataAtaque {
 
 	}
 
-	public ArrayList<Ataque> getAllAtaques() {
+	public ArrayList<Ataque> getAllAtaques() throws ApplicationException {
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
 		ArrayList<Ataque> lista = new ArrayList<Ataque>();
@@ -39,11 +39,9 @@ public class DataAtaque {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al obtener los ataques.");
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException(e, "Lo siento, hubo un error al obtener los ataques.");
 		} finally {
 			try {
 				if (rs != null)
@@ -51,27 +49,25 @@ public class DataAtaque {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+			} catch (Exception ex) {
+				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
 			}
 		}
 
 		return lista;
 	}
-	
-	public ArrayList<Ataque> getAllAtaquesByEnergy(int max_energy){
+
+	public ArrayList<Ataque> getAllAtaquesByEnergy(int max_energy) throws ApplicationException {
 		ArrayList<Ataque> ataques = new ArrayList<Ataque>();
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
-		
+
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from ataque where energia_requerida <= ?;",
-					PreparedStatement.RETURN_GENERATED_KEYS);
-			
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select * from ataque where energia_requerida <= ?;", PreparedStatement.RETURN_GENERATED_KEYS);
+
 			stmt.setInt(1, max_energy);
 
 			rs = stmt.executeQuery();
@@ -87,11 +83,9 @@ public class DataAtaque {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al obtener los ataques.");
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException(e, "Lo siento, hubo un error al obtener los ataques.");
 		} finally {
 			try {
 				if (rs != null)
@@ -99,27 +93,26 @@ public class DataAtaque {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+			} catch (Exception ex) {
+				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
 			}
 		}
-		
+
 		return ataques;
 	}
-	
-	public ArrayList<Ataque> getNewAtaquesByEnergy(int max_energy,int id_personaje){
+
+	public ArrayList<Ataque> getNewAtaquesByEnergy(int max_energy, int id_personaje) throws ApplicationException {
 		ArrayList<Ataque> ataques = new ArrayList<Ataque>();
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
-		
+
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from ataque where energia_requerida <= ? and id_ataque not in(select id_ataque from personaje_ataque where id_personaje = ?);",
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select * from ataque where energia_requerida <= ? and id_ataque not in(select id_ataque from personaje_ataque where id_personaje = ?);",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			
+
 			stmt.setInt(1, max_energy);
 			stmt.setInt(2, id_personaje);
 
@@ -136,11 +129,9 @@ public class DataAtaque {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al obtener los ataques.");
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ApplicationException(e, "Lo siento, hubo un error al obtener los ataques.");
 		} finally {
 			try {
 				if (rs != null)
@@ -148,15 +139,13 @@ public class DataAtaque {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+			} catch (Exception ex) {
+				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
 			}
 		}
-		
+
 		return ataques;
 	}
 
@@ -182,7 +171,9 @@ public class DataAtaque {
 				ataque.setId_ataque(rs.getInt("id"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta crear el ataque.");
+		} catch (ApplicationException e) {
+			throw new ApplicationException(e, "Lo siento, hubo un error al crear el ataque.");
 		} finally {
 			try {
 				if (rs != null)
@@ -191,8 +182,9 @@ public class DataAtaque {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+			} catch (Exception ex) {
+				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
 			}
 		}
 	}
@@ -203,9 +195,8 @@ public class DataAtaque {
 		Ataque ataqueEdit = null;
 
 		try {
-			stmt = FactoryConexion.getInstancia().getConn()
-					.prepareStatement("select * from ataque where id_ataque = ?",
-							PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from ataque where id_ataque = ?",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
@@ -215,11 +206,14 @@ public class DataAtaque {
 				ataqueEdit.setEnergia_requerida(rs.getInt("energia_requerida"));
 
 			} else {
-				System.out.println("Ataque no encontrado");
+				Exception e = new Exception();
+				throw new ApplicationException(e, "Lo siento, no se encontro el ataque.");
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al buscar el ataque.");
+		} catch (ApplicationException e) {
+			throw new ApplicationException(e, "Lo siento, hubo un error al buscar el ataque.");
 		} finally {
 			try {
 				if (rs != null)
@@ -228,8 +222,10 @@ public class DataAtaque {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al obtener el ataque.");
+			} catch (Exception ex) {
+				throw new ApplicationException(ex, "Lo siento, hubo un error al obtener el ataque.");
+
 			}
 		}
 
@@ -248,38 +244,43 @@ public class DataAtaque {
 			stmt.setInt(3, ataque.getId_ataque());
 			stmt.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al editar el ataque.");
+		} catch (ApplicationException e) {
+			throw new ApplicationException(e, "Lo siento, hubo un error al editar el ataque.");
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+			} catch (Exception ex) {
+				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
 			}
 		}
 	}
-	
+
 	public void delete(int id) throws ApplicationException {
 		PreparedStatement stmt = null;
 
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"delete from ataque  where id_ataque = ?",
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("delete from ataque  where id_ataque = ?",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, id);
 			stmt.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
+			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al borrar el ataque.");
+		} catch (ApplicationException e) {
+			throw new ApplicationException(e, "Lo siento, hubo un error al borrar el ataque.");
+		}  finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+			} catch (Exception ex) {
+				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
 			}
 		}
 	}

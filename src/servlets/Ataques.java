@@ -81,9 +81,9 @@ public class Ataques extends HttpServlet {
 				ctrlAtaque.delete(ataque.getId_ataque());
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+		} catch (ApplicationException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 		}
 	}
 

@@ -5,6 +5,7 @@
 <%@page import="entidades.Ataque"%>
 <%@page import="entidades.Usuario"%>
 <%@page import="entidades.Rol"%>
+<%@page import="utils.*"%>
 <%@page import="logic.ControladorABMAtaque"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml"%>
@@ -49,9 +50,15 @@ h1, h3 {
 			response.sendRedirect("index.jsp");
 		}
 		Personaje currPers = (Personaje) request.getSession().getAttribute("currentPersonaje");
-		ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
-		List<Ataque> ataques = ctrlAtaque.getNewByEnergy(currPers.getEnergia(), currPers.getId());
-		request.setAttribute("ataques", ataques);
+		try {
+			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
+			List<Ataque> ataques = ctrlAtaque.getNewByEnergy(currPers.getEnergia(), currPers.getId());
+			request.setAttribute("ataques", ataques);
+		} catch (ApplicationException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+		}
+		
 	%>
 	<form method="post" action="${pageContext.request.contextPath}/Menu"
 		id="menu">

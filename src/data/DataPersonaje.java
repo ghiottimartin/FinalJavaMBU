@@ -41,8 +41,7 @@ public class DataPersonaje {
 			}
 			
 		} catch (SQLException e) {
-			ApplicationException ade=new ApplicationException(e, "Error en el sql al crear personaje.\n"+e.getSQLState()+":"+e.getMessage());
-			throw ade;
+			throw new ApplicationException(e, "Error en el sql al crear personaje.\n"+e.getSQLState()+":"+e.getMessage());
 		}finally {
 			try {
 				if(rs!=null) rs.close();
