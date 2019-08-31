@@ -72,13 +72,14 @@ public class Ataques extends HttpServlet {
 				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
 			if (request.getParameter("erase") != null) {
-				ctrlAtaque.delete(Integer.parseInt(request.getParameter("id")));
-				response.sendRedirect("/WebPage/routes/Ataques.jsp");
+				Ataque ataqueBorrar = ctrlAtaque.get(Integer.parseInt(request.getParameter("id")));
+				request.getSession().setAttribute("ataque", ataqueBorrar);
+				response.sendRedirect("/WebPage/routes/ABMAtaques/borrarAtaque.jsp");
 			}
-			System.out.println(request.getParameter("ataqueAborrar"));
-			if(request.getParameter("ataqueAborrar") != null) {
-				System.out.println("Ataque a Borrar: ");
-				System.out.println(request.getParameter("ataqueAborrar"));
+			if (request.getParameter("borrarAtaque") != null) {
+				Ataque ataque = (Ataque) request.getSession().getAttribute("ataque");
+				ctrlAtaque.delete(ataque.getId_ataque());
+				response.sendRedirect("/WebPage/routes/Ataques.jsp");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
