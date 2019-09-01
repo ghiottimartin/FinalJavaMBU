@@ -27,8 +27,10 @@ public class DataNivel {
 			}
 
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Error en el SQL");
+			e.printStackTrace();
+			throw new ApplicationException(e, "Error en la consulta al obtener nivel.");
 		} catch (ApplicationException ae) {
+			ae.printStackTrace();
 			throw new ApplicationException(ae, "No existen roles");
 		} finally {
 			try {
@@ -37,12 +39,12 @@ public class DataNivel {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 		
@@ -64,8 +66,10 @@ public class DataNivel {
 			}
 
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Error en el SQL");
+			e.printStackTrace();
+			throw new ApplicationException(e, "Error en la consulta al obtener nivel.");
 		} catch (ApplicationException ae) {
+			ae.printStackTrace();
 			throw new ApplicationException(ae, "No existen roles");
 		} finally {
 			try {
@@ -74,12 +78,12 @@ public class DataNivel {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 		return id_nivel;

@@ -49,13 +49,14 @@ public class Personajes extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
-		HttpSession session = request.getSession();
-		if (request.getParameter("guardarPersonaje") != null) {
-			// Personaje per = this.mapCharacterFromForm(request);
-			Personaje per = (Personaje) request.getSession().getAttribute("currentPersonaje");
-			Usuario currentUser = (Usuario) session.getAttribute("usuario");
-			try {
+		try {
+			ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+			HttpSession session = request.getSession();
+			if (request.getParameter("guardarPersonaje") != null) {
+				// Personaje per = this.mapCharacterFromForm(request);
+				Personaje per = (Personaje) request.getSession().getAttribute("currentPersonaje");
+				Usuario currentUser = (Usuario) session.getAttribute("usuario");
+
 				int id_personaje = ctrlPersonaje.agregarPersonaje(per);
 				ctrlPersonaje.insertarPersonajeUsuario(id_personaje, currentUser.getId());
 				String selected_attacks[] = request.getParameterValues("selectedAttacks");
@@ -63,30 +64,30 @@ public class Personajes extends HttpServlet {
 					ctrlPersonaje.insertarPersonajeAtaque(id_personaje, Integer.parseInt(id_attack));
 				}
 				response.sendRedirect("routes/Menu.jsp");
-			} catch (ApplicationException e) {
-				request.getSession().setAttribute("error", e.getMessage());
-				response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 			}
-		}
 
-		if (request.getParameter("agregarAtaques") != null) {
-			Personaje currentPersonaje = this.mapCharacterFromForm(request);
-			request.getSession().setAttribute("currentPersonaje", currentPersonaje);
-			response.sendRedirect("routes/AgregarAtaquesPersonaje.jsp");
-		}
+			if (request.getParameter("agregarAtaques") != null) {
+				Personaje currentPersonaje = this.mapCharacterFromForm(request);
+				request.getSession().setAttribute("currentPersonaje", currentPersonaje);
+				response.sendRedirect("routes/AgregarAtaquesPersonaje.jsp");
+			}
 
-		if (request.getParameter("selectRole") != null) {
-			String selected_role[] = request.getParameterValues("selectedRole");
-			int id_role = Integer.parseInt(selected_role[0]);
-			AtributosRolNivel atr = ctrlPersonaje.puntosTotalesSegunRolNivel(id_role, 1);
-			Rol selectedRole = ctrlPersonaje.getOneRoleById(id_role);
-			request.getSession().setAttribute("selectedRole", selectedRole);
-			request.getSession().setAttribute("atributos", atr);
-			request.getRequestDispatcher("routes/AgregarPersonaje.jsp").forward(request, response);
-		}
+			if (request.getParameter("selectRole") != null) {
+				String selected_role[] = request.getParameterValues("selectedRole");
+				int id_role = Integer.parseInt(selected_role[0]);
+				AtributosRolNivel atr = ctrlPersonaje.puntosTotalesSegunRolNivel(id_role, 1);
+				Rol selectedRole = ctrlPersonaje.getOneRoleById(id_role);
+				request.getSession().setAttribute("selectedRole", selectedRole);
+				request.getSession().setAttribute("atributos", atr);
+				request.getRequestDispatcher("routes/AgregarPersonaje.jsp").forward(request, response);
+			}
 
-		if (request.getParameter("cancelar") != null) {
-			response.sendRedirect("routes/Menu.jsp");
+			if (request.getParameter("cancelar") != null) {
+				response.sendRedirect("routes/Menu.jsp");
+			}
+		} catch (ApplicationException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 		}
 	}
 

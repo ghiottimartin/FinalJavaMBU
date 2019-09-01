@@ -61,13 +61,11 @@ public class CtrlTorneo {
 		return idPersonaje;
 	}
 
-	public Personaje getpersonaje(int idUsuarioPersonaje) {
+	public Personaje getpersonaje(int idUsuarioPersonaje) throws ApplicationException {
 		int idPersonaje = getIdPersonaje(idUsuarioPersonaje);
-		Personaje p = new Personaje();
 		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
 		// falta implementar el codigo de getById de controlador Personaje
-		p = ctrlPersonaje.getById(idPersonaje);
-		return p;
+		return ctrlPersonaje.getById(idPersonaje);
 	}
 
 	public ArrayList<TorneoCombate> getTorneoCombateToInsert(int id_torneo) throws ApplicationException {

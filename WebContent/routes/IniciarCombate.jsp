@@ -1,3 +1,4 @@
+<%@page import="utils.ApplicationException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
@@ -76,14 +77,22 @@ h1, h3, label {
 		<form method="post" action="${pageContext.request.contextPath}/Torneo"
 			id="tournament" class="">
 			<%
-				String nom = String.valueOf(u.getNombre());
-				String ape = String.valueOf(u.getApellido());
-				Torneo t = (Torneo) session.getAttribute("torneo");
-				int idUsuarioPersonaje = Integer.valueOf(t.getIdUsuarioPersonaje());
-				CtrlTorneo ctrlTorneo = new CtrlTorneo();
-				//Personaje p = ctrlTorneo.getpersonaje(idUsuarioPersonaje);
-				Personaje enemigo = ctrlTorneo.getEnemigo(t.getId());
-				String nombreEnemigo = String.valueOf(enemigo.getNombre());
+				String nom = "";
+				String ape = "";
+				String nombreEnemigo = "";
+				try {
+					nom = String.valueOf(u.getNombre());
+					ape = String.valueOf(u.getApellido());
+					Torneo t = (Torneo) session.getAttribute("torneo");
+					int idUsuarioPersonaje = Integer.valueOf(t.getIdUsuarioPersonaje());
+					CtrlTorneo ctrlTorneo = new CtrlTorneo();
+					//Personaje p = ctrlTorneo.getpersonaje(idUsuarioPersonaje);
+					Personaje enemigo = ctrlTorneo.getEnemigo(t.getId());
+					nombreEnemigo = String.valueOf(enemigo.getNombre());
+				} catch (ApplicationException e) {
+					request.getSession().setAttribute("error", e.getMessage());
+					response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+				}
 			%>
 			<h1>
 				Hola,

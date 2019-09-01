@@ -342,14 +342,9 @@ public class CtrlCombate {
 		return experiencia;
 	}
 
-	public int getNivelByExperiencia(int experiencia) {
+	public int getNivelByExperiencia(int experiencia) throws ApplicationException {
 		int id_nivel = 0;
-		try {
-			id_nivel = dataNivel.getOneLevelByExperience(experiencia);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		id_nivel = dataNivel.getOneLevelByExperience(experiencia);
 		return id_nivel;
 	}
 

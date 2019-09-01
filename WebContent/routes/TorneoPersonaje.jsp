@@ -1,3 +1,4 @@
+<%@page import="utils.ApplicationException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
@@ -95,9 +96,14 @@ select {
 					response.sendRedirect("index.jsp");
 				}
 
-				ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
-				List<Personaje> personajes = ctrlPersonaje.recuperarPersonajesDeUsuario(u.getId());
-				request.setAttribute("personajes", personajes);
+				try {
+					ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+					List<Personaje> personajes = ctrlPersonaje.recuperarPersonajesDeUsuario(u.getId());
+					request.setAttribute("personajes", personajes);
+				} catch (ApplicationException e) {
+					request.getSession().setAttribute("error", e.getMessage());
+					response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+				}
 			%>
 
 			<div class="d-flex flex-column align-items-center">

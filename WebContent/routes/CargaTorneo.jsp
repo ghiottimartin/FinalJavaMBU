@@ -1,3 +1,4 @@
+<%@page import="utils.ApplicationException"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
@@ -45,9 +46,15 @@ button {
 		if (u == null) {
 			response.sendRedirect("index.jsp");
 		}
-		CtrlPartidas ctrlPartidas = new CtrlPartidas();
-		List<Partida> partidas = ctrlPartidas.getAllFromUser(u.getId());
-		request.setAttribute("partidas", partidas);
+		try {
+			CtrlPartidas ctrlPartidas = new CtrlPartidas();
+			List<Partida> partidas = ctrlPartidas.getAllFromUser(u.getId());
+			request.setAttribute("partidas", partidas);
+		} catch(ApplicationException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+		}
+		
 	%>
 	<form method="post" action="${pageContext.request.contextPath}/Menu"
 		id="menu">

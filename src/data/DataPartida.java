@@ -34,6 +34,10 @@ public class DataPartida {
 			}*/
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new ApplicationException(e, "Error en la consulta al guardar la partida.");
+		} catch (ApplicationException ex) {
+			ex.printStackTrace();
+			throw new ApplicationException(ex, "Error al guardar la partida.");
 		} finally {
 			try {
 				if (rs != null)
@@ -42,13 +46,16 @@ public class DataPartida {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 	}
 	
-	public ArrayList<Partida> getAllPartidasFromUser(int id_usuario){
+	public ArrayList<Partida> getAllPartidasFromUser(int id_usuario) throws ApplicationException{
 		ArrayList<Partida> partidas = new ArrayList<Partida>();
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
@@ -73,31 +80,31 @@ public class DataPartida {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
+			throw new ApplicationException(e, "Error en la consulta al buscar las partidas del usuario.");
+		} catch (ApplicationException ex) {
+			ex.printStackTrace();
+			throw new ApplicationException(ex, "Error al buscar las partidas del usuario.");
+		}  finally {
 			try {
 				if (rs != null)
 					rs.close();
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 		System.out.println(partidas);
 		return partidas;
 	}
 	
-	public int getIdUsuarioPersonajeFromTorneo(int id_partida){
+	public int getIdUsuarioPersonajeFromTorneo(int id_partida) throws ApplicationException{
 		int id_usuario_personaje = 0;
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
@@ -113,31 +120,31 @@ public class DataPartida {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
+			throw new ApplicationException(e, "Error en la consulta al cargar la partida.");
+		} catch (ApplicationException ex) {
+			ex.printStackTrace();
+			throw new ApplicationException(ex, "Error al cargar la partida.");
+		}  finally {
 			try {
 				if (rs != null)
 					rs.close();
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 		
 		return id_usuario_personaje;
 	}
 	
-	public int getIdTorneo(int id_partida){
+	public int getIdTorneo(int id_partida) throws ApplicationException{
 		int id_torneo = 0;
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
@@ -153,24 +160,24 @@ public class DataPartida {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
+			throw new ApplicationException(e, "Error en la consulta al cargar la partida.");
+		} catch (ApplicationException ex) {
+			ex.printStackTrace();
+			throw new ApplicationException(ex, "Error al cargar la partida.");
+		}  finally {
 			try {
 				if (rs != null)
 					rs.close();
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 		

@@ -1,3 +1,4 @@
+<%@page import="utils.ApplicationException"%>
 <%@page import="logic.ControladorABMCPersonaje"%>
 <%@page import="java.util.*"%>
 <%@page import="entidades.Personaje"%>
@@ -29,8 +30,15 @@
 
   <body>
   	<%
+  	ArrayList<Personaje> personajes = new ArrayList<Personaje>();
+  	try {
   		ControladorABMCPersonaje ctrl = new ControladorABMCPersonaje();
-  		ArrayList<Personaje> personajes = ctrl.getAll();
+  		personajes = ctrl.getAll();
+  	} catch (ApplicationException e) {
+		request.getSession().setAttribute("error", e.getMessage());
+		response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+	}
+  		
   	%>
 
     <div class="container">

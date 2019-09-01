@@ -1,3 +1,4 @@
+<%@page import="utils.ApplicationException"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
@@ -71,9 +72,14 @@
 			}
 		%>
 		<%
-			ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
-			ArrayList<Personaje> personajes_usuario = ctrlPersonaje.recuperarPersonajesDeUsuario(u.getId());
-			request.setAttribute("personajes", personajes_usuario);
+			try {
+				ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+				ArrayList<Personaje> personajes_usuario = ctrlPersonaje.recuperarPersonajesDeUsuario(u.getId());
+				request.setAttribute("personajes", personajes_usuario);
+			} catch (ApplicationException e) {
+				request.getSession().setAttribute("error", e.getMessage());
+				response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+			}
 		%>
 		<h1>Edición de personajes</h1>
 		<select name="selectedAttacks" class="form-control col-md-12 h-50"

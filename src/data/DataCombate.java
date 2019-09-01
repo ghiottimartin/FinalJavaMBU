@@ -34,8 +34,10 @@ public class DataCombate {
 				throw new ApplicationException(new Exception(), "Combate no encontrado.");
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar el combate.");
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar el combate.");
 		} finally {
 			try {
@@ -45,8 +47,10 @@ public class DataCombate {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
+				e.printStackTrace();
 				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
+				ex.printStackTrace();
 				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
@@ -75,8 +79,10 @@ public class DataCombate {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar los combates.");
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar los combates.");
 		} finally {
 			try {
@@ -86,8 +92,10 @@ public class DataCombate {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
+				e.printStackTrace();
 				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
+				ex.printStackTrace();
 				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
@@ -120,8 +128,10 @@ public class DataCombate {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar los ataques del personaje.");
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar los ataques del personaje.");
 		} finally {
 			try {
@@ -131,8 +141,10 @@ public class DataCombate {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
+				e.printStackTrace();
 				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
+				ex.printStackTrace();
 				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
@@ -165,8 +177,10 @@ public class DataCombate {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar los ataques posibles del personaje.");
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar los ataques posibles del personaje.");
 		} finally {
 			try {
@@ -176,8 +190,10 @@ public class DataCombate {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
+				e.printStackTrace();
 				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
+				ex.printStackTrace();
 				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
@@ -202,8 +218,10 @@ public class DataCombate {
 				throw new ApplicationException(new Exception(), "Combate no encontrado.");
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar la experiencia del combate.");
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar la experiencia del combate.");
 		} finally {
 			try {
@@ -213,8 +231,10 @@ public class DataCombate {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
+				e.printStackTrace();
 				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
+				ex.printStackTrace();
 				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}

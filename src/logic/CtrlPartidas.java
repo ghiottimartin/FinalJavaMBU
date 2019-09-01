@@ -16,16 +16,16 @@ public class CtrlPartidas {
 		dataPar.savePartida(par);
 	}
 	
-	public ArrayList<Partida> getAllFromUser(int id_usuario){
+	public ArrayList<Partida> getAllFromUser(int id_usuario) throws ApplicationException{
 		ArrayList<Partida> partidas = dataPar.getAllPartidasFromUser(id_usuario);		
 		return partidas;
 	}
 	
-	public int getIdUsuarioPersonajeFromTorneo(int id_partida){
+	public int getIdUsuarioPersonajeFromTorneo(int id_partida) throws ApplicationException{
 		return dataPar.getIdUsuarioPersonajeFromTorneo(id_partida);
 	}
 	
-	public int getIdTorneo(int id_partida){
+	public int getIdTorneo(int id_partida) throws ApplicationException{
 		return dataPar.getIdTorneo(id_partida);
 	}
 	
