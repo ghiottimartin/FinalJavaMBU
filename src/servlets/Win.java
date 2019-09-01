@@ -80,7 +80,7 @@ public class Win extends HttpServlet {
 			}
 		} catch (ApplicationException e) {
 			request.getSession().setAttribute("error", e.getMessage());
-			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+			response.sendRedirect("routes/MensajeError.jsp");
 		}
 
 	}

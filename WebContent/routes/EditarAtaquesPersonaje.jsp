@@ -57,7 +57,7 @@ h1, h3 {
 			request.setAttribute("ataques", ataques);
 		} catch (ApplicationException e) {
 			request.getSession().setAttribute("error", e.getMessage());
-			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+			response.sendRedirect("routes/MensajeError.jsp");
 		}
 	%>
 	<form method="post" action="${pageContext.request.contextPath}/Menu"

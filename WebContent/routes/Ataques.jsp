@@ -131,7 +131,7 @@ td, th {
 				request.setAttribute("ataques", ataques);
 			} catch (ApplicationException e) {
 				request.getSession().setAttribute("error", e.getMessage());
-				response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+				response.sendRedirect("routes/MensajeError.jsp");
 			}
 		%>
 
@@ -163,9 +163,9 @@ td, th {
 				</c:forEach>
 			</tbody>
 		</table>
-		<a href="/WebPage/routes/ABMAtaques/nuevoAtaque.jsp">
+		<a href="${pageContext.request.contextPath}/ABMAtaques/nuevoAtaque.jsp">
 			<button class="btn btn-success">Agregar ataque</button>
-		</a> <a href="/WebPage/routes/Menu.jsp">
+		</a> <a href="${pageContext.request.contextPath}/Menu.jsp">
 			<button class="btn btn-light">Volver</button>
 		</a>
 	</div>
