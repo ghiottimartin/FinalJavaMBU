@@ -17,6 +17,7 @@ body {
 
 h1 {
 	margin-top: 100px;
+	color: white;
 }
 
 .boton {

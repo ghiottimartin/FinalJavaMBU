@@ -50,9 +50,9 @@ public class DataAtaque {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
-				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 
@@ -83,9 +83,9 @@ public class DataAtaque {
 			}
 
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al obtener los ataques.");
-		} catch (ApplicationException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error al obtener los ataques.");
+			throw new ApplicationException(e, "Error en la consulta al obtener los ataques.");
+		} catch (Exception e) {
+			throw new ApplicationException(e, "Error al obtener los ataques.");
 		} finally {
 			try {
 				if (rs != null)
@@ -94,9 +94,9 @@ public class DataAtaque {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
-				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 
@@ -129,9 +129,9 @@ public class DataAtaque {
 			}
 
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al obtener los ataques.");
-		} catch (ApplicationException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error al obtener los ataques.");
+			throw new ApplicationException(e, "Error en la consulta al obtener los ataques.");
+		} catch (Exception e) {
+			throw new ApplicationException(e, "Error al obtener los ataques.");
 		} finally {
 			try {
 				if (rs != null)
@@ -140,9 +140,9 @@ public class DataAtaque {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
-				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 
@@ -155,22 +155,13 @@ public class DataAtaque {
 
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into ataque(id_ataque,nombre_ataque,energia_requerida)" + " values(null,?,?)",
+					"insert into ataque(id_ataque,nombre_ataque,energia_requerida) values(default,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated
-			// on the db
-			// by the autoincrement column. Otherwise don't use it
-
 			stmt.setString(1, ataque.getNombre_ataque());
 			stmt.setInt(2, ataque.getEnergia_requerida());
 			stmt.execute();
-
-			// after executing the insert use the following lines to retrieve the id
-			rs = stmt.getGeneratedKeys();
-			if (rs != null && rs.next()) {
-				ataque.setId_ataque(rs.getInt("id"));
-			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta crear el ataque.");
 		} catch (ApplicationException e) {
 			throw new ApplicationException(e, "Lo siento, hubo un error al crear el ataque.");
@@ -182,9 +173,9 @@ public class DataAtaque {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
-				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 	}
@@ -206,14 +197,13 @@ public class DataAtaque {
 				ataqueEdit.setEnergia_requerida(rs.getInt("energia_requerida"));
 
 			} else {
-				Exception e = new Exception();
-				throw new ApplicationException(e, "Lo siento, no se encontro el ataque.");
+				throw new ApplicationException(new Exception(), "No se encontro el ataque.");
 			}
 
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al buscar el ataque.");
-		} catch (ApplicationException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error al buscar el ataque.");
+			throw new ApplicationException(e, "Error en la consulta al buscar el ataque.");
+		} catch (Exception e) {
+			throw new ApplicationException(e, "Error al buscar el ataque.");
 		} finally {
 			try {
 				if (rs != null)
@@ -222,10 +212,9 @@ public class DataAtaque {
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al obtener el ataque.");
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
-				throw new ApplicationException(ex, "Lo siento, hubo un error al obtener el ataque.");
-
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 
@@ -244,18 +233,18 @@ public class DataAtaque {
 			stmt.setInt(3, ataque.getId_ataque());
 			stmt.execute();
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al editar el ataque.");
+			throw new ApplicationException(e, "Error en la consulta al editar el ataque.");
 		} catch (ApplicationException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error al editar el ataque.");
+			throw new ApplicationException(e, "Error al editar el ataque.");
 		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
-				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 	}
@@ -269,18 +258,18 @@ public class DataAtaque {
 			stmt.setInt(1, id);
 			stmt.execute();
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error en la consulta al borrar el ataque.");
-		} catch (ApplicationException e) {
-			throw new ApplicationException(e, "Lo siento, hubo un error al borrar el ataque.");
-		}  finally {
+			throw new ApplicationException(e, "Error en la consulta al borrar el ataque.");
+		} catch (Exception e) {
+			throw new ApplicationException(e, "Error al borrar el ataque.");
+		} finally {
 			try {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				throw new ApplicationException(e, "Lo siento, hubo un error con la base de datos.");
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
 			} catch (Exception ex) {
-				throw new ApplicationException(ex, "Lo siento, hubo un error general con la base de datos.");
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 	}

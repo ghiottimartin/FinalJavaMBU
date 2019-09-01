@@ -50,6 +50,7 @@ public class Ataques extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			request.getSession().setAttribute("error", null);
 			if (request.getParameter("crearAtaque") != null) {
 				Ataque ataque = new Ataque(String.valueOf(request.getParameter("nombre_ataque")),
 						Integer.parseInt(request.getParameter("energia_requerida")));

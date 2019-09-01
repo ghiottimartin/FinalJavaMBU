@@ -136,7 +136,7 @@ label {
 				</div>
 			</div>
 			<div class="botones">
-				<button name="borrarAtaque" class="btn btn-success">Borrar</button>
+				<button name="borrarAtaque" class="btn btn-danger">Borrar</button>
 				<button name="volver" type="submit" class="btn btn-light">Volver</button>
 			</div>
 		</form>

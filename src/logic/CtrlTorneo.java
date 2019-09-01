@@ -14,12 +14,12 @@ public class CtrlTorneo {
 	private Torneo torneo;
 	private DataTorneo dataTorneo;
 	private DataCombate dataCombate;
-	
-	public CtrlTorneo(){
+
+	public CtrlTorneo() {
 		dataCombate = new DataCombate();
 		dataTorneo = new DataTorneo();
 	}
-	
+
 	public void create(Torneo t) throws ApplicationException {
 		Torneo tor = dataTorneo.add(t);
 		int id_torneo = tor.getId();
@@ -30,25 +30,16 @@ public class CtrlTorneo {
 //		System.out.println(tcArray.get(1).getCombate_activo());
 		dataTorneo.addTorneoCombates(tcArray);
 	}
-	
-	public Personaje getEnemigo(int idTorneo) 
-	{	
-		Personaje p = new Personaje();
-		try {
-			int idCombateActivo = dataTorneo.getIdCombateActivo(idTorneo);
-			Combate combate = dataCombate.getCombate(idCombateActivo);
-			int idPersonaje = combate.getIdEnemigo();
-			ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
-		    p = ctrlPersonaje.getById(idPersonaje);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return p;
+
+	public Personaje getEnemigo(int idTorneo) throws ApplicationException {
+		int idCombateActivo = dataTorneo.getIdCombateActivo(idTorneo);
+		Combate combate = dataCombate.getCombate(idCombateActivo);
+		int idPersonaje = combate.getIdEnemigo();
+		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+		return ctrlPersonaje.getById(idPersonaje);
 	}
-	
-	public int getIdUsuarioPersonaje(int idUsuario, int idPersonaje)
-	{
+
+	public int getIdUsuarioPersonaje(int idUsuario, int idPersonaje) {
 		int id = 0;
 		try {
 			id = dataTorneo.getIdUsuarioPersonaje(idUsuario, idPersonaje);
@@ -58,8 +49,8 @@ public class CtrlTorneo {
 		}
 		return id;
 	}
-	
-	public int getIdPersonaje(int idUsuarioPersonaje){
+
+	public int getIdPersonaje(int idUsuarioPersonaje) {
 		int idPersonaje = 0;
 		try {
 			idPersonaje = dataTorneo.getIdPersonajeByIdUsuarioPersonaje(idUsuarioPersonaje);
@@ -69,55 +60,47 @@ public class CtrlTorneo {
 		}
 		return idPersonaje;
 	}
-	
-	public Personaje getpersonaje(int idUsuarioPersonaje){
+
+	public Personaje getpersonaje(int idUsuarioPersonaje) {
 		int idPersonaje = getIdPersonaje(idUsuarioPersonaje);
 		Personaje p = new Personaje();
 		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
-		//falta implementar el codigo de getById de controlador Personaje
+		// falta implementar el codigo de getById de controlador Personaje
 		p = ctrlPersonaje.getById(idPersonaje);
 		return p;
 	}
-	
-	
-	
-	public ArrayList<TorneoCombate> getTorneoCombateToInsert(int id_torneo){
+
+	public ArrayList<TorneoCombate> getTorneoCombateToInsert(int id_torneo) throws ApplicationException {
 		ArrayList<TorneoCombate> torneoCombates = new ArrayList<TorneoCombate>();
-		try {
-			ArrayList<Combate> allCombates = dataCombate.getCombates();
-			int count = allCombates.size();
-			int lastAddedTorneoCombate = dataTorneo.getIdMaxTorneoCombate();
-			int total = count + lastAddedTorneoCombate;
-			for(int i = 0; i < count; i++){
-				TorneoCombate tc = new TorneoCombate();
-				tc.id_torneo = id_torneo;
-				tc.id_combate = allCombates.get(i).getId();
-				if(i == 0){
-					tc.combate_activo = 1;
-				} else {
-					tc.combate_activo = 0;
-				}
-				
-				if(i == count-1){
-					tc.id_siguiente_combate = null;
-				} else {
-					tc.id_siguiente_combate = total - (i + 1);
-				}
-				
-				torneoCombates.add(tc);
+		ArrayList<Combate> allCombates = dataCombate.getCombates();
+		int count = allCombates.size();
+		int lastAddedTorneoCombate = dataTorneo.getIdMaxTorneoCombate();
+		int total = count + lastAddedTorneoCombate;
+		for (int i = 0; i < count; i++) {
+			TorneoCombate tc = new TorneoCombate();
+			tc.id_torneo = id_torneo;
+			tc.id_combate = allCombates.get(i).getId();
+			if (i == 0) {
+				tc.combate_activo = 1;
+			} else {
+				tc.combate_activo = 0;
 			}
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			if (i == count - 1) {
+				tc.id_siguiente_combate = null;
+			} else {
+				tc.id_siguiente_combate = total - (i + 1);
+			}
+
+			torneoCombates.add(tc);
 		}
-		
-		
+
 		return torneoCombates;
 	}
-	
-	public int updateCombateActivo(int idTorneo){
+
+	public int updateCombateActivo(int idTorneo) {
 		int id_next_combate = 0;
-		int id_current_combate= 0;
+		int id_current_combate = 0;
 		System.out.println("Entro a updatecombateactivo");
 		System.out.println(idTorneo);
 		try {
@@ -130,18 +113,18 @@ public class CtrlTorneo {
 		try {
 			id_next_combate = dataTorneo.getNextCombate(id_current_combate);
 			System.out.println(id_next_combate);
-			if(id_next_combate != 0){
+			if (id_next_combate != 0) {
 				dataTorneo.updateCombateActivo(id_current_combate, id_next_combate);
-			} 
+			}
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return id_next_combate;
 	}
-	
-	public int getIdCombateActivo(int id_torneo){
+
+	public int getIdCombateActivo(int id_torneo) {
 		int id_combate_activo = 0;
 		try {
 			id_combate_activo = dataTorneo.getIdCombateActivo(id_torneo);
