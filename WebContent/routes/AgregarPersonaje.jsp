@@ -130,6 +130,7 @@ h1, h3, label, p {
 		<h1>Creación de personajes</h1>
 		<p class="textoElija">Por favor elija primero el rol del
 			personaje.</p>
+		<p class="textoElija">Luego seleccionelo con la flecha en verde.</p>
 		<form method="post"
 			action="${pageContext.request.contextPath}/Personajes" id="register"
 			class="">

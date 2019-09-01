@@ -62,7 +62,7 @@ public class War extends HttpServlet {
 				//int energia = controlador.getEnergiaFromAtaque(Integer.parseInt(request.getParameter("idAtaque")));
 				int energia = ataque.getEnergia_requerida();
 				Personaje p = (Personaje) request.getSession().getAttribute("P1");
-				mensajes = mensajes + "\n\n" + String.valueOf(p.getNombre()) + " Ha atacado usando el ataque " + ataque.getNombre_ataque();
+				
 				request.setAttribute("mensaje", mensajes);
 				//if(controlador.ataque(Integer.parseInt(request.getParameter("energiaUsar")), turno))
 				if(controlador.ataque(energia, turno))
@@ -87,6 +87,7 @@ public class War extends HttpServlet {
 							mensajes = "Resumen de la pelea: ";
 							request.getRequestDispatcher("routes/Winner.jsp").forward(request, response);
 						} else {
+							request.getSession().setAttribute("playing", 1);
 							mensajes = "Resumen de la pelea: ";
 							request.getRequestDispatcher("routes/WinCombat.jsp").forward(request, response);
 						}		
@@ -94,15 +95,15 @@ public class War extends HttpServlet {
 				}else{
 					if(controlador.isEvadido())
 					{
-						mensajes = mensajes + "\n" + "El ataque fue evadido";
-						request.setAttribute("mensaje", mensajes);
+						mensajes = "El ataque fue evadido \n\n" +  mensajes;
 						controlador.setEvadido(false);
 					}
 					else
 					{
-						mensajes = mensajes + "\n" + "Quito a su rival "+ ataque.getEnergia_requerida() + " de vida";
-						request.setAttribute("mensaje", mensajes);
+						mensajes = "Quito a su rival "+ ataque.getEnergia_requerida() + " de vida \n\n" + mensajes;
 					}
+					mensajes = String.valueOf(p.getNombre()) + " ha atacado usando el ataque " + ataque.getNombre_ataque() + "\n" + mensajes;
+					request.setAttribute("mensaje", mensajes);
 					this.terminaTurno(request, response);
 				}
 				}
@@ -119,7 +120,7 @@ public class War extends HttpServlet {
 			if (turno ==1)
 			{
 			Personaje p = (Personaje) request.getSession().getAttribute("P1");
-			mensajes = mensajes + "\n\n" + String.valueOf(p.getNombre()) + " Ha defendido";
+			mensajes = String.valueOf(p.getNombre()) + " Ha defendido \n\n" +  mensajes;
 			request.setAttribute("mensaje", mensajes);
 			controlador.defensa(turno);
 			this.terminaTurno(request, response);
@@ -137,7 +138,7 @@ public class War extends HttpServlet {
 				double proporcionVidaP2 = controlador.getProporcionVida();
 				if (ataques.isEmpty() || ataques.size() == 0 || ataques == null || vidaP2 <= 10 || proporcionVidaP2 <= 0.2)
 				{
-				mensajes =  mensajes + "\n\n" + String.valueOf(p.getNombre()) + " Ha defendido";
+				mensajes =  String.valueOf(p.getNombre()) + " Ha defendido \n\n" + mensajes ;
 				request.setAttribute("mensaje", mensajes);	
 				controlador.defensa(turno);
 				this.terminaTurno(request, response);
@@ -146,28 +147,29 @@ public class War extends HttpServlet {
 				{
 					
 					Ataque ataque = controlador.randomAtaque(ataques);
-					mensajes = mensajes + "\n\n" + String.valueOf(p.getNombre()) + " Ha atacado usando el ataque " + ataque.getNombre_ataque();
+					
 					request.setAttribute("mensaje", mensajes);
 					int energia = controlador.getEnergiaFromAtaque(ataque.getId_ataque());
 					try {
 						if(controlador.ataque(energia, turno))					
 						{	
 							//tiene que ir a la pantalla de perdida
+							request.getSession().setAttribute("playing", 0);
 							mensajes = "Resumen de la pelea: ";
 							request.getRequestDispatcher("routes/Loser.jsp").forward(request, response);
 						}
 						else{
 								if(controlador.isEvadido())
 								{
-									mensajes = mensajes + "\n" + "El ataque fue evadido";
-									request.setAttribute("mensaje", mensajes);
+									mensajes = "El ataque fue evadido \n\n" + mensajes;
 									controlador.setEvadido(false);
 								}
 								else
 								{
-									mensajes = mensajes + "\n" + "Quito a su rival "+ ataque.getEnergia_requerida() + " de vida";
-									request.setAttribute("mensaje", mensajes);
+									mensajes = "Quito a su rival "+ ataque.getEnergia_requerida() + " de vida\n\n" + mensajes;
 								}
+								mensajes =  String.valueOf(p.getNombre()) + " ha atacado usando el ataque " + ataque.getNombre_ataque() + "\n" + mensajes;
+								request.setAttribute("mensaje", mensajes);
 								this.terminaTurno(request, response);	
 							}
 					} catch (ApplicationException e) {
