@@ -79,8 +79,7 @@
 					<li class="nav-item dropdown my-2 my-sm-0"><i
 						class="fa fa-user"></i> <%
  	if (u != null) {
- %> <a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+ %> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false"> <%=u.getNombreUsuario()%></a> <%
  	}

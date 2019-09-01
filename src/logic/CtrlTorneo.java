@@ -39,25 +39,15 @@ public class CtrlTorneo {
 		return ctrlPersonaje.getById(idPersonaje);
 	}
 
-	public int getIdUsuarioPersonaje(int idUsuario, int idPersonaje) {
+	public int getIdUsuarioPersonaje(int idUsuario, int idPersonaje) throws ApplicationException {
 		int id = 0;
-		try {
-			id = dataTorneo.getIdUsuarioPersonaje(idUsuario, idPersonaje);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		id = dataTorneo.getIdUsuarioPersonaje(idUsuario, idPersonaje);
 		return id;
 	}
 
-	public int getIdPersonaje(int idUsuarioPersonaje) {
+	public int getIdPersonaje(int idUsuarioPersonaje) throws ApplicationException {
 		int idPersonaje = 0;
-		try {
-			idPersonaje = dataTorneo.getIdPersonajeByIdUsuarioPersonaje(idUsuarioPersonaje);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		idPersonaje = dataTorneo.getIdPersonajeByIdUsuarioPersonaje(idUsuarioPersonaje);
 		return idPersonaje;
 	}
 
@@ -96,40 +86,25 @@ public class CtrlTorneo {
 		return torneoCombates;
 	}
 
-	public int updateCombateActivo(int idTorneo) {
+	public int updateCombateActivo(int idTorneo) throws ApplicationException {
 		int id_next_combate = 0;
 		int id_current_combate = 0;
 		System.out.println("Entro a updatecombateactivo");
 		System.out.println(idTorneo);
-		try {
-			id_current_combate = dataTorneo.getIdTorneoCombateActivo(idTorneo);
-			System.out.println(id_current_combate);
-		} catch (ApplicationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			id_next_combate = dataTorneo.getNextCombate(id_current_combate);
-			System.out.println(id_next_combate);
-			if (id_next_combate != 0) {
-				dataTorneo.updateCombateActivo(id_current_combate, id_next_combate);
-			}
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+		id_current_combate = dataTorneo.getIdTorneoCombateActivo(idTorneo);
+		System.out.println(id_current_combate);
+		id_next_combate = dataTorneo.getNextCombate(id_current_combate);
+		System.out.println(id_next_combate);
+		if (id_next_combate != 0) {
+			dataTorneo.updateCombateActivo(id_current_combate, id_next_combate);
+		}
 		return id_next_combate;
 	}
 
-	public int getIdCombateActivo(int id_torneo) {
+	public int getIdCombateActivo(int id_torneo) throws ApplicationException {
 		int id_combate_activo = 0;
-		try {
-			id_combate_activo = dataTorneo.getIdCombateActivo(id_torneo);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		id_combate_activo = dataTorneo.getIdCombateActivo(id_torneo);
 		return id_combate_activo;
 	}
 }

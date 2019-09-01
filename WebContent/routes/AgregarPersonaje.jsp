@@ -1,3 +1,4 @@
+<%@page import="utils.ApplicationException"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.*"%>
@@ -75,12 +76,17 @@ h1, h3, label, p {
 	<%
 		Usuario u = (Usuario) session.getAttribute("usuario");
 		if (u == null) {
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("/WebPage/index.jsp");
 		}
 
-		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
-		List<Rol> roles = ctrlPersonaje.getAllRoles();
-		request.setAttribute("roles", roles);
+		try {
+			ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+			List<Rol> roles = ctrlPersonaje.getAllRoles();
+			request.setAttribute("roles", roles);
+		} catch (ApplicationException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+		}
 
 		AtributosRolNivel atr = new AtributosRolNivel();
 		if ((AtributosRolNivel) session.getAttribute("atributos") != null) {
@@ -103,11 +109,14 @@ h1, h3, label, p {
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown my-2 my-sm-0"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				<li class="nav-item dropdown my-2 my-sm-0"><i
+					class="fa fa-user"></i> <%
+ 	if (u != null) {
+ %> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> <%=u.getNombreUsuario()%>
-				</a> <%
+					aria-expanded="false"> <%=u.getNombreUsuario()%></a> <%
+ 	}
+ %> <%
  	if (u != null && u.getRol().equals("admin")) {
  %>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -197,41 +206,6 @@ h1, h3, label, p {
 			</div>
 		</form>
 	</div>
-
-
-
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
-	<script>
-		vm = new Vue({
-			el : '#app',
-			data : {
-				initialPoints : 100,
-				life : 0,
-				energy : 0,
-				defense : 0,
-				evasion : 0,
-				attacks : [],
-				roles : []
-			},
-			computed : {
-				points : function() {
-					return this.initialPoints - this.life - this.energy
-							- this.defense - this.evasion;
-				},
-				selectedAttacks : function() {
-					return this.attacks.length;
-				}
-			},
-			methods : {
-				prueba : function() {
-					var someJsVar = "<c:out value='${ataques}'/>";
-					return someJsVar;
-				}
-			}
-		})
-	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>

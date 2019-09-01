@@ -17,57 +17,59 @@ import utils.ApplicationException;
 @WebServlet("/Inicio")
 public class Inicio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Inicio() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Inicio() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CtrlLogin ctrl = new CtrlLogin();
-		if(request.getParameter("login")!= null) {
-			try {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			CtrlLogin ctrl = new CtrlLogin();
+			if (request.getParameter("login") != null) {
 				Usuario u = ctrl.login(request.getParameter("nombreUsuario"), request.getParameter("password"));
-				
-				if(this.validateUser(u)) {
+
+				if (this.validateUser(u)) {
 					request.getSession().setAttribute("usuario", u);
 					response.sendRedirect("routes/Menu.jsp");
-					//request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
-					
+					// request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
+
 				} else {
-					//response.sendRedirect("index.jsp");
+					// response.sendRedirect("index.jsp");
 					request.getSession().setAttribute("usuario", "erroneo");
-					//request.getRequestDispatcher("index.jsp").forward(request, response);
+					// request.getRequestDispatcher("index.jsp").forward(request, response);
 					response.sendRedirect("index.jsp");
 				}
-				
-				
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-		}
-		if(request.getParameter("registro")!=null) {
-			response.sendRedirect("routes/Registro.jsp");
+			if (request.getParameter("registro") != null) {
+				response.sendRedirect("routes/Registro.jsp");
+			}
+		} catch (ApplicationException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 		}
 	}
-	
+
 	public boolean validateUser(Usuario u) {
-		if(u != null) {
+		if (u != null) {
 			return true;
 		} else {
 			return false;

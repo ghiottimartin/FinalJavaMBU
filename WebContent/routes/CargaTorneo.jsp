@@ -44,17 +44,16 @@ button {
 	<%
 		Usuario u = (Usuario) session.getAttribute("usuario");
 		if (u == null) {
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("/WebPage/index.jsp");
 		}
 		try {
 			CtrlPartidas ctrlPartidas = new CtrlPartidas();
 			List<Partida> partidas = ctrlPartidas.getAllFromUser(u.getId());
 			request.setAttribute("partidas", partidas);
-		} catch(ApplicationException e) {
+		} catch (ApplicationException e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 		}
-		
 	%>
 	<form method="post" action="${pageContext.request.contextPath}/Menu"
 		id="menu">
@@ -69,11 +68,14 @@ button {
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown my-2 my-sm-0"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				<li class="nav-item dropdown my-2 my-sm-0"><i
+					class="fa fa-user"></i> <%
+ 	if (u != null) {
+ %> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> <%=u.getNombreUsuario()%>
-				</a> <%
+					aria-expanded="false"> <%=u.getNombreUsuario()%></a> <%
+ 	}
+ %> <%
  	if (u != null && u.getRol().equals("admin")) {
  %>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -110,9 +112,6 @@ button {
 			</div>
 		</form>
 	</div>
-
-
-
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>

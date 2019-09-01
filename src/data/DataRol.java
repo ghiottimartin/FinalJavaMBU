@@ -38,9 +38,11 @@ public class DataRol {
 			}
 
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Error en el SQL");
+			e.printStackTrace();
+			throw new ApplicationException(e, "Error en la consulta al obtener los roles.");
 		} catch (ApplicationException ae) {
-			throw new ApplicationException(ae, "No existen roles");
+			ae.printStackTrace();
+			throw new ApplicationException(ae, "Error al obtener los roles.");
 		} finally {
 			try {
 				if (rs != null)
@@ -48,12 +50,12 @@ public class DataRol {
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 		
@@ -82,22 +84,24 @@ public class DataRol {
 			}
 
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Error en el SQL");
+			e.printStackTrace();
+			throw new ApplicationException(e, "Error en la consulta al obtener el rol.");
 		} catch (ApplicationException ae) {
-			throw new ApplicationException(ae, "No existen roles");
-		} finally {
+			ae.printStackTrace();
+			throw new ApplicationException(ae, "Error al obtener el rol.");
+		}finally {
 			try {
 				if (rs != null)
 					rs.close();
 				if (stmt != null)
 					stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new ApplicationException(e, "Error al desconectarse de la base de datos.");
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
 		

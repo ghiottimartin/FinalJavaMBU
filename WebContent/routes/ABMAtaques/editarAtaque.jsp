@@ -77,7 +77,7 @@ label {
 	<%
 		Usuario u = (Usuario) session.getAttribute("usuario");
 		if (u == null) {
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("/WebPage/index.jsp");
 		}
 		Ataque ataque = (Ataque) session.getAttribute("ataque");
 		session.setAttribute("ataque", ataque);
@@ -95,11 +95,14 @@ label {
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item dropdown my-2 my-sm-0"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					<li class="nav-item dropdown my-2 my-sm-0"><i
+						class="fa fa-user"></i> <%
+ 	if (u != null) {
+ %> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <%=u.getNombreUsuario()%>
-					</a> <%
+						aria-expanded="false"> <%=u.getNombreUsuario()%></a> <%
+ 	}
+ %> <%
  	if (u != null && u.getRol().equals("admin")) {
  %>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">

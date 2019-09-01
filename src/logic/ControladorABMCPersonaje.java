@@ -32,8 +32,7 @@ public class ControladorABMCPersonaje {
 		if (!dataPer.coincideNombre(p)) {
 			return dataPer.add(p);
 		} else {
-			Exception e = new Exception();
-			throw new ApplicationException(e, "Ya existe un personaje con ese nombre");
+			throw new ApplicationException(new Exception(), "Ya existe un personaje con ese nombre");
 		}
 	}
 
@@ -62,8 +61,7 @@ public class ControladorABMCPersonaje {
 	}
 
 	public Personaje getById(int idPersonaje) throws ApplicationException {
-		DataPersonaje dataPersonaje = new DataPersonaje();
-		return dataPersonaje.getById(idPersonaje);
+		return dataPer.getById(idPersonaje);
 	}
 
 	public void insertarPersonajeAtaque(int id_personaje, int id_ataque) throws ApplicationException {

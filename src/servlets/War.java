@@ -191,20 +191,15 @@ public class War extends HttpServlet {
 	}
 
 	private void terminaTurno(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-			request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
-			this.cambiaTurno();
-			request.getSession().setAttribute("turno", turno);
-			List<Ataque> ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),
-					turno);
-			request.getSession().setAttribute("ataques", ataques);
-			request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);
-		} catch(ApplicationException e) {
-			request.getSession().setAttribute("error", e.getMessage());
-			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
-		}
-		
+			throws ServletException, IOException, ApplicationException {
+
+		request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
+		this.cambiaTurno();
+		request.getSession().setAttribute("turno", turno);
+		List<Ataque> ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno),
+				turno);
+		request.getSession().setAttribute("ataques", ataques);
+		request.getRequestDispatcher("routes/Combate.jsp").forward(request, response);
 	}
 
 }

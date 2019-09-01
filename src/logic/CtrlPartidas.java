@@ -17,8 +17,7 @@ public class CtrlPartidas {
 	}
 	
 	public ArrayList<Partida> getAllFromUser(int id_usuario) throws ApplicationException{
-		ArrayList<Partida> partidas = dataPar.getAllPartidasFromUser(id_usuario);		
-		return partidas;
+		return dataPar.getAllPartidasFromUser(id_usuario);
 	}
 	
 	public int getIdUsuarioPersonajeFromTorneo(int id_partida) throws ApplicationException{

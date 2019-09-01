@@ -37,6 +37,7 @@ h4 {
 h1 {
 	margin-top: 30px;
 }
+
 h1, h3 {
 	color: white;
 	text-align: center;
@@ -47,7 +48,7 @@ h1, h3 {
 	<%
 		Usuario u = (Usuario) session.getAttribute("usuario");
 		if (u == null) {
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("/WebPage/index.jsp");
 		}
 		Personaje currPers = (Personaje) request.getSession().getAttribute("currentPersonaje");
 		try {
@@ -58,7 +59,6 @@ h1, h3 {
 			request.getSession().setAttribute("error", e.getMessage());
 			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 		}
-		
 	%>
 	<form method="post" action="${pageContext.request.contextPath}/Menu"
 		id="menu">
@@ -73,11 +73,14 @@ h1, h3 {
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown my-2 my-sm-0"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				<li class="nav-item dropdown my-2 my-sm-0"><i
+					class="fa fa-user"></i> <%
+ 	if (u != null) {
+ %> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> <%=u.getNombreUsuario()%>
-				</a> <%
+					aria-expanded="false"> <%=u.getNombreUsuario()%></a> <%
+ 	}
+ %> <%
  	if (u != null && u.getRol().equals("admin")) {
  %>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -108,16 +111,18 @@ h1, h3 {
 			</h3>
 
 			<div style="padding-left: 0" class="col-md-12">
-				<h4>Ataques</h3>
-				<select name="selectedAttacks" class="form-control col-md-12 h-50"
-					multiple>
-					<c:forEach items="${ataques}" var="ataque">
-						<option value="${ataque.id_ataque}">
-							<c:out value="${ataque.nombre_ataque}" /> - Requiere:
-							<c:out value="${ataque.energia_requerida}" /> de energia
-						</option>
-					</c:forEach>
-				</select>
+				<h4>
+					Ataques
+					</h3>
+					<select name="selectedAttacks" class="form-control col-md-12 h-50"
+						multiple>
+						<c:forEach items="${ataques}" var="ataque">
+							<option value="${ataque.id_ataque}">
+								<c:out value="${ataque.nombre_ataque}" /> - Requiere:
+								<c:out value="${ataque.energia_requerida}" /> de energia
+							</option>
+						</c:forEach>
+					</select>
 			</div>
 
 			<br>
@@ -133,8 +138,6 @@ h1, h3 {
 		</form>
 
 	</div>
-
-
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>

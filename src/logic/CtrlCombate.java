@@ -125,7 +125,7 @@ public class CtrlCombate {
 			}
 			return gano;
 		} else {
-			throw new ApplicationException(null, ganador);
+			throw new ApplicationException(new Exception(), ganador);
 		}
 	}
 
@@ -209,22 +209,17 @@ public class CtrlCombate {
 
 	public boolean validarPartida(int turno) {
 		boolean valido = false;
-		try {
-			valido = false;
-			if (turno == 1) {
-				if (vidaP2 <= 0) {
-					valido = true;
-					// dataPer.updatePuntos(pers1);
-				}
-			} else {
-				if (vidaP1 <= 0) {
-					valido = true;
-					// dataPer.updatePuntos(pers2);
-				}
+		valido = false;
+		if (turno == 1) {
+			if (vidaP2 <= 0) {
+				valido = true;
+				// dataPer.updatePuntos(pers1);
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} else {
+			if (vidaP1 <= 0) {
+				valido = true;
+				// dataPer.updatePuntos(pers2);
+			}
 		}
 
 		return valido;
@@ -284,33 +279,19 @@ public class CtrlCombate {
 //fin de metodos de Defensa
 
 //Metodos de ataque-energia
-	public int getEnergiaFromAtaque(int idAtaque) {
+	public int getEnergiaFromAtaque(int idAtaque) throws ApplicationException {
 		// revisar este metodo
 		ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
-		try {
-			Ataque ataque = ctrlAtaque.get(idAtaque);
-			return ataque.getEnergia_requerida();
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 0;
-		}
-
+		Ataque ataque = ctrlAtaque.get(idAtaque);
+		return ataque.getEnergia_requerida();
 	};
 
-	public Ataque getAtaque(int idAtaque) {
+	public Ataque getAtaque(int idAtaque) throws ApplicationException {
 		// revisar este metodo
 		ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
 		Ataque ataque = new Ataque();
-		try {
-			ataque = ctrlAtaque.get(idAtaque);
-			return ataque;
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return ataque;
-		}
-
+		ataque = ctrlAtaque.get(idAtaque);
+		return ataque;
 	};
 
 // Fin de metodos Ataque-Energia

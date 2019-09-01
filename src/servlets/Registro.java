@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.connector.Request;
 
 import logic.CtrlRegistro;
+import utils.ApplicationException;
 import entidades.Usuario;
 
 import java.util.regex.Matcher;
@@ -47,19 +48,21 @@ public class Registro extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getParameter("registrar") != null) {
-			CtrlRegistro ctrl = new CtrlRegistro();
-			Usuario currentUser = this.mapUserFromForm(request);
-			try {
+		try {
+			if (request.getParameter("registrar") != null) {
+				CtrlRegistro ctrl = new CtrlRegistro();
+				Usuario currentUser = this.mapUserFromForm(request);
+
 				request.getSession().setAttribute("emailErroneo", "false");
-				if(this.validateMail(currentUser.getEmail())) {
+				if (this.validateMail(currentUser.getEmail())) {
 					request.getSession().setAttribute("emailErroneo", "true");
 				}
 				request.getSession().setAttribute("contraseñaNoCoincide", "false");
-				if(this.validaContraseña(currentUser, request.getParameter("passwordRepeated"))) {
+				if (this.validaContraseña(currentUser, request.getParameter("passwordRepeated"))) {
 					request.getSession().setAttribute("contraseñaNoCoincide", "true");
 				}
-				if(!this.validateMail(currentUser.getEmail()) && !this.validaContraseña(currentUser, request.getParameter("passwordRepeated"))) {
+				if (!this.validateMail(currentUser.getEmail())
+						&& !this.validaContraseña(currentUser, request.getParameter("passwordRepeated"))) {
 					ctrl.register(currentUser);
 					response.sendRedirect("index.jsp");
 				} else {
@@ -73,13 +76,14 @@ public class Registro extends HttpServlet {
 				 * 
 				 * }
 				 */
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
-		}
 
-		if (request.getParameter("volver") != null) {
-			response.sendRedirect("index.jsp");
+			if (request.getParameter("volver") != null) {
+				response.sendRedirect("index.jsp");
+			}
+		} catch (ApplicationException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 		}
 
 	}
@@ -100,14 +104,14 @@ public class Registro extends HttpServlet {
 		Pattern pattern = Pattern.compile(
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 		Matcher mather = pattern.matcher(email);
- 		if (mather.find() == false) {
+		if (mather.find() == false) {
 			return true;
 		} else {
 			return false;
 		}
- 	}
-	
-	public boolean validaContraseña(Usuario user,String contraseña) {
+	}
+
+	public boolean validaContraseña(Usuario user, String contraseña) {
 		System.out.println(user.getPassword().compareTo(contraseña));
 		if (user.getPassword().compareTo(contraseña) != 0) {
 			return true;
