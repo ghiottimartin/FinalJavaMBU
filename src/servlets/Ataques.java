@@ -54,36 +54,36 @@ public class Ataques extends HttpServlet {
 				Ataque ataque = new Ataque(String.valueOf(request.getParameter("nombre_ataque")),
 						Integer.parseInt(request.getParameter("energia_requerida")));
 				ctrlAtaque.add(ataque);	
-				response.sendRedirect("/WebPage/routes/Ataques.jsp");
+				response.sendRedirect("routes/Ataques.jsp");
 			}
 			if(request.getParameter("volver") != null) {
-				response.sendRedirect("/WebPage/routes/Ataques.jsp");
+				response.sendRedirect("routes/Ataques.jsp");
 			}
 				if(request.getParameter("edit") != null) {
 				Ataque ataqueEditar = ctrlAtaque.get(Integer.parseInt(request.getParameter("id")));
 				request.getSession().setAttribute("ataque", ataqueEditar);
-				response.sendRedirect("/WebPage/routes/ABMAtaques/editarAtaque.jsp");
+				response.sendRedirect("routes/ABMAtaques/editarAtaque.jsp");
 			}
 			if (request.getParameter("editarAtaque") != null) {
 				Ataque ataque = (Ataque) request.getSession().getAttribute("ataque");
 				ataque.setEnergia_requerida(Integer.parseInt(request.getParameter("energia_requerida")));
 				ataque.setNombre_ataque(String.valueOf(request.getParameter("nombre_ataque")));
 				ctrlAtaque.edit(ataque);
-				response.sendRedirect("/WebPage/routes/Ataques.jsp");
+				response.sendRedirect("routes/Ataques.jsp");
 			}
 			if (request.getParameter("erase") != null) {
 				Ataque ataqueBorrar = ctrlAtaque.get(Integer.parseInt(request.getParameter("id")));
 				request.getSession().setAttribute("ataque", ataqueBorrar);
-				response.sendRedirect("/WebPage/routes/ABMAtaques/borrarAtaque.jsp");
+				response.sendRedirect("routes/ABMAtaques/borrarAtaque.jsp");
 			}
 			if (request.getParameter("borrarAtaque") != null) {
 				Ataque ataque = (Ataque) request.getSession().getAttribute("ataque");
 				ctrlAtaque.delete(ataque.getId_ataque());
-				response.sendRedirect("/WebPage/routes/Ataques.jsp");
+				response.sendRedirect("routes/Ataques.jsp");
 			}
 		} catch (ApplicationException e) {
 			request.getSession().setAttribute("error", e.getMessage());
-			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+			response.sendRedirect("routes/MensajeError.jsp");
 		}
 	}
 

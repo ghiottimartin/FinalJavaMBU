@@ -53,7 +53,7 @@ button {
 			request.setAttribute("ataques", ataques);	
 		} catch (ApplicationException e) {
 			request.getSession().setAttribute("error", e.getMessage());
-			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+			response.sendRedirect("routes/MensajeError.jsp");
 		}
 		
 		Usuario u = (Usuario) session.getAttribute("usuario");

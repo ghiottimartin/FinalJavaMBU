@@ -65,7 +65,7 @@ public class Personajes extends HttpServlet {
 				response.sendRedirect("routes/Menu.jsp");
 			} catch (ApplicationException e) {
 				request.getSession().setAttribute("error", e.getMessage());
-				response.sendRedirect("/WebPage/routes/MensajeError.jsp");
+				response.sendRedirect("routes/MensajeError.jsp");
 			}
 		}
 
