@@ -48,6 +48,10 @@ public class Menu extends HttpServlet {
 		if(request.getParameter("ataques") != null){	
 			response.sendRedirect("routes/Ataques.jsp");
 		}		
+		
+		if(request.getParameter("personaje") != null){	
+			response.sendRedirect("routes/AgregarPersonaje.jsp");
+		}		
 
 	}
 

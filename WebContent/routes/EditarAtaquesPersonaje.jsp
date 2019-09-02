@@ -63,7 +63,7 @@ h1, h3 {
 	<form method="post" action="${pageContext.request.contextPath}/Menu"
 		id="menu">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a
-			class="navbar-brand" href="#">Guerra!</a>
+			class="navbar-brand" href="${pageContext.request.contextPath}/routes/Menu.jsp">Guerra!</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -73,27 +73,35 @@ h1, h3 {
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown my-2 my-sm-0"><i
-					class="fa fa-user"></i> <%
+				<li class="nav-item dropdown my-2 my-sm-0"><%
  	if (u != null) {
  %> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> <%=u.getNombreUsuario()%></a> <%
  	}
- %> <%
- 	if (u != null && u.getRol().equals("admin")) {
  %>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<div class="dropdown-item">
+							<button name="personaje" class="btn btn-default btn-sm">Crear
+								Personaje</button>
+						</div>
+						<div class="dropdown-item">
+							<button name="torneo" class="btn btn-default btn-sm">Torneos</button>
+						</div>
+						<%
+							if (u != null && u.getRol().equals("admin")) {
+						%>
+						<div class="dropdown-item">
 							<button name="ataques" class="btn btn-default btn-sm">Ataques</button>
 						</div>
+						<%
+							}
+						%>
 						<div class="dropdown-divider"></div>
 						<div class="dropdown-item">
 							<button name="exit" class="btn btn-danger btn-sm">Salir</button>
 						</div>
-					</div> <%
- 	}
- %></li>
+					</div></li>
 			</ul>
 		</div>
 		</nav>
