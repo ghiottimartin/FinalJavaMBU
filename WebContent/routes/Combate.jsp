@@ -1,3 +1,4 @@
+<%@page import="utils.ApplicationException"%>
 <%@page import="logic.CtrlCombate"%>
 <%@page import="entidades.Personaje"%>
 <%@page import="entidades.Usuario"%>
@@ -23,6 +24,10 @@
 <style>
 body {
 	background-color: #0072DD;
+}
+
+.form-pers1 {
+	padding: 0 10px;
 }
 
 h1, h2, label {
@@ -58,7 +63,8 @@ button {
 	<form method="post" action="${pageContext.request.contextPath}/Menu"
 		id="menu">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/routes/Menu.jsp">Guerra!</a>
+			<a class="navbar-brand"
+				href="${pageContext.request.contextPath}/routes/Menu.jsp">Guerra!</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -68,13 +74,15 @@ button {
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item dropdown my-2 my-sm-0"> <%
- 	if (u != null) {
- %> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <%=u.getNombreUsuario()%></a> <%
- 	}
- %>
+					<li class="nav-item dropdown my-2 my-sm-0">
+						<%
+							if (u != null) {
+						%> <a class="nav-link dropdown-toggle" href="#"
+						id="navbarDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> <%=u.getNombreUsuario()%></a>
+						<%
+							}
+						%>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<div class="dropdown-item">
 								<button name="personaje" class="btn btn-default btn-sm">Crear
@@ -96,12 +104,12 @@ button {
 							<div class="dropdown-item">
 								<button name="exit" class="btn btn-danger btn-sm">Salir</button>
 							</div>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</nav>
 	</form>
-	<h1 class="headings-principal" align="center">Combate!</h1>
 	<%
 		Personaje p1 = ((Personaje) session.getAttribute("P1"));
 		Personaje p2 = ((Personaje) session.getAttribute("P2"));
@@ -111,10 +119,32 @@ button {
 		vida2 = combate.getVidaP2();
 		energia1 = combate.getEnergiaP1();
 		energia2 = combate.getEnergiaP2();
+
+		//Calculos de barra vida1
+		int porcVida1 = (int) (vida1 * 100 / p1.getVida());
+		String widthVida1 = "width: " + String.valueOf(porcVida1) + "% !important;";
+		//Calculos de barra vida2
+		int porcVida2 = (int) (vida2 * 100 / p2.getVida());
+		String widthVida2 = "width: " + String.valueOf(porcVida2) + "% !important;";
+
+		//Calculos de barra energia1
+		int porcEnergia1 = (int) (energia1 * 100 / p1.getEnergia());
+		String widthEnergia1 = "width: " + String.valueOf(porcEnergia1) + "% !important;";
+		//Calculos de barra energia2
+		int porcEnergia2 = (int) (energia2 * 100 / p2.getEnergia());
+		String widthEnergia2 = "width: " + String.valueOf(porcEnergia2) + "% !important;";
+
 		String nombrepersonaje = String.valueOf(p1.getNombre());
 		String nombreEnemigo = String.valueOf(p2.getNombre());
 		//String mensaje = session.getAttribute("mensaje").toString();
 		List<Ataque> ataques = (List<Ataque>) session.getAttribute("ataques");
+		//Ordeno ataques por energia requerida desc
+		ataques.sort(new Comparator<Ataque>() {
+			@Override
+			public int compare(Ataque ataque1, Ataque ataque2) {
+				return ataque2.getEnergia_requerida() - ataque1.getEnergia_requerida();
+			}
+		});
 		request.setAttribute("ataques", ataques);
 		int turno = (int) session.getAttribute("turno");
 	%>
@@ -122,20 +152,29 @@ button {
 	<form method="post" class="form-pers1"
 		action="${pageContext.request.contextPath}/War">
 
-		<div class="row">
+		<div class="row" style="margin-top:30px;">
 			<div class="col-md-4">
 				<h2><%=nombrepersonaje%></h2>
 				<label>Nombre</label> <input name="nombre1" type="text"
 					class="form-control" disabled value="<%=p1.getNombre()%>">
-				<br> <label>Vida</label> <input name="vida1" type="text"
-					class="form-control" disabled value="<%=String.valueOf(vida1)%>">
-				<br> <label>Energia</label> <input name="energia1" type="text"
-					class="form-control" disabled value="<%=String.valueOf(energia1)%>">
+				<br> <label>Vida</label>
+				<div class="progress" style="height: 38px;">
+					<div class="progress-bar bg-success" role="progressbar"
+						style="<%=widthVida1%>;font-size: 20px;"
+						aria-valuenow="<%=porcVida1%>" aria-valuemin="0"
+						aria-valuemax="${p1.getVida()} }"><%=String.valueOf(vida1).concat("/").concat(String.valueOf(p1.getVida()))%></div>
+				</div>
+				<br> <label>Energia</label>
+				<div class="progress" style="height: 38px;">
+					<div class="progress-bar bg-info" role="progressbar"
+						style="<%=widthEnergia1%>;font-size: 20px;"
+						aria-valuenow="<%=porcEnergia1%>" aria-valuemin="0"
+						aria-valuemax="${p1.getEnergia()}"><%=String.valueOf(energia1).concat("/").concat(String.valueOf(p1.getEnergia()))%></div>
+				</div>
 				<br> <label>Defensa</label> <input name="defensa1" type="text"
 					class="form-control" disabled value="<%=p1.getDefensa()%>">
 				<br> <label>Evasion</label> <input name="evasion1" type="text"
 					class="form-control" disabled value="<%=p1.getEvasion()%>">
-
 			</div>
 
 			<div class="col-md-4">
@@ -193,10 +232,20 @@ button {
 				<h2><%=nombreEnemigo%></h2>
 				<label>Nombre</label> <input name="nombre1" type="text"
 					class="form-control" disabled value="<%=p2.getNombre()%>">
-				<br> <label>Vida</label> <input name="vida1" type="text"
-					class="form-control" disabled value="<%=String.valueOf(vida2)%>">
-				<br> <label>Energia</label> <input name="energia1" type="text"
-					class="form-control" disabled value="<%=String.valueOf(energia2)%>">
+				<br> <label>Vida</label>
+				<div class="progress" style="height: 38px;">
+					<div class="progress-bar bg-success" role="progressbar"
+						style="<%=widthVida2%>;font-size: 20px;"
+						aria-valuenow="<%=porcVida2%>" aria-valuemin="0"
+						aria-valuemax="${p2.getVida()}"><%=String.valueOf(vida2).concat("/").concat(String.valueOf(p2.getVida()))%></div>
+				</div>
+				<br> <label>Energia</label>
+				<div class="progress" style="height: 38px;">
+					<div class="progress-bar bg-info" role="progressbar"
+						style="<%=widthEnergia2%>;font-size: 20px;"
+						aria-valuenow="<%=porcEnergia2%>" aria-valuemin="0"
+						aria-valuemax="${p2.getEnergia()}"><%=String.valueOf(energia2).concat("/").concat(String.valueOf(p2.getEnergia()))%></div>
+				</div>
 				<br> <label>Defensa</label> <input name="defensa1" type="text"
 					class="form-control" disabled value="<%=p2.getDefensa()%>">
 				<br> <label>Evasion</label> <input name="evasion1" type="text"

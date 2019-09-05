@@ -125,7 +125,7 @@ public class CtrlCombate {
 			}
 			return gano;
 		} else {
-			throw new ApplicationException(new Exception(), ganador);
+			throw new ApplicationException(new Exception(), "Error de energia");
 		}
 	}
 
