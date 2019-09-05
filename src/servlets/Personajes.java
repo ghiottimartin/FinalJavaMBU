@@ -60,7 +60,12 @@ public class Personajes extends HttpServlet {
 				int id_personaje = ctrlPersonaje.agregarPersonaje(per);
 				ctrlPersonaje.insertarPersonajeUsuario(id_personaje, currentUser.getId());
 				String selected_attacks[] = request.getParameterValues("selectedAttacks");
+				if (request.getParameterValues("selectedAttacks") == null) {
+					throw new ApplicationException(new Exception(), "No ha elegido ataques para el personaje");
+				}
+
 				for (String id_attack : selected_attacks) {
+
 					ctrlPersonaje.insertarPersonajeAtaque(id_personaje, Integer.parseInt(id_attack));
 				}
 				response.sendRedirect("routes/Menu.jsp");
@@ -74,6 +79,9 @@ public class Personajes extends HttpServlet {
 
 			if (request.getParameter("selectRole") != null) {
 				String selected_role[] = request.getParameterValues("selectedRole");
+				if (selected_role[0].equalsIgnoreCase("")) {
+					throw new ApplicationException(new Exception(), "No ha elegido rol");
+				}
 				int id_role = Integer.parseInt(selected_role[0]);
 				AtributosRolNivel atr = ctrlPersonaje.puntosTotalesSegunRolNivel(id_role, 1);
 				Rol selectedRole = ctrlPersonaje.getOneRoleById(id_role);

@@ -7,12 +7,12 @@ import utils.*;
 public class FactoryConexion {
 	
 	private String dbDriver="com.mysql.jdbc.Driver";
-	private String host="node216028-fightclub.j.layershift.co.uk";
-	//private String host="localhost";
+//	private String host="node216028-fightclub.j.layershift.co.uk";
+	private String host="localhost";
 	private String port="3306";
 	private String user="root";
-	private String pass="RXOkrz43548";
-	//private String pass="root";
+//	private String pass="RXOkrz43548";
+	private String pass="root";
 	private String db="db_tp_java";
 	private String dbType="mysql";
 	
