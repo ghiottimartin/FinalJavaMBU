@@ -17,7 +17,7 @@ public class DataPersonaje {
 
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into db_tp_java.personaje (id_personaje,nombre,vida,energia,defensa,evasion,experiencia,id_nivel,id_tipo_personaje)"
+					"insert into personaje (id_personaje,nombre,vida,energia,defensa,evasion,experiencia,id_nivel,id_tipo_personaje)"
 							+ " values(null,?,?,?,?,?,0,1,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated
@@ -109,7 +109,7 @@ public class DataPersonaje {
 
 		try {
 			stmt = FactoryConexion.getInstancia().getConn()
-					.prepareStatement("update personajes set nivel=?" + " where id=?");
+					.prepareStatement("update personaje set nivel=?" + " where id=?");
 
 			stmt.setInt(1, 1);
 			stmt.setInt(2, p.getId());

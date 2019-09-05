@@ -23,7 +23,7 @@ public class FactoryConexion {
 		try {
 			Class.forName(dbDriver);
 		} catch (ClassNotFoundException e) {
-			throw new ApplicationException(e, "Error del Driver JDBC.\n"+e.getMessage());
+			throw new ApplicationException(e, "Error del Driver JDBC.");
 		}
 	}
 	

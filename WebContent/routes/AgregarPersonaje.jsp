@@ -91,16 +91,16 @@ h1, h3, label, p {
 		AtributosRolNivel atr = new AtributosRolNivel();
 		if ((AtributosRolNivel) session.getAttribute("atributos") != null) {
 			atr = (AtributosRolNivel) session.getAttribute("atributos");
-
 		}
-		;
 
-		Rol currentRol = (Rol) session.getAttribute("selectedRole");
+		Rol selectedRole = (Rol) session.getAttribute("selectedRole");
 	%>
 	<form method="post" action="${pageContext.request.contextPath}/Menu"
 		id="menu">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <a
-			class="navbar-brand" href="${pageContext.request.contextPath}/routes/Menu.jsp" name="volver">Guerra!</a>
+			class="navbar-brand"
+			href="${pageContext.request.contextPath}/routes/Menu.jsp"
+			name="volver">Guerra!</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -110,9 +110,10 @@ h1, h3, label, p {
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown my-2 my-sm-0"> <%
- 	if (u != null) {
- %> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				<li class="nav-item dropdown my-2 my-sm-0">
+					<%
+						if (u != null) {
+					%> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> <%=u.getNombreUsuario()%></a> <%
  	}
@@ -138,7 +139,8 @@ h1, h3, label, p {
 						<div class="dropdown-item">
 							<button name="exit" class="btn btn-danger btn-sm">Salir</button>
 						</div>
-					</div></li>
+					</div>
+				</li>
 			</ul>
 		</div>
 		</nav>
@@ -159,22 +161,23 @@ h1, h3, label, p {
 						<label>Elija el rol que tendrá el personaje.</label>
 
 						<%
-							if (currentRol != null) {
-						%><label>Su rol elegido es: <%=currentRol.getDescripcion_rol()%></label>
+							Integer idRol = null;
+							if (selectedRole != null) {
+						%><label>Su rol elegido es: <%=selectedRole.getDescripcion_rol()%></label>
 						<%
 							}
 						%>
 
 						<div class="row">
 							<div class="col-sm-10">
-								<select name="selectedRole" class="form-control h-100"
-									v-model="roles">
-									<c:forEach items="${roles}" var="rol">
-										<option value="${rol.id_rol}">
-											<c:out value="${rol.descripcion_rol}" />
-										</option>
+								<select name='selectedRole' class='form-control h-100'>
+									<option value="${selectedRole.getId_rol()}" selected>${selectedRole.getDescripcion_rol()}</option>
+									<c:forEach items="${roles}" var="role">
+										<c:if test="${role.getDescripcion_rol() != selectedRole.getDescripcion_rol()}">
+											<option value="${role.getId_rol()}">${role.getDescripcion_rol()}</option>
+										</c:if>
 									</c:forEach>
-								</select>
+								</select> 
 							</div>
 							<div class="col-sm-2 pull-right">
 								<button name="selectRole" type="submit"
