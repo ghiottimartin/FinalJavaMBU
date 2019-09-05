@@ -52,21 +52,27 @@ public class Ataques extends HttpServlet {
 		try {
 			request.getSession().setAttribute("error", null);
 			if (request.getParameter("crearAtaque") != null) {
+				if (request.getParameter("energia_requerida").isEmpty())
+					throw new ApplicationException(new Exception(),
+							"El ataque debe tener una cantidad de energia distinta de cero");
 				Ataque ataque = new Ataque(String.valueOf(request.getParameter("nombre_ataque")),
 						Integer.parseInt(request.getParameter("energia_requerida")));
-				ctrlAtaque.add(ataque);	
+				ctrlAtaque.add(ataque);
 				response.sendRedirect("routes/Ataques.jsp");
 			}
-			if(request.getParameter("volver") != null) {
+			if (request.getParameter("volver") != null) {
 				response.sendRedirect("routes/Ataques.jsp");
 			}
-				if(request.getParameter("edit") != null) {
+			if (request.getParameter("edit") != null) {
 				Ataque ataqueEditar = ctrlAtaque.get(Integer.parseInt(request.getParameter("id")));
 				request.getSession().setAttribute("ataque", ataqueEditar);
 				response.sendRedirect("routes/ABMAtaques/editarAtaque.jsp");
 			}
 			if (request.getParameter("editarAtaque") != null) {
 				Ataque ataque = (Ataque) request.getSession().getAttribute("ataque");
+				if (request.getParameter("energia_requerida").isEmpty())
+					throw new ApplicationException(new Exception(),
+							"El ataque debe tener una cantidad de energia distinta de cero");
 				ataque.setEnergia_requerida(Integer.parseInt(request.getParameter("energia_requerida")));
 				ataque.setNombre_ataque(String.valueOf(request.getParameter("nombre_ataque")));
 				ctrlAtaque.edit(ataque);

@@ -63,9 +63,7 @@ public class Personajes extends HttpServlet {
 				if (request.getParameterValues("selectedAttacks") == null) {
 					throw new ApplicationException(new Exception(), "No ha elegido ataques para el personaje");
 				}
-
 				for (String id_attack : selected_attacks) {
-
 					ctrlPersonaje.insertarPersonajeAtaque(id_personaje, Integer.parseInt(id_attack));
 				}
 				response.sendRedirect("routes/Menu.jsp");
@@ -99,9 +97,12 @@ public class Personajes extends HttpServlet {
 		}
 	}
 
-	public Personaje mapCharacterFromForm(HttpServletRequest request) {
+	public Personaje mapCharacterFromForm(HttpServletRequest request) throws ApplicationException {
 		Personaje per = new Personaje();
 		AtributosRolNivel atr = (AtributosRolNivel) request.getSession().getAttribute("atributos");
+		if(request.getParameter("nombre").equalsIgnoreCase("")) {
+			throw new ApplicationException(new Exception(), "El nombre del personaje no puede estar vacío");
+		}
 		per.setNombre(request.getParameter("nombre"));
 		per.setVida(atr.getVida());
 		per.setEnergia(atr.getEnergia());

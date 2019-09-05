@@ -26,6 +26,9 @@ public class ControladorABMAtaque {
 	}
 	
 	public void add(Ataque ataque) throws ApplicationException {
+		if(ataque.getNombre_ataque() == "") {
+			throw new ApplicationException(new Exception(), "El nombre del ataque no puede estar vacío");
+		}
 		this.dataAtaque.add(ataque);
 	}
 	
@@ -34,6 +37,9 @@ public class ControladorABMAtaque {
 	}
 	
 	public void edit(Ataque ataque) throws ApplicationException {
+		if(ataque.getNombre_ataque() == "") {
+			throw new ApplicationException(new Exception(), "El nombre del ataque no puede estar vacío");
+		}
 		this.dataAtaque.edit(ataque);
 	}
 	
