@@ -7,37 +7,35 @@ import entidades.Ataque;
 import entidades.Partida;
 
 public class DataPartida {
-	
-	public DataPartida(){
-		
+
+	public DataPartida() {
+
 	}
-	
-	public void savePartida(Partida par) throws ApplicationException{
+
+	public void savePartida(Partida par) throws ApplicationException {
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
-		
+
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
 					"INSERT INTO partida VALUES (null,?,current_timestamp(),?,?);",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			// <{id_partida: }>,<{descripcion: }>,<{fecha_creacion: }>,<{id_torneo: }>,<{id_usuario: }>
-			
+			// <{id_partida: }>,<{descripcion: }>,<{fecha_creacion: }>,<{id_torneo:
+			// }>,<{id_usuario: }>
+
 			stmt.setString(1, par.getDescripcion());
 			stmt.setInt(2, par.getId_torneo());
 			stmt.setInt(3, par.getId_usuario());
 			stmt.execute();
-
-			// after executing the insert use the following lines to retrieve the id
-			/*rs = stmt.getGeneratedKeys();
-			if (rs != null && rs.next()) {
-				ataque.setId_ataque(rs.getInt("id"));
-			}*/
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al guardar la partida.");
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al guardar la partida.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -54,16 +52,15 @@ public class DataPartida {
 			}
 		}
 	}
-	
-	public ArrayList<Partida> getAllPartidasFromUser(int id_usuario) throws ApplicationException{
+
+	public ArrayList<Partida> getAllPartidasFromUser(int id_usuario) throws ApplicationException {
 		ArrayList<Partida> partidas = new ArrayList<Partida>();
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
-		
-		
+
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from partida where id_usuario = ?",
-					PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select * from partida where id_usuario = ?", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, id_usuario);
 			rs = stmt.executeQuery();
 			if (rs != null) {
@@ -85,7 +82,10 @@ public class DataPartida {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al buscar las partidas del usuario.");
-		}  finally {
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
+		} finally {
 			try {
 				if (rs != null)
 					rs.close();
@@ -103,15 +103,15 @@ public class DataPartida {
 		System.out.println(partidas);
 		return partidas;
 	}
-	
-	public int getIdUsuarioPersonajeFromTorneo(int id_partida) throws ApplicationException{
+
+	public int getIdUsuarioPersonajeFromTorneo(int id_partida) throws ApplicationException {
 		int id_usuario_personaje = 0;
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
-		
-		
+
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select t.id_usuario_personaje from partida par inner join torneo t on par.id_torneo = t.id_torneo where par.id_partida = ?;",
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select t.id_usuario_personaje from partida par inner join torneo t on par.id_torneo = t.id_torneo where par.id_partida = ?;",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, id_partida);
 			rs = stmt.executeQuery();
@@ -125,7 +125,10 @@ public class DataPartida {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al cargar la partida.");
-		}  finally {
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
+		} finally {
 			try {
 				if (rs != null)
 					rs.close();
@@ -140,19 +143,18 @@ public class DataPartida {
 				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
-		
+
 		return id_usuario_personaje;
 	}
-	
-	public int getIdTorneo(int id_partida) throws ApplicationException{
+
+	public int getIdTorneo(int id_partida) throws ApplicationException {
 		int id_torneo = 0;
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
-		
-		
+
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select id_torneo from partida where id_partida = ?",
-					PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select id_torneo from partida where id_partida = ?", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, id_partida);
 			rs = stmt.executeQuery();
 			if (rs != null && rs.next()) {
@@ -165,7 +167,10 @@ public class DataPartida {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al cargar la partida.");
-		}  finally {
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
+		} finally {
 			try {
 				if (rs != null)
 					rs.close();
@@ -180,7 +185,7 @@ public class DataPartida {
 				throw new ApplicationException(ex, "Error al desconectarse de la base de datos.");
 			}
 		}
-		
+
 		return id_torneo;
 	}
 

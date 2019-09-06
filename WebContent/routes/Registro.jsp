@@ -106,25 +106,25 @@ button {
 
 					if (username != null) {
 				%><input class="form-control" id="nombreUsuario"
-					name="nombreUsuario" type="string"
+					name="nombreUsuario" type="string" required="true"
 					placeholder="Ingrese Nombre de Usuario" value="<%=username%>" />
 				<%
 					} else {
-				%><input class="form-control" id="nombreUsuario"
+				%><input class="form-control" required="true" id="nombreUsuario"
 					name="nombreUsuario" type="string"
 					placeholder="Ingrese Nombre de Usuario" value="" />
 				<%
 					}
 				%>
-				<label>Nombre:</label> <input class="form-control" id="email"
+				<label>Nombre:</label> <input class="form-control" id="email" required="true"
 					name="nombre" type="string" placeholder="Nombre" value="" /> <label>Apellido:</label>
-				<input class="form-control" id="email" name="apellido" type="string"
+				<input class="form-control" id="email" name="apellido" type="string" required="true"
 					placeholder="Apellido" value="" /> <label>Email:</label> <input
-					class="form-control" id="email" name="email" type="string"
+					class="form-control" id="email" name="email" type="email" required="true"
 					placeholder="Ingrese email" value="" /> <label>Contraseña:</label>
-				<input class="form-control" id="password" name="password"
+				<input class="form-control" id="password" name="password" required="true"
 					type="password" placeholder="Ingrese Contraseña" value="" /> <label>Repita
-					contraseña:</label> <input class="form-control" id="password"
+					contraseña:</label> <input class="form-control" id="password" required="true"
 					name="passwordRepeated" type="password"
 					placeholder="Reingrese Contraseña" value="" />
 				<div class="botones">

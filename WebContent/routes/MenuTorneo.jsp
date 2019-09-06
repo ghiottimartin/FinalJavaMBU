@@ -102,11 +102,6 @@ button {
 	<div class="container">
 		<form method="post" action="${pageContext.request.contextPath}/Torneo"
 			id="tournament" class="formulario">
-			<h1>
-				Hola,
-				<%=nom%>
-				<%=ape%>
-			</h1>
 			<div class="botones s d-flex flex-column align-items-center">
 				<div class="p-2">
 					<button name="nuevo" type="submit" class="btn btn-success">Crear

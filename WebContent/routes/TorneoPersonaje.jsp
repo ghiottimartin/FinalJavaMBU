@@ -103,11 +103,6 @@ select {
 	<div class="container">
 		<form method="post" action="${pageContext.request.contextPath}/Torneo"
 			id="tournament" class="">
-			<h1>
-				Hola,
-				<%=nom%>
-				<%=ape%>
-			</h1>
 			<%
 				try {
 					ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();

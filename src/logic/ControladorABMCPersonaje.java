@@ -28,7 +28,6 @@ public class ControladorABMCPersonaje {
 	}
 
 	public int agregarPersonaje(Personaje p) throws ApplicationException {
-		// En vez de agredarlo directamente hago un metodo para tirar la exception
 		if (!dataPer.coincideNombre(p)) {
 			return dataPer.add(p);
 		} else {
@@ -79,7 +78,6 @@ public class ControladorABMCPersonaje {
 	public ArrayList<Rol> getAllRoles() throws ApplicationException {
 		ArrayList<Rol> roles = new ArrayList<Rol>();
 		roles = dataRol.getAllRoles();
-		System.out.println("Roles " + roles);
 		return roles;
 	}
 
@@ -112,8 +110,6 @@ public class ControladorABMCPersonaje {
 
 	public void levelUpPersonaje(Personaje per, int id_next_nivel) throws ApplicationException {
 		AtributosRolNivel atr = puntosTotalesSegunRolNivel(per.getId_rol(), id_next_nivel);
-		System.out.println("ID next nivel: " + id_next_nivel);
-		System.out.println("VIDA DE ATR: " + atr.getVida());
 		dataPer.levelUpPersonaje(atr, per.getId(), id_next_nivel);
 	}
 }

@@ -62,11 +62,9 @@ public class ServletTorneo extends HttpServlet {
 
 					ctrl.create(t);
 					request.getSession().setAttribute("torneo", t);
-					System.out.println("se creo el torneo");
 					response.sendRedirect("routes/IniciarCombate.jsp");
 
 				} else {
-					System.out.println("No se creo el torneo");
 					request.getSession().setAttribute("error", "No se creo el torneo");
 					response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 				}
@@ -107,7 +105,6 @@ public class ServletTorneo extends HttpServlet {
 
 	public Torneo mapTournamentFromForm(HttpServletRequest request, int idUsuarioPersonaje) {
 		Torneo torneo = new Torneo();
-		System.out.println(idUsuarioPersonaje);
 		torneo.setIdUsuarioPersonaje(idUsuarioPersonaje);
 		return torneo;
 	}
@@ -116,13 +113,14 @@ public class ServletTorneo extends HttpServlet {
 		HttpSession session = request.getSession();
 		Usuario u = (Usuario) session.getAttribute("usuario");
 		int idUsuario = Integer.parseInt(String.valueOf(u.getId()));
-		System.out.println(idUsuario);
 		return idUsuario;
 	}
 
-	public int getIdPersonaje(HttpServletRequest request) {
+	public int getIdPersonaje(HttpServletRequest request) throws ApplicationException {
+		if(request.getParameter("idPersonaje") == null) {
+			throw new ApplicationException(new Exception(),"Debe elegir un personaje, de no tener personajes cree uno.");
+		}
 		int idPersonaje = Integer.parseInt(request.getParameter("idPersonaje"));
-		System.out.println(idPersonaje);
 		return idPersonaje;
 	}
 

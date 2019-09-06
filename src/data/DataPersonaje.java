@@ -31,12 +31,10 @@ public class DataPersonaje {
 			stmt.setInt(5, p.getEvasion());
 			stmt.setInt(6, p.getId_rol());
 			stmt.execute();
-			System.out.println(p.getEvasion());
 			// after executing the insert use the following lines to retrieve the id
 			rs = stmt.getGeneratedKeys();
 			if (rs != null && rs.next()) {
 				p.setId(rs.getInt(1));
-				System.out.println(rs.getInt(1));
 			}
 
 		} catch (SQLException e) {
@@ -45,6 +43,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al crear el personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -89,6 +90,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al modificar el personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (stmt != null)
@@ -121,6 +125,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al modificar el nivel del personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (stmt != null)
@@ -164,6 +171,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al buscar el personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -211,6 +221,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al buscar el personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -247,6 +260,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al buscar maximo id de personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -281,6 +297,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al borrar el personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (stmt != null)
@@ -319,6 +338,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al buscar si el nombre es repetido.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -373,6 +395,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al buscar los personajes.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -422,6 +447,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al agregar ataque al personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (stmtPersAtaque != null)
@@ -465,6 +493,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al agregar personaje al usuario.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (stmtPersUsuario != null)
@@ -516,6 +547,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al buscar personajes.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -550,6 +584,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al modificar personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (stmt != null)
@@ -585,6 +622,9 @@ public class DataPersonaje {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al modificar personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (stmt != null)

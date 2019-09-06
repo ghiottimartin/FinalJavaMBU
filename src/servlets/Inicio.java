@@ -47,15 +47,12 @@ public class Inicio extends HttpServlet {
 			if (request.getParameter("login") != null) {
 				Usuario u = ctrl.login(request.getParameter("nombreUsuario"), request.getParameter("password"));
 
-				if (this.validateUser(u)) {
+				if (u != null) {
 					request.getSession().setAttribute("usuario", u);
 					response.sendRedirect("routes/Menu.jsp");
-					// request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
 
 				} else {
-					// response.sendRedirect("index.jsp");
 					request.getSession().setAttribute("usuario", "erroneo");
-					// request.getRequestDispatcher("index.jsp").forward(request, response);
 					response.sendRedirect("index.jsp");
 				}
 			}
@@ -67,13 +64,4 @@ public class Inicio extends HttpServlet {
 			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 		}
 	}
-
-	public boolean validateUser(Usuario u) {
-		if (u != null) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 }

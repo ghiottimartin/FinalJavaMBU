@@ -36,9 +36,12 @@ public class DataCombate {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar el combate.");
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar el combate.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -81,9 +84,12 @@ public class DataCombate {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar los combates.");
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar los combates.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -130,9 +136,12 @@ public class DataCombate {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar los ataques del personaje.");
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar los ataques del personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -179,9 +188,12 @@ public class DataCombate {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar los ataques posibles del personaje.");
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar los ataques posibles del personaje.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -220,9 +232,12 @@ public class DataCombate {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar la experiencia del combate.");
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar la experiencia del combate.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)

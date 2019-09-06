@@ -15,7 +15,6 @@ public class ReproduceAudio {
 			
 			sonido.loop(Clip.LOOP_CONTINUOUSLY);
 		}catch (Exception e){
-			System.out.println("Error en el audio" + e);
 		}
 	}
 	
@@ -28,7 +27,6 @@ public class ReproduceAudio {
 			
 		
 		}catch (Exception e){
-			System.out.println("Error en el audio" + e);
 		}
 	}
 

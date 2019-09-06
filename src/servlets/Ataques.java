@@ -52,12 +52,7 @@ public class Ataques extends HttpServlet {
 		try {
 			request.getSession().setAttribute("error", null);
 			if (request.getParameter("crearAtaque") != null) {
-				if (request.getParameter("energia_requerida").isEmpty())
-					throw new ApplicationException(new Exception(),
-							"El ataque debe tener una cantidad de energia distinta de cero");
-				Ataque ataque = new Ataque(String.valueOf(request.getParameter("nombre_ataque")),
-						Integer.parseInt(request.getParameter("energia_requerida")));
-				ctrlAtaque.add(ataque);
+				ctrlAtaque.add(request.getParameter("nombre_ataque"),request.getParameter("energia_requerida"));
 				response.sendRedirect("routes/Ataques.jsp");
 			}
 			if (request.getParameter("volver") != null) {
@@ -70,12 +65,7 @@ public class Ataques extends HttpServlet {
 			}
 			if (request.getParameter("editarAtaque") != null) {
 				Ataque ataque = (Ataque) request.getSession().getAttribute("ataque");
-				if (request.getParameter("energia_requerida").isEmpty())
-					throw new ApplicationException(new Exception(),
-							"El ataque debe tener una cantidad de energia distinta de cero");
-				ataque.setEnergia_requerida(Integer.parseInt(request.getParameter("energia_requerida")));
-				ataque.setNombre_ataque(String.valueOf(request.getParameter("nombre_ataque")));
-				ctrlAtaque.edit(ataque);
+				ctrlAtaque.edit(ataque,request.getParameter("nombre_ataque"),request.getParameter("energia_requerida"));
 				response.sendRedirect("routes/Ataques.jsp");
 			}
 			if (request.getParameter("erase") != null) {

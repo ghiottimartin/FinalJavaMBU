@@ -25,9 +25,6 @@ public class CtrlTorneo {
 		int id_torneo = tor.getId();
 		System.out.print(id_torneo);
 		ArrayList<TorneoCombate> tcArray = this.getTorneoCombateToInsert(id_torneo);
-//		System.out.println(tcArray);
-//		System.out.println(tcArray.size());
-//		System.out.println(tcArray.get(1).getCombate_activo());
 		dataTorneo.addTorneoCombates(tcArray);
 	}
 
@@ -54,7 +51,6 @@ public class CtrlTorneo {
 	public Personaje getpersonaje(int idUsuarioPersonaje) throws ApplicationException {
 		int idPersonaje = getIdPersonaje(idUsuarioPersonaje);
 		ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
-		// falta implementar el codigo de getById de controlador Personaje
 		return ctrlPersonaje.getById(idPersonaje);
 	}
 
@@ -89,13 +85,9 @@ public class CtrlTorneo {
 	public int updateCombateActivo(int idTorneo) throws ApplicationException {
 		int id_next_combate = 0;
 		int id_current_combate = 0;
-		System.out.println("Entro a updatecombateactivo");
-		System.out.println(idTorneo);
 
 		id_current_combate = dataTorneo.getIdTorneoCombateActivo(idTorneo);
-		System.out.println(id_current_combate);
 		id_next_combate = dataTorneo.getNextCombate(id_current_combate);
-		System.out.println(id_next_combate);
 		if (id_next_combate != 0) {
 			dataTorneo.updateCombateActivo(id_current_combate, id_next_combate);
 		}

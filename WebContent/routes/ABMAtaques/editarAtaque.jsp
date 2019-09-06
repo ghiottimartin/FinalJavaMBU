@@ -19,6 +19,7 @@ body {
 
 h1 {
 	margin-top: 30px;
+	color: white;
 }
 
 .contenedorLogin img {

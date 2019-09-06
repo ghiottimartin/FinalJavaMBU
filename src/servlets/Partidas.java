@@ -61,22 +61,12 @@ public class Partidas extends HttpServlet {
 
 			if (request.getParameter("guardar") != null) {
 				request.getSession().setAttribute("saved_game", 0);
-				// Proceso de guardado
-				Partida par = new Partida();
+				
 				Torneo t = (Torneo) request.getSession().getAttribute("torneo");
-				par.setDescripcion(request.getParameter("descripcion"));
-				par.setId_torneo(t.getId());
-				par.setId_usuario(this.getIdUsuario(request));
-
 				CtrlPartidas partidas = new CtrlPartidas();
-				try {
-					partidas.guardarPartida(par);
-					request.getSession().setAttribute("saved_game", 1);
-				} catch (ApplicationException e) {
-					e.printStackTrace();
-					request.getSession().setAttribute("saved_game", 0);
-				}
-
+				partidas.guardarPartida(t,request.getParameter("descripcion"),this.getIdUsuario(request));
+				
+				request.getSession().setAttribute("saved_game", 1);
 				request.getRequestDispatcher("routes/GuardarPartida.jsp").forward(request, response);
 			}
 
@@ -94,11 +84,9 @@ public class Partidas extends HttpServlet {
 					t.setId(id_torneo);
 					// ctrl.create(t);
 					request.getSession().setAttribute("torneo", t);
-					System.out.println("Se cargó el torneo");
 					response.sendRedirect("routes/IniciarCombate.jsp");
 
 				} else {
-					System.out.println("No se cargó el torneo");
 					request.getSession().setAttribute("error", "No se cargó el torneo");
 					response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 				}
@@ -113,13 +101,11 @@ public class Partidas extends HttpServlet {
 		HttpSession session = request.getSession();
 		Usuario u = (Usuario) session.getAttribute("usuario");
 		int idUsuario = Integer.parseInt(String.valueOf(u.getId()));
-		System.out.println(idUsuario);
 		return idUsuario;
 	}
 
 	public int getIdPersonaje(HttpServletRequest request) {
 		int idPersonaje = Integer.parseInt(request.getParameter("idPersonaje"));
-		System.out.println(idPersonaje);
 		return idPersonaje;
 	}
 

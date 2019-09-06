@@ -110,7 +110,6 @@ public class CtrlCombate {
 	}
 
 	// Metodos de ataque
-
 	public boolean ataque(int energia, int turno) throws ApplicationException {
 		boolean gano = false;
 
@@ -171,11 +170,9 @@ public class CtrlCombate {
 			evasion = pers1.getEvasion() / 4;
 		}
 
-		// int evasion = pers2.getEvasion() / 4;
 		if (evasion > 80)
 			evasion = 80;
 
-		// (numAleatorio*100)>puntosDeEvasion
 		if ((numAle * 100) < evasion) {
 			evade = true;
 		}
@@ -213,12 +210,10 @@ public class CtrlCombate {
 		if (turno == 1) {
 			if (vidaP2 <= 0) {
 				valido = true;
-				// dataPer.updatePuntos(pers1);
 			}
 		} else {
 			if (vidaP1 <= 0) {
 				valido = true;
-				// dataPer.updatePuntos(pers2);
 			}
 		}
 
@@ -233,42 +228,31 @@ public class CtrlCombate {
 		this.recuperaEnergia(turno);
 		this.recuperaVida(turno);
 		this.setPerTurno(turno);
-
 	}
 
 	public void recuperaEnergia(int turno) {
 		double proporcionEnergia = 0.3;
 		if (turno == 1) {
-
-			// energiaP1 = energiaP1 + (pers1.getEnergia() * pers1.getDefensa())/100;
 			energiaP1 = (int) (energiaP1 + (pers1.getDefensa()) * proporcionEnergia);
-
 			if (energiaP1 > pers1.getEnergia()) {
 				energiaP1 = pers1.getEnergia();
-
 			}
 		} else {
-
 			energiaP2 = (int) (energiaP2 + (pers2.getDefensa()) * proporcionEnergia);
-
 			if (energiaP2 > pers2.getEnergia()) {
 				energiaP2 = pers2.getEnergia();
 			}
 		}
-
 	}
 
 	public void recuperaVida(int turno) {
 		double proporcionVida = 0.2;
 		if (turno == 1) {
-			// vidaARecuperar = vidaOriginal * defensa / 250
-			// vidaP1 = vidaP1 + (pers1.getVida() * pers1.getDefensa())/250;
 			vidaP1 = (int) (vidaP1 + (pers1.getDefensa()) * proporcionVida);
 			if (vidaP1 > pers1.getVida()) {
 				vidaP1 = pers1.getVida();
 			}
 		} else {
-
 			vidaP2 = (int) (vidaP2 + (pers2.getDefensa()) * proporcionVida);
 			if (vidaP2 > pers2.getVida()) {
 				vidaP2 = pers2.getVida();
@@ -280,14 +264,12 @@ public class CtrlCombate {
 
 //Metodos de ataque-energia
 	public int getEnergiaFromAtaque(int idAtaque) throws ApplicationException {
-		// revisar este metodo
 		ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
 		Ataque ataque = ctrlAtaque.get(idAtaque);
 		return ataque.getEnergia_requerida();
 	};
 
 	public Ataque getAtaque(int idAtaque) throws ApplicationException {
-		// revisar este metodo
 		ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
 		Ataque ataque = new Ataque();
 		ataque = ctrlAtaque.get(idAtaque);
@@ -296,15 +278,6 @@ public class CtrlCombate {
 
 // Fin de metodos Ataque-Energia
 
-	private void notifyUser(String mensaje) {
-		JOptionPane.showMessageDialog(null, mensaje, "Warning!", JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	private void notifyUser(String mensaje, Exception e, org.apache.logging.log4j.Level l) {
-		notifyUser(mensaje);
-		SuperLogger.logger.log(l, mensaje, e);
-	}
-
 	public ArrayList<Ataque> getAtaquesOfPersonaje(int id_personaje) throws ApplicationException {
 		ArrayList<Ataque> ataques_personaje = new ArrayList<Ataque>();
 		ataques_personaje = dataCombate.getAtaquesOfPersonaje(id_personaje);
@@ -312,7 +285,6 @@ public class CtrlCombate {
 	}
 
 	public ArrayList<Ataque> getAtaquesOfPersonajeByEnergia(int id_personaje, int turno) throws ApplicationException {
-		ArrayList<Ataque> ataques_personaje = new ArrayList<Ataque>();
 		int energia = getEnergiabyTurno(turno);
 		return dataCombate.getAtaquesOfPersonajeByEnergia(id_personaje, energia);
 	}
@@ -346,11 +318,7 @@ public class CtrlCombate {
 	public double getProporcionVida() {
 		double vidaTotal = (double) pers2.getVida();
 		double vidaPelea = (double) getVidaP2();
-		System.out.println("proporcion vida");
-		System.out.println(vidaTotal);
-		System.out.println(vidaPelea);
 		double proporcionVida = (vidaPelea / vidaTotal);
-		System.out.println(proporcionVida);
 		return proporcionVida;
 	}
 

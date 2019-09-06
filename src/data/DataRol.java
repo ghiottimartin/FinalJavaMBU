@@ -16,7 +16,6 @@ public class DataRol {
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
 		ArrayList<Rol> roles = new ArrayList<Rol>();
-		System.out.println("LLEGO HASTA ACA");
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select * from tipo_personaje",
 					PreparedStatement.RETURN_GENERATED_KEYS);
@@ -30,8 +29,6 @@ public class DataRol {
 					rol.setCantidad_energia(rs.getFloat("porcentaje_energia"));
 					rol.setCantidad_defensa(rs.getFloat("porcentaje_defensa"));
 					rol.setCantidad_evasion(rs.getFloat("porcentaje_evasion"));
-					
-					System.out.println(rol.getDescripcion_rol());
 					
 					roles.add(rol);
 				}

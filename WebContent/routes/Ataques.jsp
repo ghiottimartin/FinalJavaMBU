@@ -131,11 +131,6 @@ td, th {
 		</nav>
 	</form>
 	<div id="app" class="container">
-		<script type="text/javascript">
-			function callServlet() {
-				alert(confirm("HOLA"));
-			}
-		</script>
 		<%
 			ControladorABMAtaque ctrlAtaque = new ControladorABMAtaque();
 			List<Ataque> ataques = ctrlAtaque.getAll();

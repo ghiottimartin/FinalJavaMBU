@@ -88,12 +88,8 @@ h1, h3, label {
 		<form method="post" action="${pageContext.request.contextPath}/Torneo"
 			id="tournament" class="">
 			<%
-				String nom = "";
-				String ape = "";
 				String nombreEnemigo = "";
 				try {
-					nom = String.valueOf(u.getNombre());
-					ape = String.valueOf(u.getApellido());
 					Torneo t = (Torneo) session.getAttribute("torneo");
 					int idUsuarioPersonaje = Integer.valueOf(t.getIdUsuarioPersonaje());
 					CtrlTorneo ctrlTorneo = new CtrlTorneo();
@@ -105,11 +101,6 @@ h1, h3, label {
 					response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 				}
 			%>
-			<h1>
-				Hola,
-				<%=nom%>
-				<%=ape%>
-			</h1>
 
 			<h3>
 				Tu siguiente victima es:

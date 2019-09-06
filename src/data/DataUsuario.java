@@ -36,7 +36,7 @@ public class DataUsuario {
 				u.setRol(rs.getString("rol"));
 				// System.out.println(u.getPassword());
 			} else {
-				System.out.println("Usuario no encontrado");
+				throw new ApplicationException(new Exception(),"Usuario no encontrado");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

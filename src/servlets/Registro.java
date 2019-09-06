@@ -112,7 +112,6 @@ public class Registro extends HttpServlet {
 	}
 
 	public boolean validaContraseña(Usuario user, String contraseña) {
-		System.out.println(user.getPassword().compareTo(contraseña));
 		if (user.getPassword().compareTo(contraseña) != 0) {
 			return true;
 		} else {

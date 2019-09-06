@@ -45,7 +45,7 @@ public class FactoryConexion {
 				cantConn++;
 			}
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Error al conectar a la DB.\n"+e.getMessage());
+			throw new ApplicationException(e, "Error al conectar a la DB.");
 		}
 		return conn;
 	}
@@ -57,7 +57,7 @@ public class FactoryConexion {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			throw new ApplicationException(e, "Error al cerrar conexiï¿½n.\n"+e.getMessage());
+			throw new ApplicationException(e, "Error al cerrar conexión");
 		}
 		
 	}

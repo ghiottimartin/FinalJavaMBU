@@ -44,6 +44,9 @@ public class DataAtaque {
 		} catch (ApplicationException ex) {
 			ex.printStackTrace();
 			throw new ApplicationException(ex, "Error al obtener los ataques.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -88,8 +91,11 @@ public class DataAtaque {
 
 		} catch (SQLException e) {
 			throw new ApplicationException(e, "Error en la consulta al obtener los ataques.");
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			throw new ApplicationException(e, "Error al obtener los ataques.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -137,9 +143,12 @@ public class DataAtaque {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al obtener los ataques.");
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error al obtener los ataques.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -176,6 +185,9 @@ public class DataAtaque {
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Lo siento, hubo un error al crear el ataque.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -216,9 +228,12 @@ public class DataAtaque {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al buscar el ataque.");
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error al buscar el ataque.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (rs != null)
@@ -255,6 +270,9 @@ public class DataAtaque {
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error al editar el ataque.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (stmt != null)
@@ -281,9 +299,12 @@ public class DataAtaque {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error en la consulta al borrar el ataque.");
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 			throw new ApplicationException(e, "Error al borrar el ataque.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException(e, "Perdone por los inconvenientes causados");
 		} finally {
 			try {
 				if (stmt != null)

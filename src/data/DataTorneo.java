@@ -30,7 +30,7 @@ public class DataTorneo {
 				t.setId(rs.getInt("id_torneo"));
 				t.setIdUsuarioPersonaje(rs.getInt("id_usuario_personaje"));
 			} else {
-				System.out.println("Torneo no encontrado");
+				throw new ApplicationException(new Exception(),"Torneo no encontrado");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -293,11 +293,8 @@ public class DataTorneo {
 
 	public void addTorneoCombates(ArrayList<TorneoCombate> torneoCombates) throws ApplicationException {
 		int sizeTorneoCombate = torneoCombates.size();
-		System.out.println("aca esta data" + sizeTorneoCombate);
 		for (int i = (sizeTorneoCombate - 1); i >= 0; i--) {
 			// for(int i = 2; i < 0; i--){
-			System.out.println(torneoCombates.get(i).getCombate_activo());
-			System.out.println("Esto es  i =   " + i);
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			// String insertQuery = "";
