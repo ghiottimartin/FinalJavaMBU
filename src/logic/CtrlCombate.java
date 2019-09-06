@@ -309,7 +309,7 @@ public class CtrlCombate {
 		}
 	}
 
-	public static Ataque randomAtaque(List<Ataque> ataques) {
+	public Ataque randomAtaque(List<Ataque> ataques) {
 		rand = new Random();
 		Ataque ataque = ataques.get(rand.nextInt(ataques.size()));
 		return ataque;
@@ -321,5 +321,22 @@ public class CtrlCombate {
 		double proporcionVida = (vidaPelea / vidaTotal);
 		return proporcionVida;
 	}
+	
+	public boolean getNecesitaDefender(int turno) throws Exception
+	{
+		ArrayList<Ataque> ataques = this.getAtaquesOfPersonajeByEnergia(this.getIdPersonajeTurno(turno), turno);
+		int vidaP2 = this.getVidaP2();
+		double proporcionVidaP2 = this.getProporcionVida();
+		if (ataques.isEmpty() || ataques.size() == 0 || ataques == null || vidaP2 <= 10 || proporcionVidaP2 <= 0.2)
+			{return true;}
+		else 
+			{return false;}
+	}
+	
+	public int getEnergiaFromRandomAtaque(Ataque ataque) throws ApplicationException
+	{
+		int energia = this.getEnergiaFromAtaque(ataque.getId_ataque());
+		return energia;
+	};
 
 }

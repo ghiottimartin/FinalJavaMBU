@@ -136,10 +136,7 @@ public class War extends HttpServlet {
 				if (turno == 2) {
 					Personaje p = (Personaje) request.getSession().getAttribute("P2");
 					ataques = controlador.getAtaquesOfPersonajeByEnergia(controlador.getIdPersonajeTurno(turno), turno);
-					int vidaP2 = controlador.getVidaP2();
-					double proporcionVidaP2 = controlador.getProporcionVida();
-					if (ataques.isEmpty() || ataques.size() == 0 || ataques == null || vidaP2 <= 10
-							|| proporcionVidaP2 <= 0.2) {
+					if (controlador.getNecesitaDefender(turno)) {
 						mensajes =  String.valueOf(p.getNombre()) + " Ha defendido \n\n" + mensajes ;
 						request.setAttribute("mensaje", mensajes);
 						controlador.defensa(turno);
@@ -147,8 +144,7 @@ public class War extends HttpServlet {
 					} else {
 
 						Ataque ataque = controlador.randomAtaque(ataques);
-						int energia = controlador.getEnergiaFromAtaque(ataque.getId_ataque());
-						if (controlador.ataque(energia, turno)) {
+						if (controlador.ataque(controlador.getEnergiaFromRandomAtaque(ataque), turno)) {
 							// tiene que ir a la pantalla de perdida
 							mensajes = "Resumen de la pelea: ";
 							request.getRequestDispatcher("routes/Loser.jsp").forward(request, response);
@@ -167,7 +163,7 @@ public class War extends HttpServlet {
 					}
 				}
 			}
-		} catch (ApplicationException e) {
+		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 		}

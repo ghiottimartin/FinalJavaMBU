@@ -90,11 +90,12 @@ label {
 			<div class="inputs">
 				<div class="contenedorInput">
 					<input class="form-control" id="nombreUsuario" name="nombreUsuario"
-						type="string" placeholder="Nombre de Usuario" value="" />
+						required="true" type="string" placeholder="Nombre de Usuario"
+						value="" />
 				</div>
 				<div class="contenedorInput">
 					<input class="form-control" id="password" name="password"
-						type="password" placeholder="Contraseña" value="" />
+						required="true" type="password" placeholder="Contraseña" value="" />
 				</div>
 				<%
 					if (session.getAttribute("usuario") == "erroneo") {
