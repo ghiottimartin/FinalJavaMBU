@@ -60,17 +60,12 @@ public class War extends HttpServlet {
 			CtrlTorneo ctrlTorneo = new CtrlTorneo();
 			ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
 			List<Ataque> ataques;
-			PrintWriter out = response.getWriter();
 			if (request.getParameter("atacar") != null) {
 				try {
 					if (turno == 1) {
 						Ataque ataque = controlador.getAtaque(Integer.parseInt(request.getParameter("idAtaque")));
-						// int energia =
-						// controlador.getEnergiaFromAtaque(Integer.parseInt(request.getParameter("idAtaque")));
 						int energia = ataque.getEnergia_requerida();
 						Personaje p = (Personaje) request.getSession().getAttribute("P1");
-						// if(controlador.ataque(Integer.parseInt(request.getParameter("energiaUsar")),
-						// turno))
 						if (controlador.ataque(energia, turno)) {
 							request.getSession().setAttribute("nombreTurno", controlador.getPerTurno());
 							request.getSession().setAttribute("msg",

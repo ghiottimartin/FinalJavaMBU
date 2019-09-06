@@ -76,9 +76,7 @@ public class ControladorABMCPersonaje {
 	}
 
 	public ArrayList<Rol> getAllRoles() throws ApplicationException {
-		ArrayList<Rol> roles = new ArrayList<Rol>();
-		roles = dataRol.getAllRoles();
-		return roles;
+		return  dataRol.getAllRoles();
 	}
 
 	public Rol getOneRoleById(int id_rol) throws ApplicationException {

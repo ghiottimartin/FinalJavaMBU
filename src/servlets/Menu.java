@@ -13,45 +13,46 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Menu")
 public class Menu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Menu() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Menu() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("exit")!= null){
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (request.getParameter("exit") != null) {
 			response.sendRedirect("index.jsp");
 		}
-		
-		if(request.getParameter("loadCharacter") != null){
-			response.sendRedirect("routes/AgregarPersonaje.jsp");
-		}
-		if(request.getParameter("torneo") != null){
+
+		if (request.getParameter("torneo") != null) {
 			response.sendRedirect("routes/MenuTorneo.jsp");
 		}
-		
-		if(request.getParameter("ataques") != null){	
+
+		if (request.getParameter("ataques") != null) {
 			response.sendRedirect("routes/Ataques.jsp");
-		}		
-		
-		if(request.getParameter("personaje") != null){	
+		}
+
+		if (request.getParameter("personaje") != null) {
 			response.sendRedirect("routes/AgregarPersonaje.jsp");
-		}		
+		}
 
 	}
 

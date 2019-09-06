@@ -23,7 +23,6 @@ public class CtrlTorneo {
 	public void create(Torneo t) throws ApplicationException {
 		Torneo tor = dataTorneo.add(t);
 		int id_torneo = tor.getId();
-		System.out.print(id_torneo);
 		ArrayList<TorneoCombate> tcArray = this.getTorneoCombateToInsert(id_torneo);
 		dataTorneo.addTorneoCombates(tcArray);
 	}
@@ -69,7 +68,7 @@ public class CtrlTorneo {
 			} else {
 				tc.combate_activo = 0;
 			}
-
+			//si es el ultimo combate
 			if (i == count - 1) {
 				tc.id_siguiente_combate = null;
 			} else {

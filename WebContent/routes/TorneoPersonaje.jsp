@@ -44,20 +44,22 @@ select {
 </head>
 <body>
 	<%
-		Usuario u = (Usuario) session.getAttribute("usuario");
-		String nom = "";
-		String ape = "";
-		if (u == null) {
-			response.sendRedirect("/WebPage/index.jsp");
-		} else {
-			nom = String.valueOf(u.getNombre());
-			ape = String.valueOf(u.getApellido());
-		}
+		try {
+			Usuario u = (Usuario) session.getAttribute("usuario");
+			String nom = "";
+			String ape = "";
+			if (u == null) {
+				response.sendRedirect("/WebPage/index.jsp");
+			} else {
+				nom = String.valueOf(u.getNombre());
+				ape = String.valueOf(u.getApellido());
+			}
 	%>
 	<form method="post" action="${pageContext.request.contextPath}/Menu"
 		id="menu">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/routes/Menu.jsp">Guerra!</a>
+			<a class="navbar-brand"
+				href="${pageContext.request.contextPath}/routes/Menu.jsp">Guerra!</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -67,13 +69,15 @@ select {
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item dropdown my-2 my-sm-0"><%
- 	if (u != null) {
- %> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <%=u.getNombreUsuario()%></a> <%
- 	}
- %>
+					<li class="nav-item dropdown my-2 my-sm-0">
+						<%
+							if (u != null) {
+						%> <a class="nav-link dropdown-toggle" href="#"
+						id="navbarDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> <%=u.getNombreUsuario()%></a>
+						<%
+							}
+						%>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<div class="dropdown-item">
 								<button name="personaje" class="btn btn-default btn-sm">Crear
@@ -95,7 +99,8 @@ select {
 							<div class="dropdown-item">
 								<button name="exit" class="btn btn-danger btn-sm">Salir</button>
 							</div>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -104,11 +109,12 @@ select {
 		<form method="post" action="${pageContext.request.contextPath}/Torneo"
 			id="tournament" class="">
 			<%
-				try {
-					ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
+				ControladorABMCPersonaje ctrlPersonaje = new ControladorABMCPersonaje();
 					List<Personaje> personajes = ctrlPersonaje.recuperarPersonajesDeUsuario(u.getId());
+					
 					request.setAttribute("personajes", personajes);
-				} catch (ApplicationException e) {
+
+				} catch (Exception e) {
 					request.getSession().setAttribute("error", e.getMessage());
 					response.sendRedirect("/WebPage/routes/MensajeError.jsp");
 				}

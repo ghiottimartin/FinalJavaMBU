@@ -122,7 +122,7 @@
 					<h2>Agregar Personajes</h2>
 					<p>Agregar personajes que son tuyos, para poder enfrentarte a
 						los grandes villanos de Guerra!</p>
-					<button name="loadCharacter" class="button btn btn-primary btn-lg">Agregar
+					<button name="personaje" class="button btn btn-primary btn-lg">Agregar
 						Personajes</button>
 				</div>
 				<div class="item columna">

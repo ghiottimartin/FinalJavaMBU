@@ -301,7 +301,7 @@ public class DataTorneo {
 
 			try {
 				stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-						" INSERT INTO `db_tp_java`.`torneo_combate`(`id_torneo_combate`,`id_torneo`,`id_combate`,`combate_activo`,`id_siguiente_combate`)"
+						" INSERT INTO torneo_combate (`id_torneo_combate`,`id_torneo`,`id_combate`,`combate_activo`,`id_siguiente_combate`)"
 								+ " values(null,?,?,?,?)");
 				// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated
 				// on the db
@@ -310,9 +310,7 @@ public class DataTorneo {
 				stmt.setInt(1, torneoCombates.get(i).getId_torneo());
 				stmt.setInt(2, torneoCombates.get(i).getId_combate());
 				stmt.setInt(3, torneoCombates.get(i).getCombate_activo());
-				System.out.println(torneoCombates.get(i).getCombate_activo());
 				if (torneoCombates.get(i).getId_siguiente_combate() == null) {
-					// stmt.setInt(4,0);
 					stmt.setNull(4, java.sql.Types.INTEGER);
 				} else {
 					stmt.setInt(4, torneoCombates.get(i).getId_siguiente_combate());
